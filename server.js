@@ -7,7 +7,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "alsdlWkd72!",
+  password: "1234",
   database: "lychee",
 });
 
@@ -20,6 +20,7 @@ app.listen(port, function (req, res) {
 
 app.post("/", function (req, res) {});
 
+//쪽지 리스트 불러오기
 app.post("/msgbox", function (req, res) {
   console.log(req.body.Id);
   const Id = req.body.Id;
@@ -53,6 +54,7 @@ app.post("/msgbox", function (req, res) {
   });
 });
 
+//쪽지 내용 불러오기
 app.post("/msgContent", function (req, res) {
   const RoomId = req.body.RoomId;
   console.log(RoomId);
@@ -199,3 +201,244 @@ app.get('/notice/search/:word', function(req, res){
 		}
 	});
 })
+
+/*
+ * 목적 : 로그인
+ * input : id, pw
+ * output : user에 대한 정보 / "아이디 또는 비밀번호가 틀렸습니다!"
+ */
+app.post('/login', function(req, res) {
+    const id = req.body.id;
+    const pw = req.body.pw;
+
+    db.query("SELECT * FROM user WHERE user_id = ? AND user_pwd = ?", 
+    [id, pw],
+    (err, result) => {
+        if(err){
+            console.log("login error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("login succeed!");
+            res.send(result);
+        } else{
+            console.log("login fail");
+            res.send({message: "아이디 또는 비밀번호가 틀렸습니다!"});
+        }
+    });
+});
+
+
+/*
+ * 목적 : 아이디 찾기
+ * input : name, phone
+ * output : user id / "아이디 정보가 존재하지 않습니다!"
+ */
+app.post('/findid', function(req, res) {
+    const name = req.body.name;
+    const phone = req.body.phone;
+
+    db.query("SELECT * FROM user WHERE user_name = ? AND user_phone = ?", 
+    [name, phone],
+    (err, result) => {
+        if(err){
+            console.log("findid error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("findid succeed!");            
+            res.send(result);
+        } else{
+            console.log("findid fail");
+            res.send({message: "아이디 정보가 존재하지 않습니다!"});
+        }
+    });
+});
+
+
+/*
+ * 목적 : 비밀번호 찾기
+ * input : id, name, phone
+ * output : user pw / "사용자 정보가 존재하지 않습니다!"
+ */
+app.post('/findpw', function(req, res) {
+    const id = req.body.id;
+    const name = req.body.name;
+    const phone = req.body.phone;
+
+    db.query("SELECT * FROM user WHERE user_id = ? AND user_name = ? AND user_phone = ?", 
+    [id, name, phone],
+    (err, result) => {
+        if(err){
+            console.log("findpw error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("findpw succeed!");            
+            res.send(result);
+        } else{
+            console.log("findpw fail");
+            res.send({message: "사용자 정보가 존재하지 않습니다!"});
+        }
+    });
+});
+
+
+/*
+ * 목적 : 회원가입
+ * input : id, name, date, nickname, pw, phone, location
+ * output : user 정보 / null
+ */
+app.post('/register', function(req, res) {
+    const id = req.body.id;
+    const name = req.body.name;
+    const date = req.body.date;
+    const nickname = req.body.nickname;
+    const pw = req.body.pw;
+    const phone = req.body.phone;
+    const location = req.body.location;
+
+    console.log("info : "+id+"\n"+name+"\n"+date+"\n"+nickname+"\n"+pw+"\n"+phone+"\n"+location);
+
+    db.query("INSERT INTO USER (user_id, user_name, join_date, user_nickname, user_pwd, user_phone, user_location) VALUES (?,?,?,?,?,?,?)", 
+    [id, name, date, nickname, pw, phone, location],
+    (err, result) => {
+        if(err){
+            console.log("register error");
+            res.send({message: "실패"});
+        }
+        if(result){
+            console.log("register succeed!");
+            res.send({message: "성공"});
+        }
+    });
+});
+
+/*
+ * 목적 : id 중복 확인
+ * input : id
+ * output : user 정보 / null
+ */
+app.post('/idoverlap', function(req, res) {
+    const id = req.body.id;
+
+    db.query("SELECT * FROM user WHERE user_id = ?", 
+    [id],
+    (err, result) => {
+        if(err){
+            console.log("idoverlap error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("idoverlap succeed!");            
+            res.send(result);
+        } else{
+            console.log("idoverlap fail");
+            res.send();
+        }
+    });
+});
+
+
+/*
+ * 목적 : phone 중복 확인
+ * input : phone
+ * output : user 정보 / null
+ */
+app.post('/phoneoverlap', function(req, res) {
+    const phone = req.body.phone;
+
+    db.query("SELECT * FROM user WHERE user_phone = ?", 
+    [phone],
+    (err, result) => {
+        if(err){
+            console.log("phoneoverlap error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("phoneoverlap succeed!");            
+            res.send(result);
+        } else{
+            console.log("phoneoverlap fail");
+            res.send();
+        }
+    });
+});
+
+/*
+ * 목적 : nickname 중복 확인
+ * input : nickname
+ * output : user 정보 / null
+ */
+app.post('/nickoverlap', function(req, res) {
+    const nickname = req.body.nickname;
+
+    db.query("SELECT * FROM user WHERE user_nickname = ?", 
+    [nickname],
+    (err, result) => {
+        if(err){
+            console.log("nickoverlap error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("nickoverlap succeed!");            
+            res.send(result);
+        } else{
+            console.log("nickoverlap fail");
+            res.send();
+        }
+    });
+});
+
+
+/*
+ * 목적 : 내 정보 불러오기
+ * input : id
+ * output : user 정보 / null
+ */
+app.post('/getmyinfo', function(req, res) {
+    const id = req.body.id;
+
+    db.query("SELECT * FROM user WHERE user_id = ?", 
+    [id],
+    (err, result) => {
+        if(err){
+            console.log("getmyinfo error");
+            res.send({err: err})
+        }
+        if(result.length > 0){
+            console.log("getmyinfo succeed!");            
+            res.send(result);
+        } else{
+            console.log("getmyinfo fail");
+            res.send({message: "정보가 존재하지 않습니다!"});
+        }
+    });
+});
+
+
+/*
+ * 목적 : 내 정보 변경하기
+ * input : id
+ * output : user 정보 / null
+ */
+app.post('/changemyinfo', function(req, res) {
+    const id = req.body.id;
+    const pw = req.body.pw;
+    const nickname = req.body.nickname;
+    const location = req.body.location;
+    
+    db.query("UPDATE user SET user_pwd = ?, user_nickname = ?, user_location = ? WHERE user_id = ?",
+    [pw, nickname, location, id],
+    (err, result) => {
+        if(err){
+            console.log("changemyinfo error");
+            res.send({message: "실패"});
+        }
+        if(result){
+            console.log("changemyinfo succeed!");
+            res.send({message: "성공"});
+        }
+    });
+});
+
