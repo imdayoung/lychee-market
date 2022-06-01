@@ -7,7 +7,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "1234",
+  password: "alsdlWkd72!",
   database: "lychee",
 });
 
@@ -20,51 +20,52 @@ app.listen(port, function (req, res) {
 
 app.post("/", function (req, res) {});
 
-app.post("/chatroom", function (req, res) {
+app.post("/msgbox", function (req, res) {
+  console.log(req.body.Id);
   const Id = req.body.Id;
   const SQL =
-    "SELECT U.user_nickname AS buyer_nickname, K.seller_nickname, K.chatroom_id, K.seller_id, K.buyer_id, K.chat_content, K.chat_time\
-    FROM `user` U,\
-    (SELECT U.user_nickname AS seller_nickname, R.chatroom_id, R.seller_id, R.buyer_id, C.chat_content, C.chat_time\
-    FROM `user` U, chatroom R, (\
+    "SELECT U.user_nickname AS buyer_nickname, K.seller_nickname, K.msgbox_id, K.seller_id, K.buyer_id, K.msg_content, K.msg_time\
+    FROM `USER` U,\
+    (SELECT U.user_nickname AS seller_nickname, B.msgbox_id, B.seller_id, B.buyer_id, M.msg_content, M.msg_time\
+    FROM `USER` U, `MSGBOX` B, (\
       SELECT *\
       FROM (\
         SELECT *\
-        FROM chat\
-        WHERE (chatroom_id, chat_time) in (\
-          SELECT chatroom_id, max(chat_time) as chat_time\
-          FROM chat group by chatroom_id\
+        FROM `MSG`\
+        WHERE (msgbox_id, msg_time) IN (\
+          SELECT msgbox_id, max(msg_time) AS msg_time\
+          FROM `MSG` GROUP BY msgbox_id\
         ) \
-        ORDER BY chat_time DESC\
-      ) g\
-      group by g.chatroom_id\
-    ) C\
-    WHERE (R.seller_id = 'mouse0429' or R.buyer_id = 'mouse0429') AND R.chatroom_id = C.chatroom_id AND U.user_id = R.seller_id) K\
+        ORDER BY msg_time DESC\
+      ) G\
+      GROUP BY G.msgbox_id\
+    ) M\
+    WHERE (B.seller_id = ? or B.buyer_id = ?) AND B.msgbox_id = M.msgbox_id AND U.user_id = B.seller_id) K\
     WHERE U.user_id = K.buyer_id\
-    ORDER BY K.chat_time DESC;";
+    ORDER BY K.msg_time DESC;";
 
   db.query(SQL, [Id, Id], function (err, rows) {
-    if (err) console.log("chat 리스트 불러오기 실패");
+    if (err) console.log("msg 리스트 불러오기 실패");
     else {
-      console.log("chat 리스트 불러오기 성공");
+      console.log("msg 리스트 불러오기 성공");
       res.send(rows);
     }
   });
 });
 
-app.post("/chatContent", function (req, res) {
+app.post("/msgContent", function (req, res) {
   const RoomId = req.body.RoomId;
   console.log(RoomId);
   const SQL =
-    "SELECT U.user_id, U.user_nickname, C.chat_time, C.chat_content, P.product_title, P.product_id\
-  FROM chat C, `user` U, chatroom R, product P\
-  WHERE C.chatroom_id=? AND C.user_id = U.user_id AND C.chatroom_id = R.chatroom_id AND R.product_id = P.product_id\
-  ORDER BY C.chat_time DESC;";
+    "SELECT U.user_id, U.user_nickname, M.msg_time, M.msg_content, P.product_title, P.product_id\
+    FROM `MSG` M, `USER` U, `MSGBOX` B, `PRODUCT` P\
+    WHERE M.msgbox_id=? AND M.user_id = U.user_id AND M.msgbox_id = B.msgbox_id AND B.product_id = P.product_id\
+    ORDER BY M.msg_time DESC;";
 
   db.query(SQL, RoomId, function (err, rows) {
-    if (err) console.log("chat 내용 불러오기 실패");
+    if (err) console.log("msg 내용 불러오기 실패");
     else {
-      console.log("chat 내용 불러오기 성공");
+      console.log("msg 내용 불러오기 성공");
       res.send(rows);
     }
   });
