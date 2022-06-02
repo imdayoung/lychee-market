@@ -390,14 +390,28 @@ app.post('/idoverlap', function(req, res) {
     (err, result) => {
         if(err){
             console.log("idoverlap error");
-            res.send({err: err})
+            res.send({err: err});
         }
         if(result.length > 0){
             console.log("idoverlap succeed!");            
             res.send(result);
-        } else{
-            console.log("idoverlap fail");
-            res.send();
+        } 
+        else {
+            db.query("SELECT * FROM `MANAGER` WHERE `manager_id` = ?",
+            [id],
+            (err, result) => {
+                if(err){
+                    console.log("idoverlap_manager error");
+                    res.send({err: err});
+                }
+                if(result.length > 0){
+                    console.log("idoverlap_manager succeed!");            
+                    res.send(result);
+                } else {
+                    console.log("idoverlap fail");
+                    res.send();
+                }
+            })
         }
     });
 });
@@ -446,9 +460,23 @@ app.post('/nickoverlap', function(req, res) {
         if(result.length > 0){
             console.log("nickoverlap succeed!");            
             res.send(result);
-        } else{
-            console.log("nickoverlap fail");
-            res.send();
+        } 
+        else {
+            db.query("SELECT * FROM `MANAGER` WHERE `manager_nickname` = ?",
+            [nickname],
+            (err, result) => {
+                if(err){
+                    console.log("nickoverlap_manager error");
+                    res.send({err: err});
+                }
+                if(result.length > 0){
+                    console.log("nickoverlap_manager succeed!");            
+                    res.send(result);
+                } else {
+                    console.log("nickoverlap fail");
+                    res.send();
+                }
+            })
         }
     });
 });
