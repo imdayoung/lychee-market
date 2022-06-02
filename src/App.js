@@ -1,14 +1,16 @@
 //import './App.css';
-import React, {useState} from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './style/Global.css';
 import MessagePage from './pages/Message/MessagePage';
-import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
-      <MessagePage/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/msgbox" element={<MessagePage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
