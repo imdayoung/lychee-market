@@ -260,7 +260,7 @@ app.post('/login', function(req, res) {
     const id = req.body.id;
     const pw = req.body.pw;
 
-    db.query("SELECT * FROM user WHERE user_id = ? AND user_pwd = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_id` = ? AND `user_pwd` = ?", 
     [id, pw],
     (err, result) => {
         if(err){
@@ -287,7 +287,7 @@ app.post('/findid', function(req, res) {
     const name = req.body.name;
     const phone = req.body.phone;
 
-    db.query("SELECT * FROM user WHERE user_name = ? AND user_phone = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_name` = ? AND `user_phone` = ?", 
     [name, phone],
     (err, result) => {
         if(err){
@@ -315,7 +315,7 @@ app.post('/findpw', function(req, res) {
     const name = req.body.name;
     const phone = req.body.phone;
 
-    db.query("SELECT * FROM user WHERE user_id = ? AND user_name = ? AND user_phone = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_id` = ? AND `user_name` = ? AND `user_phone` = ?", 
     [id, name, phone],
     (err, result) => {
         if(err){
@@ -347,9 +347,9 @@ app.post('/register', function(req, res) {
     const phone = req.body.phone;
     const location = req.body.location;
 
-    console.log("info : "+id+"\n"+name+"\n"+date+"\n"+nickname+"\n"+pw+"\n"+phone+"\n"+location);
+    //console.log("info : "+id+"\n"+name+"\n"+date+"\n"+nickname+"\n"+pw+"\n"+phone+"\n"+location);
 
-    db.query("INSERT INTO USER (user_id, user_name, join_date, user_nickname, user_pwd, user_phone, user_location) VALUES (?,?,?,?,?,?,?)", 
+    db.query("INSERT INTO `USER` (`user_id`, `user_name`, `join_date`, `user_nickname`, `user_pwd`, `user_phone`, `user_location`) VALUES (?,?,?,?,?,?,?)", 
     [id, name, date, nickname, pw, phone, location],
     (err, result) => {
         if(err){
@@ -371,7 +371,7 @@ app.post('/register', function(req, res) {
 app.post('/idoverlap', function(req, res) {
     const id = req.body.id;
 
-    db.query("SELECT * FROM user WHERE user_id = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_id` = ?", 
     [id],
     (err, result) => {
         if(err){
@@ -397,7 +397,7 @@ app.post('/idoverlap', function(req, res) {
 app.post('/phoneoverlap', function(req, res) {
     const phone = req.body.phone;
 
-    db.query("SELECT * FROM user WHERE user_phone = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_phone` = ?", 
     [phone],
     (err, result) => {
         if(err){
@@ -422,7 +422,7 @@ app.post('/phoneoverlap', function(req, res) {
 app.post('/nickoverlap', function(req, res) {
     const nickname = req.body.nickname;
 
-    db.query("SELECT * FROM user WHERE user_nickname = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_nickname` = ?", 
     [nickname],
     (err, result) => {
         if(err){
@@ -448,7 +448,7 @@ app.post('/nickoverlap', function(req, res) {
 app.post('/getmyinfo', function(req, res) {
     const id = req.body.id;
 
-    db.query("SELECT * FROM user WHERE user_id = ?", 
+    db.query("SELECT * FROM `USER` WHERE `user_id` = ?", 
     [id],
     (err, result) => {
         if(err){
@@ -477,7 +477,7 @@ app.post('/changemyinfo', function(req, res) {
     const nickname = req.body.nickname;
     const location = req.body.location;
     
-    db.query("UPDATE user SET user_pwd = ?, user_nickname = ?, user_location = ? WHERE user_id = ?",
+    db.query("UPDATE `USER` SET `user_pwd` = ?, `user_nickname` = ?, `user_location` = ? WHERE `user_id` = ?",
     [pw, nickname, location, id],
     (err, result) => {
         if(err){
