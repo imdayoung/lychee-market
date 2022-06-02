@@ -1,24 +1,29 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import "../../style/Message.css";
 import Header from "../../components/Header";
 import MsgSender from "./components/MsgSender";
 import MsgContent from "./components/MsgContent";
+import MsgModal from "./components/MsgModal";
 
 /*아이디 받아오기*/
 const Id = "mouse0429";
 
-export default function Message() {
+export default function Message(props) {
   const [SelectedMsg, SetSelectedMsg] = useState(null);
   const [MsgSenderList, SetMsgSenderList] = useState();
-  const [SelectedRoom, SetSelectedRoom] = useState(0);
+  const [SelectedBox, SetSelectedBox] = useState(0);
   const [MsgSenderName, SetMsgSenderName] = useState();
-  const [isModalOpen, SetIsModalOpen] = useState(false);
+  const [IsModalOpen, SetIsModalOpen] = useState(false);
+
+  const ModalClose = () => {
+    SetIsModalOpen(!IsModalOpen);
+  };
 
   useEffect(() => {
     axios
-      .post("http://localhost:8080/chatroom", {
+      .post("http://localhost:8080/msgbox", {
         Id: Id,
       })
       .then((res) => {
@@ -28,21 +33,21 @@ export default function Message() {
               <input
                 className="radio"
                 type="radio"
-                value={data.chatroom_id}
-                checked={SelectedRoom === data.chatroom_id}
+                value={data.msgbox_id}
+                checked={SelectedBox === data.msgbox_id}
                 onChange={() => {}}
               />
               <div
                 onClick={() => {
-                  SetSelectedRoom(data.chatroom_id);
+                  SetSelectedBox(data.msgbox_id);
                   SetMsgSenderName(
-                    data.buyer_id != Id
+                    data.buyer_id !== Id
                       ? `${data.buyer_nickname}(${data.buyer_id})`
                       : `${data.seller_nickname}(${data.seller_id})`
                   );
                   axios
-                    .post("http://localhost:8080/chatContent", {
-                      RoomId: data.chatroom_id,
+                    .post("http://localhost:8080/msgContent", {
+                      RoomId: data.msgbox_id,
                     })
                     .then((res) => {
                       SetSelectedMsg(
@@ -53,10 +58,10 @@ export default function Message() {
                               Name={
                                 Id === data.user_id ? "나" : data.user_nickname
                               }
-                              Date={moment(data.chat_time).format(
+                              Date={moment(data.msg_time).format(
                                 "YY/MM/DD hh:mm"
                               )}
-                              Content={data.chat_content}
+                              Content={data.msg_content}
                             />
                           ))}
                           <MsgContent
@@ -67,7 +72,7 @@ export default function Message() {
                                 <br />
                                 <span>판매 글 정보 </span>
                                 <span>
-                                  <a>{`http://localhost:8080/buy/${res.data[0].product_id}`}</a>
+                                  <a href={`http://localhost:3000/buy/${res.data[0].product_id}`}>{`http://localhost:3000/buy/${res.data[0].product_id}`}</a>
                                 </span>
                                 <br />
                                 <br />
@@ -90,12 +95,12 @@ export default function Message() {
                 <MsgSender
                   key={index}
                   Name={
-                    data.seller_id != Id
+                    data.seller_id !== Id
                       ? data.seller_nickname
                       : data.buyer_nickname
                   }
-                  Date={moment(data.chat_time).format("YY/MM/DD hh:mm")}
-                  Content={data.chat_content}
+                  Date={moment(data.msg_time).format("YY/MM/DD hh:mm")}
+                  Content={data.msg_content}
                 />
               </div>
             </div>
@@ -105,31 +110,42 @@ export default function Message() {
       .catch((err) => {
         console.log("에러");
       });
-  }, [SelectedRoom, MsgSenderName, SelectedMsg]);
+  }, [SelectedBox, MsgSenderName, SelectedMsg]);
 
   return (
     <div>
+      {IsModalOpen && (
+        <MsgModal
+          ModalClose={ModalClose}
+          MsgName={MsgSenderName}
+          MsgBoxId={SelectedBox}
+          SenderId={Id}
+        ></MsgModal>
+      )}
       <Header />
       <main className="MessageMain">
-        <div className="Left">
+        <div className="MsgLeft">
           <span className="MsgTitle">쪽지함</span>
-          <div className="MsgList">
-            {MsgSenderList}
-          </div>
+          <div className="MsgList">{MsgSenderList}</div>
         </div>
-        <div className="Right">
+        <div className="MsgRight">
           {SelectedMsg === null ? (
             <div></div>
           ) : (
             <div className="RowBetween MsgTitle">
               {MsgSenderName}
               <div className="RowBetween">
-                <img className="Icon" src ='images/warning.png'/>
-                <img className="Icon" src ='images/mail.png'/>
+                <img className="Icon" src="images/warning.png" alt="신고아이콘"/>
+                <img
+                  className="Icon"
+                  onClick={ModalClose}
+                  src="images/mail.png"
+                  alt="쪽지아이콘"
+                />
               </div>
             </div>
           )}
-          {SelectedMsg}
+          <div className="MsgList">{SelectedMsg}</div>
         </div>
       </main>
     </div>
