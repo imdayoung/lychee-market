@@ -75,12 +75,16 @@ app.post("/msgContent", function (req, res) {
 
 
 
-// 문의사항 상세보기
+/*
+ * 목적: 문의사항 상세보기
+ * input: qna_id
+ * output: 해당 문의사항 전체 정보 / false
+ */
 app.get('/qna/detail', function(req, res){
-	var q_id = 'sy02lee';
+	var QnaId = '1';	// 문의사항 번호, post로 수정 필요
 
-	var sqlQna = 'SELECT * FROM `QNA` WHERE `q_id` = ?';
-	db.query(sqlQna, q_id, function(err, row){
+	var SQL = 'SELECT * FROM `QNA` WHERE `qna_id` = ?';
+	db.query(SQL, QnaId, function(err, row){
 		if(err){
 			console.log('문의사항 상세보기', err);
 			res.send(false);
@@ -92,115 +96,160 @@ app.get('/qna/detail', function(req, res){
 	});
 })
 
-// 공지사항 목록
+/*
+ * 목적: 공지사항 목록
+ * input: 
+ * output: 전체 공지사항 정보 / false
+ */
 app.get('/notice', function(req, res){
-	const sqlNotice = 'SELECT `notice_id`,`manager_id`,`notice_date`,`notice_title` FROM `NOTICE`';
-	db.query(sqlNotice, function(err, rows){
+	const SQL = 'SELECT `notice_id`,`manager_id`,`notice_date`,`notice_title` FROM `NOTICE`';
+	db.query(SQL, function(err, rows){
 		if(err){
 			console.log('공지사항 전체 불러오기 오류', err);
 			res.send(false);
 		}
 		if(rows){
-			console.log(rows);
+			console.log('공지사항 전체 불러오기 결과', rows);
 			res.send(rows);
 		}
 	});
 }) 
 
-// 공지사항 작성
+/*
+ * 목적: 공지사항 작성
+ * input: manager_id, notice_date, notice_title, notice_content, notice_img
+ * output: true / false
+ */
 app.post('/notice/write', function(req, res){
-	const managerId = req.body.manager_id;
-	const noticeDate = req.body.notice_date;
-	const noticeTitle = req.body.notice_title;
-	const noticeContent =req.body.notice_content;
-	const noticeImg = req.body.notice_img;
-	const datas = [managerId, noticeDate, noticeTitle, noticeContent, noticeImg];
+	const ManagerId = req.body.manager_id;
+	const NoticeDate = req.body.notice_date;
+	const NoticeTitle = req.body.notice_title;
+	const NoticeContent =req.body.notice_content;
+	const NoticeImg = req.body.notice_img;
+	const Datas = [ManagerId, NoticeDate, NoticeTitle, NoticeContent, NoticeImg];
 
-	const sqlNoticeInsert = 'INSERT INTO `NOTICE` (`manager_id`,`notice_date`,`notice_title`,`notice_content`,`notice_img`) VALUE	(?,?,?,?,?)';
-	db.query(sqlNoticeInsert, datas, function(err, result){
+	const SQL = 'INSERT INTO `NOTICE` (`manager_id`,`notice_date`,`notice_title`,`notice_content`,`notice_img`) VALUE	(?,?,?,?,?)';
+	db.query(SQL, Datas, function(err, result){
 		if(err)	{
-			console.log('공지사항 insert 오류', result);
+			console.log('공지사항 추가 오류', result);
 			res.send(false);
 		}
 		if(result) {
-			console.log(result);
+			console.log('공지사항 추가 결과', result);
 			res.send(true);
 		}	
 	});
 })
 
-// 공지사항 세부정보
+/*
+ * 목적: 공지사항 세부정보
+ * input: notice_id
+ * output: 해당 공지사항 전체 정보 / false
+ */
 app.get('/notice/read/:notice_id', function(req, res){
-	const noticeId = req.params.notice_id;
+	const NoticeId = req.params.notice_id;
 
-	const sqlNoticeSelect = 'SELECT * FROM `NOTICE` WHERE `notice_id`=?';
-	db.query(sqlNoticeSelect, noticeId, function(err, row){
+	const SQL = 'SELECT * FROM `NOTICE` WHERE `notice_id`=?';
+	db.query(SQL, NoticeId, function(err, row){
 		if(err){
-			console.log('공지사항 select 오류', err);
+			console.log('공지사항 세부 정보 불러오기 오류', err);
 			res.send(false);
 		}
 		if(row){
-			console.log(row);
+			console.log('공지사항 세부 정보 불러오기 결과', row);
 			res.send(row);
 		}
 	});
 })
 
-// 공지사항 수정
+/*
+ * 목적: 공지사항 수정
+ * input: manager_id, notice_date, notice_title, notice_content, notice_img
+ * output: true / false
+ */
 app.post('/notice/update', function(req, res){
-	const noticeId = req.body.notice_id;
-	const noticeDate = req.body.notice_date;
-	const noticeTitle = req.body.notice_title;
-	const noticeContent =req.body.notice_content;
-	const noticeImg = req.body.notice_img;
-	const datas = [noticeDate, noticeTitle, noticeContent, noticeImg, noticeId];
+	const ManagerId = req.body.manager_id;
+	const NoticeDate = req.body.notice_date;
+	const NoticeTitle = req.body.notice_title;
+	const NoticeContent =req.body.notice_content;
+	const NoticeImg = req.body.notice_img;
+	const Datas = [ManagerId, NoticeDate, NoticeTitle, NoticeContent, NoticeImg];
 
-	const sqlNoticeUpdate = 'UPDATE `NOTICE` SET `notice_date`=?, `notice_title`=?, `notice_content`=?, `notice_img`=? WHERE `notice_id`=?';
-	db.query(sqlNoticeUpdate, datas, function(err, result){
+	const SQL = 'UPDATE `NOTICE` SET `notice_date`=?, `notice_title`=?, `notice_content`=?, `notice_img`=? WHERE `notice_id`=?';
+	db.query(SQL, Datas, function(err, result){
 		if(err) {
-			console.log('공지사항 update 오류', result);
+			console.log('공지사항 수정 오류', result);
 			res.send(false);
 		}
 		if(result) {
-			console.log(result);
+			console.log('공지사항 수정 결과', result);
 			res.send(true);
 		}
 	});
 })
 
-// 공지사항 삭제
+/*
+ * 목적: 공지사항 삭제
+ * input: manager_id, notice_date, notice_title, notice_content, notice_img
+ * output: true / false
+ */
 app.post('/notice/delete', function(req, res){
-	const noticeId = req.body.notice_id;
+	const NoticeId = req.body.notice_id;
 
-	const sqlNoticeDelete = 'DELETE FROM `NOTICE` WHERE `notice_id`=?';
-	db.query(sqlNoticeDelete, noticeId, function(err, result){
+	const SQL = 'DELETE FROM `NOTICE` WHERE `notice_id`=?';
+	db.query(SQL, NoticeId, function(err, result){
 		if(err) {
-			console.log('공지사항 delete 오류', result);
+			console.log('공지사항 삭제 오류', result);
 			res.send(false);
 		}
 		if(result) {
-			console.log(result);
+			console.log('공지사항 삭제 결과', result);
 			res.send(true);
 		}
 	});
 })
 
-// 공지사항 검색
+/*
+ * 목적: 공지사항 검색
+ * input: 검색 단어
+ * output: 해당 단어를 제목에 포함하는 공지사항 / false
+ */
 app.get('/notice/search/:word', function(req, res){
-	const searchWord = req.params.word;
+	const SearchWord = req.params.word;
 
-	const sqlNoticeSearch = "SELECT `notice_id`,`manager_id`,`notice_date`,`notice_title` FROM `NOTICE` WHERE `notice_title` LIKE ?";
-	db.query(sqlNoticeSearch, '%'+searchWord+'%', function(err, rows){
+	const SQL = "SELECT `notice_id`,`manager_id`,`notice_date`,`notice_title` FROM `NOTICE` WHERE `notice_title` LIKE ?";
+	db.query(SQL, '%'+SearchWord+'%', function(err, rows){
 		if(err){
 			console.log('공지사항 검색 오류', err);
 			res.send(false);
 		}
 		if(rows){
-			console.log(rows);
+			console.log('공지사항 검색 결과', rows);
 			res.send(rows);
 		}
 	});
 })
+
+/*
+ * 목적: 내 신고 내역 불러오기
+ * input: id
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post('/report', function(req, res){
+	const ReporterId = req.body.reporter_id;
+
+	const SQL = 'SELECT `report_id`,`report_type`,`report_title`,`report_date`, `solve_id` FROM `REPORT` WHERE `reporter_id`=?';
+	db.query(SQL, ReporterId, function(err, rows){
+		if(err){
+			console.log('신고 내역 불러오기 오류', err);
+			res.send(false);
+		}
+		if(rows){
+			console.log('신고 내역 불러오기 결과', rows);
+			res.send(rows);
+		}
+	});
+}) 
 
 /*
  * 목적 : 로그인
