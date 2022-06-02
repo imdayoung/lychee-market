@@ -254,7 +254,7 @@ app.post('/report', function(req, res){
 /*
  * 목적 : 로그인
  * input : id, pw
- * output : user에 대한 정보 / "아이디 또는 비밀번호가 틀렸습니다!"
+ * output : user에 대한 정보 / false
  */
 app.post('/login', function(req, res) {
     const id = req.body.id;
@@ -265,14 +265,28 @@ app.post('/login', function(req, res) {
     (err, result) => {
         if(err){
             console.log("login error");
-            res.send({err: err})
+            res.send({err: err});
         }
         if(result.length > 0){
             console.log("login succeed!");
-            res.send(result);
+            res.send({result: result, message: "일반회원"});
         } else{
-            console.log("login fail");
-            res.send({message: "아이디 또는 비밀번호가 틀렸습니다!"});
+            db.query("SELECT * FROM `MANAGER` WHERE `manager_id` = ? AND `manager_pw` = ?",
+            [id, pw],
+            (err, result) => {
+                if(err){
+                    console.log("login_manager error");
+                    res.send({err: err});
+                }
+                if(result.length > 0){
+                    console.log("login_manager succeed!");
+                    res.send({result: result, message: "매니저"});
+                }
+                else {
+                    console.log("login fail");
+                    res.send(false);
+                }
+            })
         }
     });
 });
