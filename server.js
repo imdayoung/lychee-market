@@ -20,7 +20,11 @@ app.listen(port, function (req, res) {
 
 app.post("/", function (req, res) {});
 
-//쪽지 리스트 불러오기
+/*
+ * 목적: 쪽지함 리스트 가져오기
+ * input: login_id
+ * output: 쪽지함 리스트 / none
+ */
 app.post("/msgbox", function (req, res) {
   console.log(req.body.Id);
   const Id = req.body.Id;
@@ -54,10 +58,13 @@ app.post("/msgbox", function (req, res) {
   });
 });
 
-//쪽지 내용 불러오기
+/*
+ * 목적: 쪽지 내역 보기
+ * input: msgbox_id
+ * output: 쪽지 내역 / none
+ */
 app.post("/msgContent", function (req, res) {
   const RoomId = req.body.RoomId;
-  console.log(RoomId);
   const SQL =
     "SELECT U.user_id, U.user_nickname, M.msg_time, M.msg_content, P.product_title, P.product_id\
     FROM `MSG` M, `USER` U, `MSGBOX` B, `PRODUCT` P\
@@ -73,6 +80,26 @@ app.post("/msgContent", function (req, res) {
   });
 });
 
+/*
+ * 목적: 쪽지 보내기
+ * input: msgbox_id, sender_id, msg_content, date
+ * result: 쪽지 insert / false
+ */
+app.post('/msgSend', function(req, res){
+  const MsgBoxId = req.body.MsgBoxId;
+  const Data = [req.body.MsgBoxId, req.body.SenderId, req.body.MsgContent, req.body.Date]
+  const SQL = "INSERT INTO `MSG` VALUES (0, ?, ?, ?, ?);"
+  db.query(SQL, Data, function(err, rows){
+    if(err){
+      console.log("쪽지 insert 실패");
+      res.send(false);
+    }
+    else {
+      console.log("쪽지 insert 성공");
+      res.send({MsgBoxId: MsgBoxId});
+    }
+  })
+})
 
 /*
  * 목적: 문의사항 상세보기
