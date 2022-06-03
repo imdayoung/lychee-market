@@ -74,7 +74,6 @@ app.post("/msgContent", function (req, res) {
 });
 
 
-
 /*
  * 목적: 문의사항 상세보기
  * input: qna_id
@@ -95,6 +94,7 @@ app.get('/qna/detail', function(req, res){
 		}
 	});
 })
+
 
 /*
  * 목적: 공지사항 목록
@@ -533,3 +533,61 @@ app.post('/changemyinfo', function(req, res) {
     });
 });
 
+
+/*
+ * 목적: 게시글 관리
+ * input: 관리자인 경우만 res 받아오도록 수정 필요
+ * output: 전체 게시글 정보 / false
+ */
+app.get('/manager/product', function(req, res){
+    const SQL = 'SELECT P.`product_id`,IF(`deal_type`=0,`seller_id`,`buyer_id`) AS `writer_id`,`product_category`,\
+    `product_title`,`product_price`, `report_id` FROM `PRODUCT` P LEFT OUTER JOIN `REPORT` R ON P.`product_id` = R.`product_id`';
+    db.query(SQL, function(err, rows){
+        if(err){
+            console.log('게시글 관리 불러오기 오류', err);
+            res.send(false);
+        }
+        if(rows){
+            console.log('게시글 관리 불러오기 결과', rows);
+            res.send(rows);
+        }
+    });
+});
+
+/*
+ * 목적: 사용자 관리
+ * input: 관리자인 경우만 res 받아오도록 수정 필요
+ * output: 전체 사용자 정보 / false
+ */
+app.get('/manager/user', function(req, res){
+    const SQL = 'SELECT `user_id`,`user_nickname`,`user_name`,`user_reliable` FROM `USER`';
+    db.query(SQL, function(err, rows){
+        if(err){
+            console.log('사용자 관리 불러오기 오류', err);
+            res.send(false);
+        }
+        if(rows){
+            console.log('사용자 관리 불러오기 결과', rows);
+            res.send(rows);
+        }
+    });
+});
+
+/*
+ * 목적: 신고글 관리
+ * input: 관리자인 경우만 res 받아오도록 수정 필요
+ * output: 전체 신고글 정보 / false
+ */
+app.get('/manager/report', function(req, res){
+    const SQL = 'SELECT `report_id`,`report_type`,`report_title`,`reporter_id` ,`report_date`, `solve_id` FROM `REPORT`';
+    db.query(SQL, function(err, rows){
+        if(err){
+            console.log('신고글 관리 불러오기 오류', err);
+            res.send(false);
+        }
+        if(rows){
+            console.log('신고글 관리 불러오기 결과', rows);
+            res.send(rows);
+        }
+    });
+});
