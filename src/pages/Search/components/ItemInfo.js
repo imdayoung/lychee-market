@@ -1,6 +1,6 @@
 import '../../../style/Search.css';
-import React, { useState, useEffect } from "react";
-import { Link, useNaviagte, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ItemInfo(props) {
     let Location = useLocation();

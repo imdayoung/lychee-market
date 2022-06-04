@@ -1,6 +1,6 @@
 import '../style/Header.css';
 import React, { useState, useEffect } from "react";
-import { Link, useNaviagte, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header(props){
   let Location = useLocation();

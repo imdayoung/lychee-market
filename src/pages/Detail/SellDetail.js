@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNaviagte, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import '../../style/Detail.css';
@@ -46,9 +46,9 @@ export default function SELLDETAIL(){
             SetProductDetail(res.data[0].product_detail);
             SetDealMethod(res.data[0].deal_method);
             SetDealType();
-            if(res.data[0].deal_type == 1)  SetDealType('판매해요');
+            if(res.data[0].deal_type === 1)  SetDealType('판매해요');
             else                            SetDealType('구매해요');
-            if(res.data[0].deal_flag == 0)  SetDealFlag('거래중');
+            if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             // return res;
         })
