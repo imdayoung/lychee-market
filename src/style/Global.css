@@ -13,7 +13,12 @@
 }
 
 main {
-    margin: auto;
-    width: 1240px;
-    padding: 20px;
+  margin: auto;
+  width: 1240px;
+  padding: 20px;
+}
+
+.RowBetween {
+  display: flex;
+  justify-content: space-between;
 }
