@@ -30,10 +30,15 @@
   align-items: center;
 }
 
-#Logo2 {
+#Logo2, #Logo3 {
   width: 64px;
   height: 64px;
   background-color: #ff3d60;
   margin-right: 16px;
   margin-left: 400px;
+}
+
+#Logo3 {
+  margin-left: 324px;
+  /* align-items: center; */
 }

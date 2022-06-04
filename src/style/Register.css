@@ -1,0 +1,15 @@
+button.overlap {
+    width: 90px;
+    height: 56px;
+    font-size: 16px;
+    
+    /* border: 2px solid #FF9696;
+    background-color: #FFF;
+    color: #FF9696;
+    또는 */
+    border: none;
+    background-color: #FF9696;
+    color: #FFF;
+   
+    text-align: center;
+}

@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-
-* {
-  font-family: 'Noto Sans KR';
-}
-
 .inputshort,
 .input{
   height: 50px;
@@ -24,4 +18,23 @@
 
 .inputshort{
   width: 350px;
+}
+
+.r_inputshort,
+.r_input{
+  height: 50px;
+  width: 600px;
+  
+  border: 2px solid #CDCDCD;
+  background-color: #FFF;
+  outline: none;
+ 
+  padding-left: 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+.r_inputshort{
+  width: 500px;
 }

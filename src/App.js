@@ -16,8 +16,9 @@ import SELLSEARCH from './pages/Search/SellSearch';
 import SELLDETAIL from './pages/Detail/SellDetail';
 import MAIN from './pages/Main/Main';
 import Login from './pages/Login/Login';
-import FindId from './pages/FindId/FindId'
-import FindPw from './pages/FindPw/FindPw'
+import FindId from './pages/FindId/FindId';
+import FindPw from './pages/FindPw/FindPw';
+import Register from './pages/Register/Register';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/msgbox" element={<Message/>}/>
         <Route path="/findid" element={<FindId/>}/>
         <Route path="/findpw" element={<FindPw/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -5,8 +5,6 @@ import LoginInput from "../../components/LoginInput";
 import SubmitBtn from "../../components/SubmitBtn";
 import FindIdHeader from "./FindIdHeader";
 
-import '../../style/FindId.css'
-
 function FindId(){
 
   const navigate = useNavigate();
