@@ -15,7 +15,9 @@ import SELL from './pages/Search/SellMain';
 import SELLSEARCH from './pages/Search/SellSearch';
 import SELLDETAIL from './pages/Detail/SellDetail';
 import MAIN from './pages/Main/Main';
-import Login from "./pages/Login/Login"
+import Login from './pages/Login/Login';
+import FindId from './pages/FindId/FindId'
+import FindPw from './pages/FindPw/FindPw'
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path="/notice/write" element={<NoticeWrite/>}/>
         <Route path="/notice/search/*" element={<NoticeSearch/>}/>
         <Route path="/msgbox" element={<Message/>}/>
+        <Route path="/findid" element={<FindId/>}/>
+        <Route path="/findpw" element={<FindPw/>}/>
       </Routes>
     </BrowserRouter>
   );
