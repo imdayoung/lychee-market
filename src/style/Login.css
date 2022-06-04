@@ -34,3 +34,8 @@ span.regerrormsg {
     font-size: 16px;
     color: rgba(255, 90, 90, 0.8);
 }
+
+span.foundpw,
+span.foundid {
+    font-size: 20px;
+}

@@ -5,8 +5,6 @@ import LoginInput from "../../components/LoginInput";
 import SubmitBtn from "../../components/SubmitBtn";
 import FindPwHeader from "./FindPwHeader";
 
-import '../../style/FindPw.css'
-
 function FindPw(){
 
   const navigate = useNavigate();
