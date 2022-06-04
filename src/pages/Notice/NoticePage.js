@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
+import momnet from 'moment';
 import Header from "../../components/Header"
 import NoticeListComponent from "./components/NoticeListComponent";
 
@@ -30,13 +31,13 @@ export default function Notice(){
 
     let NoticeList = [];
     if(Notice.length === 0){
-        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>공지사항이 존재하지 않습니다.</td></tr>)
+        NoticeList.push(<tr key={0} className="n_list_row"><td colSpan='4'>공지사항이 존재하지 않습니다.</td></tr>)
     }
     else{
         for(let i=Notice.length-1; i>=0; i--){
             NoticeList.push(
                 <NoticeListComponent key={i} notice_id={Notice[i].notice_id} notice_title={Notice[i].notice_title}
-                notice_date={Notice[i].notice_date.toString().split('T')[0]} manager_id={Notice[i].manager_id}/>
+                notice_date={moment(Notice[i].notice_date).format('YYYY-MM-DD')} manager_id={Notice[i].manager_id}/>
             );
         }
     }
