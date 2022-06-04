@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* font, main */
+* {
+    font-family: 'Noto Sans KR';
+}
+.Head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Main {
+    display: block;
+    margin: auto;
+    flex-direction: row;
+    width: 1280px;
+}
+
+/* search */
+#ResultInfo {
+    margin-left: 45px;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+#TargetWorld {
+    color: #ff3d60;
+    font-weight: bold;
+}
+
+.Descript {
+    display: block;
+    height: 100px;
+}
+
+.Prod {
+    display: block;
+}
+
+#WriteButton {
+    display: block;
+    width: 130px;
+    height: 50px;
+    background-color: #ff9696;
+    border: none;
+    float: right;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+#NoProduct {
+    text-align: center;
+    font-size: 30px;
+}
+
+.ItemInfo {
+    display: inline-block;
+    margin-left: 45px;
+}
+
+#ItemImage {
+    width: 209px;
+    height: 209px;
+}
+
+#ItemTitle {
+    font-size: 22px;
+}
+
+#ItemPrice {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 60px;
+}
