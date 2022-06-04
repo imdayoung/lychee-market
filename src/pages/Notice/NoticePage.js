@@ -30,7 +30,7 @@ export default function Notice(){
 
     let NoticeList = [];
     if(Notice.length === 0){
-        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>공지사항이 존재하지 않습니다.</td></tr>)
+        NoticeList.push(<tr key={0} className="n_list_row"><td colSpan='4'>공지사항이 존재하지 않습니다.</td></tr>)
     }
     else{
         for(let i=Notice.length-1; i>=0; i--){
