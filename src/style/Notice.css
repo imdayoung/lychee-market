@@ -1,0 +1,142 @@
+.noticeMain{
+    width: 1240px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* noticeList */
+.noticeList{
+    width: 1200px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    text-align: center;
+}
+.noticeHead{
+    border-bottom: 2px solid #000;
+    font-size: 20px;
+}
+.n_list_row{
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+.noticeIndex{
+    width:100px;
+}
+.noticeTitle{
+    width:500px;
+}
+.noticeDate{
+    width:200px;
+}
+.managerId{
+    width:200px;
+}
+.noticeBottom{
+    display: flex;
+    width: 1200px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.searchNotice{
+    margin: 8px;
+}
+.searchNotice input{
+    margin-right: 8px;
+    height: 28px;
+    outline: none;
+}
+.searchNotice button{
+    width: 80px;
+    height: 32px;
+    border: 2px solid #888888;
+    background-color: #ffffff;
+    color: #888888;
+    font-weight: bold;
+}
+.writeNotice{
+    margin: 8px;
+}
+.writeNotice button{
+    width: 120px;
+    height: 32px;
+    border: 2px solid #ff3d60;
+    background-color: #FFFFFF;
+    color: #ff3d60;
+    font-weight: bold;
+}
+
+/* noticeRead, noticeWrite */
+.noticeRead, .noticeWrite{
+    width: 1200px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+.n_row{
+    text-align: left;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+.n_th{
+    width: 180px;
+    padding-left: 8px;
+}
+.n_td{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    height: 32px;
+}
+.n_td_content{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    min-height: 500px;
+    resize: vertical;
+}
+.n_td_image{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    /* min-height: 40px; */
+}
+.noticeMain .buttons{
+    width: 1200px;
+    text-align: right;
+    margin-right: 48px;
+}
+.noticeMain .buttons .list{
+    width: 120px;
+    height: 32px;
+    border: 2px solid #888888;
+    background-color: #FFFFFF;
+    color: #888888;
+    font-weight: bold;
+    margin: 8px;
+}
+.noticeMain .buttons .update, .noticeMain .buttons .submit{
+    width: 120px;
+    height: 32px;
+    border: 2px solid #ff3d60;
+    background-color: #FFFFFF;
+    color: #ff3d60;
+    font-weight: bold;
+    margin: 8px;
+}
+.noticeMain .buttons .delete{
+    width: 120px;
+    height: 32px;
+    border: 2px solid #888888;
+    background-color: #FFFFFF;
+    color: #888888;
+    font-weight: bold;
+    margin: 8px;
+}
