@@ -1,94 +1,55 @@
 .Top {
-    margin: auto;
-    height: 56px;
-    width: 1280px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: end;
+  margin: auto;
+  height: 56px;
+  width: 1280px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .TopNav {
-    font-size: 16px;
-    margin-right: 32px;
+  font-size: 16px;
+  margin-right: 32px;
 }
-  
+
 .Divider {
-    height: 1px;
-    background-color: #f2f2f2;
+  height: 1px;
+  background-color: #f2f2f2;
 }
-  
+
 .Title {
-    margin: auto;
-    height: 144px;
-    width: 1280px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin: auto;
+  height: 144px;
+  width: 1280px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-  
+
 .TitleName {
-    margin: auto;
-    height: 144px;
-    width: 1280px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin: auto;
+  height: 144px;
+  width: 1280px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-  
+
 #Logo {
-    width: 64px;
-    height: 64px;
-    background-color: #ff3d60;
-    margin-right: 16px;
-    margin-left: 32px;
+  width: 64px;
+  height: 64px;
+  background-color: #ff3d60;
+  margin-right: 16px;
+  margin-left: 32px;
 }
-  
+
 #TitleText {
-    font-size: 44px;
-    font-weight: bold;
+  font-size: 44px;
+  font-weight: bold;
 }
-  
+
 .TitleNav {
-    font-size: 20px;
-    margin-right: 32px;
-}
-
-.Search {
-    margin: auto;
-    height: 144px;
-    width: 1280px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.SearchDiv {
-    width: 520px;
-    height: 60px;
-    line-height: 60px;
-    border: 1px solid #ff3d60;
-    font-size: 20px;
-}
-
-.SearchButton {
-    width: 64px;
-    height: 64px;
-    border: none;
-    background-color: #ff3d60;
-}
-
-.SearchButtonImage {
-    width: 50px;
-    height: 50px;
-}
-
-#LinkNoLine {
-    text-decoration: none;
-    color: black;
-}
-
-#LinkNoLine:visited {
-    text-decoration: none;
-    color: black;
+  font-size: 20px;
+  margin-right: 32px;
 }
