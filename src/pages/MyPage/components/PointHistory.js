@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PointContent from "./PointContent";
+import moment from "moment";
 
 export default function PointHistory(props) {
   const [PointContents, SetPointContents] = useState();
@@ -11,11 +12,24 @@ export default function PointHistory(props) {
         Id: props.Id,
       })
       .then((res) => {
-        console.log('진짜피곤함');
         console.log(res.data);
+        SetPointContents(
+          res.data.map((data, index) => (
+            <PointContent
+              key={index}
+              Date={moment(data.deal_date).format("YY.MM.DD hh:mm:ss")}
+              Type={data.product_id === null ? "충전" : data.receiver_id === props.Id ? "수입" : "지출"}
+              WithNickname={data.receiver_id === props.Id ? data.sender_nickname : data.receiver_nickname}
+              WithId={data.receiver_id === props.Id ? data.sender_id : data.receiver_id}
+              Product={data.product_id === null ? "" : data.product_title}
+              DealAmount={parseInt(data.receiver_id === props.Id ? data.deal_amount : -data.deal_amount)}
+              Point={parseInt(data.left_point)}
+            />
+          ))
+        )
       })
       .catch((err) => {});
-  }, []);
+  }, [props.Id]);
 
   return (
     <div>
@@ -41,33 +55,7 @@ export default function PointHistory(props) {
           </tr>
         </thead>
         <tbody>
-          <PointContent
-            Date="20.05.19 11:00:56"
-            Type="수입"
-            WithNickname="영다빵가루"
-            WithId="dlekdud0102"
-            Product="거래물품"
-            DealAmount={15000}
-            Point={30000}
-          />
-          <PointContent
-            Date="20.05.19 11:00:56"
-            Type="충전"
-            WithNickname="영다빵가루"
-            WithId="dlekdud0102"
-            Product="거래물품"
-            DealAmount={15000}
-            Point={15000}
-          />
-          <PointContent
-            Date="20.05.19 11:00:56"
-            Type="지출"
-            WithNickname="영다빵가루"
-            WithId="dlekdud0102"
-            Product="거래물품"
-            DealAmount={-15000}
-            Point={0}
-          />
+          {PointContents}
         </tbody>
       </table>
       <div className="MyPagePointList"></div>

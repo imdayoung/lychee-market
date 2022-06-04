@@ -5,7 +5,7 @@ export default function Product(props) {
   return (
     <Link to="/" style={{textDecoration:"none", color: "black"}}>
       <div id="MyPageProduct">
-        <img id="MyPageProductImg" alt="상품이미지" src={props.Img == null ? "images/products/심해두1.png" : props.Img}></img>
+        <img id="MyPageProductImg" alt="상품이미지" src={props.Img == null ? "images/products/prod00.png" : props.Img}></img>
         <div id="MyPageProductDetail">
           <div>{props.Title}</div>
           <div className="OnlyFontBold">

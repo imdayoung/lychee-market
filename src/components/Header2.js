@@ -40,7 +40,7 @@ export default function Header(props){
         <nav className="Top">
           <Link to={{pathname:'/sell'}} id='LinkNoLine'><div className="TitleNav">판매</div></Link>
           <Link to={{pathname:'/buy'}} id='LinkNoLine'><div className="TitleNav">구매</div></Link>
-          <div className="TitleNav">내정보</div>
+          <Link to={{pathname: '/mypage'}} id='LinkNoLine'><div className="TitleNav">내정보</div></Link>
           <Link to={{pathname: '/msgbox'}} id='LinkNoLine'><div className="TitleNav">쪽지함</div></Link>
         </nav>
       </div>
