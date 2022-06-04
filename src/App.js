@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './style/Global.css';
+import Message from './pages/Message/MessagePage';
 import Notice from './pages/Notice/NoticePage';
 import NoticeRead from './pages/Notice/NoticeRead';
 import NoticeWrite from './pages/Notice/NoticeWrite';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/notice/read/*" element={<NoticeRead/>}/>
         <Route path="/notice/write" element={<NoticeWrite/>}/>
         <Route path="/notice/search/*" element={<NoticeSearch/>}/>
+        <Route path="/msgbox" element={<Message/>}/>
       </Routes>
     </BrowserRouter>
   );
