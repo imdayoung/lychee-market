@@ -20,12 +20,12 @@ export default function LoginHeader(props){
       <div className="Divider"></div>
 
       <div className="Title">
-        <div className="TitleName">
+        <div className="TitleName2">
           <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
             <div id="Logo"></div>
           </Link>
-          <div id="TitleText">리치마켓</div>
-          <div id="TitleDetail"> | 로그인</div>
+          <div id="TitleText2">리치마켓</div>
+          <div id="TitleDetail2"> | 로그인</div>
         </div>
       </div>
     </header>
