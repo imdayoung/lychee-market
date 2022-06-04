@@ -1,0 +1,38 @@
+#BannerDiv {
+    width: 100%;
+}
+
+#BannerImage {
+    width: 100%;
+}
+
+.CategoryBackground {
+    width: 100%;
+    background-color: white;
+    height: 500px;
+}
+
+.Description1 {
+    padding-top: 25px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.Description2 {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.ItemsBackground {
+    width: 100%;
+    background-color: #ffecec;
+}
+
+.Items {
+    display: block;
+    margin: auto;
+    flex-direction: row;
+    width: 1280px;
+}
