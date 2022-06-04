@@ -41,7 +41,7 @@ export default function Header(props){
           <Link to={{pathname:'/sell'}} id='LinkNoLine'><div className="TitleNav">판매</div></Link>
           <Link to={{pathname:'/buy'}} id='LinkNoLine'><div className="TitleNav">구매</div></Link>
           <div className="TitleNav">내정보</div>
-          <div className="TitleNav">쪽지함</div>
+          <Link to={{pathname: '/msgbox'}} id='LinkNoLine'><div className="TitleNav">쪽지함</div></Link>
         </nav>
       </div>
     </header>
