@@ -1,0 +1,21 @@
+button.NSubmitBtn,
+button.SubmitBtn{
+  height: 50px;
+  width: 470px;
+  font-size: 16px;
+    
+    /* border: 2px solid #FF9696;
+    background-color: #FFF;
+    color: #FF9696;
+    또는 */    
+    border: none;
+    background-color: #FF9696;
+    color: #FFF;
+   
+    text-align: center;
+}
+
+button.NSubmitBtn{
+  background-color: #999999;
+  opacity: 0.7;
+}

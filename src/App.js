@@ -1,14 +1,15 @@
-//import './App.css';
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React from "react"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import'./App.css';
 import './style/Global.css';
-import MessagePage from './pages/Message/MessagePage';
+
+import Login from "./pages/Login/Login"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/msgbox" element={<MessagePage/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </BrowserRouter>
   );
