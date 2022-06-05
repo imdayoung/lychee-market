@@ -111,8 +111,8 @@ app.post("/msgSend", function (req, res) {
  * input: qna_id
  * output: 해당 문의사항 전체 정보 / false
  */
-app.get("/qna/detail", function (req, res) {
-  var QnaId = "1"; // 문의사항 번호, post로 수정 필요
+app.post("/qna/detail", function (req, res) {
+  const QnaId = req.body.qna_id;
 
   var SQL = "SELECT * FROM `QNA` WHERE `qna_id` = ?";
   db.query(SQL, QnaId, function (err, row) {
@@ -283,6 +283,73 @@ app.post("/report", function (req, res) {
     if (rows) {
       console.log("신고 내역 불러오기 결과", rows);
       res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 상세 내역 불러오기
+ * input: report_id
+ * output: 해당 번호의 신고 내역 / false
+ */
+app.get("/report/detail/:report_id", function (req, res) {
+  const ReportId = req.params.report_id;
+
+  const SQL = "SELECT * FROM `REPORT` WHERE `report_id`=?";
+  db.query(SQL, ReportId, function (err, row) {
+    if (err) {
+      console.log("신고 상세 내역 불러오기 오류", err);
+      res.send(false);
+    }
+    if (row) {
+      console.log("신고 상세 내역 불러오기 결과", row);
+      res.send(row);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 답변 저장
+ * input: report_id, solve_id, solve_date, solve_content
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post("/report/answer", function (req, res) {
+  const ReportId = req.body.report_id;
+  const SolveId = req.body.solve_id;
+  const SolveDate = req.body.solve_date;
+  const SolveContent = req.body.solve_content;
+  const datas = [SolveId, SolveDate, SolveContent, ReportId]
+
+  const SQL = "UPDATE `REPORT` SET `solve_id`=?, `solve_date`=?, `solve_content`=? WHERE `report_id`=?";
+  db.query(SQL, datas, function (err, result) {
+    if (err) {
+      console.log("신고 답변 저장 오류", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("신고 답변 저장 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 삭제
+ * input: report_id
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post("/report/delete", function (req, res) {
+  const ReportId = req.body.report_id;
+
+  const SQL = "DELETE FROM `REPORT` WHERE `report_id`=?";
+  db.query(SQL, ReportId, function (err, result) {
+    if (err) {
+      console.log("신고 삭제 오류", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("신고 삭제 결과", result);
+      res.send(true);
     }
   });
 });
@@ -602,6 +669,27 @@ app.get("/manager/product", function (req, res) {
 });
 
 /*
+ * 목적: 게시글 관리자가 삭제
+ * input: product_id
+ * output: true / false
+ */
+app.post("/manager/product", function (req, res) {
+  const ProductId = req.body.product_id;
+
+  const SQL ="DELETE FROM `PRODUCT` WHERE `product_id`=?";
+  db.query(SQL, ProductId, function (err, result) {
+    if (err) {
+      console.log("게시글 삭제 오류", result);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("게시글 삭제 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
  * 목적: 사용자 관리
  * input: 관리자인 경우만 res 받아오도록 수정 필요
  * output: 전체 사용자 정보 / false
@@ -617,6 +705,49 @@ app.get("/manager/user", function (req, res) {
     if (rows) {
       console.log("사용자 관리 불러오기 결과", rows);
       res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 사용자 신뢰도 관리자가 조정
+ * input: 관리자인 경우만 res 받아오도록 수정 필요
+ * output: true / false
+ */
+app.post("/manager/user/reliable", function (req, res) {
+  const UserId = req.body.user_id;
+  const Reliable = req.body.user_reliable;
+
+  const SQL = "UPDATE `USER` SET `user_reliable`=? WHERE `user_id`=?";
+  db.query(SQL, [Reliable,UserId], function (err, result) {
+    if (err) {
+      console.log("사용자 신뢰도 조정 오류", result);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("사용자 신뢰도 조정 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: 사용자 영구 정지
+ * input: user_id
+ * output: true / false
+ */
+app.post("/manager/user", function (req, res) {
+  const UserId = req.body.user_id;
+
+  const SQL = "UPDATE `USER` SET `user_reliable`=-1 WHERE `user_id`=?";
+  db.query(SQL, [Reliable,UserId], function (err, result) {
+    if (err) {
+      console.log("사용자 영구 정지 오류", result);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("사용자 영구 정지 결과", result);
+      res.send(true);
     }
   });
 });
