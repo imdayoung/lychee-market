@@ -26,7 +26,7 @@ export default function Header(props){
       <div className="Title">
         <div className="TitleName">
           <div id="Logo"></div>
-          <div id="TitleText">리치마켓</div>
+          <div id="TitleText2">리치마켓</div>
         </div>
         <div className="Search">
             <div>

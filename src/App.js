@@ -19,6 +19,7 @@ import Login from './pages/Login/Login';
 import FindId from './pages/FindId/FindId';
 import FindPw from './pages/FindPw/FindPw';
 import Register from './pages/Register/Register';
+import ChangeMyInfo from "./pages/ChangeMyInfo/ChangeMyInfo"
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/findid" element={<FindId/>}/>
         <Route path="/findpw" element={<FindPw/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/changemyinfo" element={<ChangeMyInfo/>}/>
       </Routes>
     </BrowserRouter>
   );
