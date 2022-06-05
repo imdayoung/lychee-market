@@ -1,6 +1,6 @@
-import Axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Axios from "axios";
+import moment from "moment";
 import Header from "../../components/Header"
 import ReportListComponent from "./components/ReportListComponent";
 import "../../style/Report.css"
@@ -37,7 +37,7 @@ export default function ReportBoard(){
       for(let i=Report.length-1; i>=0; i--){    
           ReportList.push(
               <ReportListComponent key={i} report_id={Report[i].report_id} report_type={Report[i].report_type} report_title={Report[i].report_title}
-              report_date={Report[i].report_date.toString().split('T')[0]} is_solved={Report[i].solve_id !== null ? '완료' : '미완료'}/>
+              report_date={moment(Report[i].report_date).format("YYYY-MM-DD")} is_solved={Report[i].solve_id !== null ? '완료' : '미완료'}/>
           );
       }
   }
@@ -45,21 +45,21 @@ export default function ReportBoard(){
   return (
     <div>
       <Header props={'내 신고 내역'}/>
-      <main className="reportMain">
-        <div className="myReportInfo">
+      <main className="ReportMain">
+        <div className="ReportInfo">
           <p>
             {ReporterId}님이 작성한 신고 내역입니다.<br></br>
             빠른 시일 내에 해결해드리도록 하겠습니다.😊
           </p>
         </div>
-        <table className="myReportList">
-          <thead className="reportHead">
+        <table className="ReportList">
+          <thead className="ReportHead">
             <tr>
-              <td className="reportIndex">신고번호</td>
-              <td className="reportType">유형</td>
-              <td className="reportTitle">제목</td>
-              <td className="reportDate">작성날짜</td>
-              <td className="isSolved">해결여부</td>
+              <td className="ReportIndex">신고번호</td>
+              <td className="ReportType">유형</td>
+              <td className="ReportTitle">제목</td>
+              <td className="ReportDate">작성날짜</td>
+              <td className="IsSolved">해결여부</td>
             </tr>
           </thead>
           <tbody>

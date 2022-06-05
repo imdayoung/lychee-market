@@ -1,11 +1,11 @@
-.reportMain{
+.ReportMain{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 /* ReportBoard css */
-.myReportInfo{
+.ReportInfo{
   margin-bottom: 12px;
   padding: 8px;
   width: 1200px;
@@ -14,7 +14,7 @@
   font-size: 20px;
   color: #ff3d60;
 }
-.myReportList{
+.ReportList{
   width: 1200px;
   margin: auto;
   margin-top: 15px;
@@ -22,26 +22,107 @@
   border-collapse: collapse;
   text-align: center;
 }
-.reportHead{
+.ReportList .ReportHead{
   border-bottom: 2px solid #000;
   font-size: 20px;
 }
-.r_list_row{
+.ReportListRow{
   height: 60px;
   border-bottom: 1px solid #000;
 }
-.reportIndex{
+.ReportList .ReportIndex{
   width:100px;
 }
-.reportType{
+.ReportList .ReportType{
   width:200px;
 }
-.reportTitle{
+.ReportList .ReportTitle{
   width:400px;
 }
-.reportDate{
+.ReportList .ReportDate{
   width:200px;
 }
-.isSolved{
+.ReportList .IsSolved{
   width:100px;
+}
+
+/* ReportDetail css */
+.ReportMain .ReportTable, .ReportMain .AnswerTable{
+  width: 1200px;
+  margin: auto;
+  margin-bottom: 32px;
+  border-collapse: collapse;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+.ReportMain caption{
+  width: 1200px;
+  margin-bottom: 8px;
+  text-align: left;
+  font-weight: bold;
+}
+.ReportMain .ReportRow, .ReportMain .AnswerRow{
+  text-align: left;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.ReportMain .ReportTh, .ReportMain .AnswerTh{
+  width: 180px;
+  padding-left:8px;
+}
+.ReportTdShort, .AnswerTdShort{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 384px;
+  height: 30px;
+}
+.ReportTdButton{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 324px;
+  height: 30px;
+}
+.ReportTdLong{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  height: 30px;
+}
+.ReportTdContent, .AnswerTdContent{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  min-height: 100px;
+  height: flex;
+  resize: vertical;
+}
+.ReportMain .ReportButtons{
+  text-align: right;
+  margin-right: 48px;
+}
+.ReportMain .ReportButtons .List{
+  width: 120px;
+  height: 32px;
+  border: 2px solid #888888;
+  background-color: #FFFFFF;
+  color: #888888;
+  font-weight: bold;
+  margin: 8px;
+}
+.ToProduct{
+  margin-left:8px;
+  width: 52px;
+  height: 36px;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
+  color: #ffffff;
+}
+.ReportMain .ReportButtons .Submit{
+  width: 120px;
+  height: 32px;
+  border: 2px solid #ff3d60;
+  background-color: #FFFFFF;
+  color: #ff3d60;
+  font-weight: bold;
+  margin: 8px;
 }

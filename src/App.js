@@ -47,7 +47,7 @@ function App() {
         <Route path="/changemyinfo" element={<ChangeMyInfo/>}/>
         <Route path="/report" element={<ReportBoard/>}/>
         <Route path="/report/write" element={<ReportWrite/>}/>
-        <Route path="/report/detail" element={<ReportDetail/>}/>
+        <Route path="/report/detail/*" element={<ReportDetail/>}/>
       </Routes>
     </BrowserRouter>
   );

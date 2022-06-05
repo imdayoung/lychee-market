@@ -291,8 +291,8 @@ app.post("/report", function (req, res) {
  * input: report_id
  * output: 해당 번호의 신고 내역 / false
  */
-app.post("/report/detail", function (req, res) {
-  const ReportId = req.body.report_id;
+app.get("/report/detail/:report_id", function (req, res) {
+  const ReportId = req.params.report_id;
 
   const SQL = "SELECT * FROM `REPORT` WHERE `report_id`=?";
   db.query(SQL, ReportId, function (err, row) {
@@ -303,6 +303,52 @@ app.post("/report/detail", function (req, res) {
     if (row) {
       console.log("신고 상세 내역 불러오기 결과", row);
       res.send(row);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 답변 저장
+ * input: report_id, solve_id, solve_date, solve_content
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post("/report/answer", function (req, res) {
+  const ReportId = req.body.report_id;
+  const SolveId = req.body.solve_id;
+  const SolveDate = req.body.solve_date;
+  const SolveContent = req.body.solve_content;
+  const datas = [SolveId, SolveDate, SolveContent, ReportId]
+
+  const SQL = "UPDATE `REPORT` SET `solve_id`=?, `solve_date`=?, `solve_content`=? WHERE `report_id`=?";
+  db.query(SQL, datas, function (err, result) {
+    if (err) {
+      console.log("신고 답변 저장 오류", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("신고 답변 저장 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 삭제
+ * input: report_id
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post("/report/delete", function (req, res) {
+  const ReportId = req.body.report_id;
+
+  const SQL = "DELETE FROM `REPORT` WHERE `report_id`=?";
+  db.query(SQL, ReportId, function (err, result) {
+    if (err) {
+      console.log("신고 삭제 오류", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("신고 삭제 결과", result);
+      res.send(true);
     }
   });
 });
