@@ -19,39 +19,14 @@ function ReportWrite(){
   const pid = 1;         //product id, nullable
 
   const [error, setError] = useState(false);
-
   const [title, setTitle] = useState('');  
   const [detail, setDetail] = useState('');
-  const [attach, setAttach] = useState('');
+
+  const [file, setFile] = useState("");
+  const [fileName, setFileName] = useState('');
 
   const goBack = () => {
     navigate(-1);
-  }
-  
-  const onSubmit = () => {
-    let now = new Date();
-    let month = now.getMonth()+1;
-    let date = now.getFullYear() + "-" + month + "-" + now.getDate();
-
-    Axios.post('http://localhost:8080/reportwrite', {
-      reporterid: reporterid,
-      reportedid: reportedid,
-      type: type,
-      date: date,
-      title: title,
-      detail: detail,
-      attach: attach,
-      cid: cid,
-      pid: pid,
-    }).then((res) => {
-      if(res.data.message === "성공"){
-        alert("신고 접수 완료");
-        navigate('/mypage/report');
-      }
-      else if(res.data.message === "실패"){
-        alert("신고 접수 실패");
-      }
-    })
   }
 
   useEffect(() => {
@@ -65,6 +40,71 @@ function ReportWrite(){
       setError(false);
     }
   }, [error, title, detail]);
+  
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+  
+  const onSubmit = () => {
+    if(file){
+      const formData = new FormData();
+      formData.append("img", file); 
+      Axios.post("http://localhost:8080/uploadreportimg", formData)
+        .then(res => {
+          const { fileName } = res.data;
+          //setFileName(res.data.fileName);
+          let now = new Date();
+          let month = now.getMonth()+1;
+          let date = now.getFullYear() + "-" + month + "-" + now.getDate();
+          //alert("파일 이름 : "+fileName);
+
+          Axios.post('http://localhost:8080/reportwrite', {
+            reporterid: reporterid,
+            reportedid: reportedid,
+            type: type,
+            date: date,
+            title: title,
+            detail: detail,
+            fileName: fileName,
+            cid: cid,
+            pid: pid,
+          }).then((res) => {
+            if(res.data.message === "성공"){
+              alert("신고 접수 완료");
+              navigate('/mypage/report');
+            }
+            else if(res.data.message === "실패"){
+              alert("신고 접수 실패");
+            }
+          })
+        });
+    }
+    else {    //if문 안에서 image 업로드만 하면 filename 늦게 받아옴 ....
+      let now = new Date();
+      let month = now.getMonth()+1;
+      let date = now.getFullYear() + "-" + month + "-" + now.getDate();
+
+      Axios.post('http://localhost:8080/reportwrite', {
+        reporterid: reporterid,
+        reportedid: reportedid,
+        type: type,
+        date: date,
+        title: title,
+        detail: detail,
+        fileName: fileName,
+        cid: cid,
+        pid: pid,
+      }).then((res) => {
+        if(res.data.message === "성공"){
+          alert("신고 접수 완료");
+          navigate('/mypage/report');
+        }
+        else if(res.data.message === "실패"){
+          alert("신고 접수 실패");
+        }
+      })
+    }
+  }
 
   return (
     <div className="main">
@@ -73,6 +113,7 @@ function ReportWrite(){
       
       <div className="report">
         <table className="submitreport">
+          <tbody>
           <tr className="r_row">
             <th className="r_th">제목</th>
             <td>
@@ -108,10 +149,10 @@ function ReportWrite(){
           <tr className="r_row">
             <th className="r_th">첨부파일</th>
             <td>
-              <input className="r_td_image" type="file"
-              onChange={(e) => setAttach(e.target.value)}/>
+              <input type="file" onChange={onChange}/>
             </td>
           </tr>
+          </tbody>
         </table>
 
         <div className="buttons">
