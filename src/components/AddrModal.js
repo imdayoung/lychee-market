@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../style/AddrModal.css';
+import '../style/AddrModal.css';
 import DaumPostCode from 'react-daum-postcode';
 
 const AddrModal = (props) => {

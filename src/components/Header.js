@@ -13,20 +13,28 @@ export default function Header(props){
 
   const [Target, SetTarget] = useState('');
 
+  const {keyword} = props;
+  let exist = false;
+  
+  if(keyword !== undefined){
+    exist = true;
+  }
+
   return(
     <header>
       <nav className="Top">
-        <div className="TopNav">로그인</div>
-        <div className="TopNav">회원가입</div>
-        <div className="TopNav">고객센터</div>
+        <Link to={{pathname:'/login'}} id='LinkNoLine'><div className="TopNav">로그인</div></Link>
+        <Link to={{pathname:'/register'}} id='LinkNoLine'><div className="TopNav">회원가입</div></Link>
+        <Link to={{pathname:'/qna'}} id='LinkNoLine'><div className="TopNav">고객센터</div></Link>
       </nav>
       
       <div className="Divider"></div>
 
       <div className="Title">
         <div className="TitleName">
-          <div id="Logo"></div>
-          <div id="TitleText">리치마켓</div>
+          <Link to={{pathname:'/'}} id='LinkNoLine'><div id="Logo"></div></Link>
+          <div id="TitleText2">리치마켓</div>
+          {exist ? <div id="TitleDetail2"> | {keyword}</div> : <></>}
         </div>
         <nav className="Top">
           <Link to={{pathname:'/sell'}} id='LinkNoLine'><div className="TitleNav">판매</div></Link>
