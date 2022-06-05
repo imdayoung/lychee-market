@@ -7,7 +7,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "1234",
   database: "lychee",
 });
 
@@ -732,16 +732,18 @@ app.post('/reportwrite', function(req, res) {
     const date = req.body.date;
     const title = req.body.title;
     const detail = req.body.detail;
-    const attach = req.body.attach
+
+    const attach = req.body.fileName;
     const cid = req.body.cid;
     const pid = req.body.pid;
 
     const datas = [reporterid, reportedid, date, title, type, detail, attach, cid, pid];
 
-    //console.log(datas);
+    console.log(datas);
     
     db.query("INSERT INTO `REPORT` (`reporter_id`, `reported_id`, `report_date`, `report_title`, `report_type`,\
-     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?)",
+     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?);",
+
     datas, (err, result) => {
         if(err){
             console.log("writereport error");
@@ -799,3 +801,29 @@ app.post('/newproduct', function(req, res) {
       }
   });
 });
+
+const path = require("path");
+const multer = require("multer");
+
+app.use(express.static("public"));
+
+const storage = multer.diskStorage({
+  destination: "./public/images/report",
+  filename: function(req, file, cb) {
+    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }
+});
+
+app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  console.log(req.file.filename);
+  res.send({
+    fileName: req.file.filename
+  });
+});
+
+
