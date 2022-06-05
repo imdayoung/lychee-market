@@ -6,20 +6,27 @@ import * as Common from "../../components/CommonFunc";
 import ProductHistory from "./components/ProductHistory";
 import PointHistory from "./components/PointHistory";
 import Statistics from "./components/Statistics";
+import PointModal from "./components/PointModal";
 
 const Id = "mouse0429";
 
 const HistoryList = {
-  0: <ProductHistory Id={Id} Type="sell"/>,
-  1: <ProductHistory Id={Id} Type="buy"/>,
-  2: <ProductHistory Id={Id} Type="like"/>,
-  3: <PointHistory Id={Id}/>,
+  0: <ProductHistory Id={Id} Type="sell" />,
+  1: <ProductHistory Id={Id} Type="buy" />,
+  2: <ProductHistory Id={Id} Type="like" />,
+  3: <PointHistory Id={Id} />,
   4: <Statistics />,
 };
 
 export default function MyPage() {
   const [Tab, SetTab] = useState(0);
   const [UserInfo, SetUserInfo] = useState({});
+  const [UserPoint, SetUserPoint] = useState({});
+  const [IsModalOpen, SetIsModalOpen] = useState(false);
+
+  const ModalClose = () => {
+    SetIsModalOpen(!IsModalOpen);
+  };
 
   useEffect(() => {
     axios
@@ -29,14 +36,16 @@ export default function MyPage() {
       .then((res) => {
         console.log(res.data);
         SetUserInfo(res.data);
+        SetUserPoint(res.data.user_point);
       })
       .catch((err) => {
         console.log("마이페이지 불러오기 실패");
       });
-  }, []);
+  }, [UserPoint]);
 
   return (
     <div>
+      {IsModalOpen && <PointModal ModalClose={ModalClose} UserPoint={UserPoint} />}
       <Header />
       <main>
         <div className="MyPageMenu">
@@ -63,8 +72,12 @@ export default function MyPage() {
           </div>
           <div className="MyInfo MyInfoRight">
             <div>보유포인트</div>
-            <div className="MyInfoHighlight">{Common.MoneyComma(parseInt(UserInfo.user_point))}</div>
-            <button className="MyPageBtn">포인트충전</button>
+            <div className="MyInfoHighlight">
+              {Common.MoneyComma(parseInt(UserInfo.user_point))}
+            </div>
+            <button className="MyPageBtn" onClick={ModalClose}>
+              포인트충전
+            </button>
           </div>
           <div className="MyInfoDiv"></div>
           <div className="MyInfo MyInfoRight">
