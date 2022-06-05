@@ -7,8 +7,9 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "1234",
   database: "lychee",
+  multipleStatements: true,
 });
 
 app.use(cors());
@@ -672,52 +673,55 @@ app.post("/mypage/:type", function (req, res) {
     case "sell":
       switch (req.body.Option) {
         case "all":
-          SQL = "SELECT * FROM `Product` WHERE seller_id = ?;"
+          SQL = "SELECT * FROM `Product` WHERE seller_id = ?;";
           break;
         case "doing":
-          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=0;"
+          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=0;";
           break;
         case "done":
-          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=1;"
+          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=1;";
           break;
       }
       break;
     case "buy":
       switch (req.body.Option) {
         case "all":
-          SQL = "SELECT * FROM `Product` WHERE buyer_id = ?;"
+          SQL = "SELECT * FROM `Product` WHERE buyer_id = ?;";
           break;
         case "doing":
-          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=0;"
+          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=0;";
           break;
         case "done":
-          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=1;"
+          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=1;";
           break;
       }
       break;
     case "like":
       switch (req.body.Option) {
         case "all":
-          SQL = "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ?;"
+          SQL =
+            "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ?;";
           break;
         case "doing":
-          SQL = "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 0;"
+          SQL =
+            "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 0;";
           break;
         case "done":
-          SQL = "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 1;"
+          SQL =
+            "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 1;";
           break;
       }
       break;
   }
 
-  db.query(SQL, Id, function(err, rows){
-    if(err) {
-      console.log('마이페이지 내역 정보 불러오기 실패', err);
+  db.query(SQL, Id, function (err, rows) {
+    if (err) {
+      console.log("마이페이지 내역 정보 불러오기 실패", err);
     } else {
-      console.log('마이페이지 내역 정보 불러오기 성공');
+      console.log("마이페이지 내역 정보 불러오기 성공");
       res.send(rows);
     }
-  })
+  });
 });
 
 /*
@@ -797,5 +801,65 @@ app.post('/newproduct', function(req, res) {
         console.log("newproduct succeed!");
         res.send({message: "성공"});
       }
+  });
+});
+
+/*
+ * 목적: 마이페이지 포인트내역 불러오기
+ * input: login_id
+ * output: 마이페이지 포인트 내역 / none
+ */
+app.post("/point", function (req, res) {
+  const Id = req.body.Id;
+  const SQL =
+    "SELECT P.deal_date, P.deal_amount, P.left_point, P.receiver_id, U.user_nickname AS receiver_nickname, P.sender_id, S.user_nickname AS sender_nickname, P.product_id, D.product_title \
+  FROM ((`POINT` AS P LEFT OUTER JOIN `PRODUCT` D ON P.product_id = D.product_id) \
+  INNER JOIN `USER` AS U ON P.receiver_id = U.user_id)\
+  INNER JOIN `USER` AS S On P.sender_id = S.user_id\
+  WHERE P.receiver_id = ? OR P.sender_id = ?\
+  ORDER BY deal_date DESC;";
+
+  db.query(SQL, [Id, Id], function (err, rows) {
+    if (err) {
+      console.log("마이페이지 포인트 내역 불러오기 실패", err);
+    } else {
+      console.log("마이페이지 포인트 내역 불러오기 성공");
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 마이페이지 포인트 충전하기
+ * input: user_id, user_password, point_amount
+ * output: true / false
+ */
+app.post("/pointcharge", function (req, res) {
+  const Id = req.body.PointId;
+  const Pw = req.body.PointPw;
+  const PointAmount = req.body.PointAmount;
+  const PointResult = req.body.PointResult;
+  const Date = req.body.Date;
+
+  console.log(Id, Pw, PointAmount, PointResult, Date);
+  const PwCheckSQL = "SELECT * FROM `USER` WHERE user_id=? AND user_pwd=?;";
+  const InsertSQL = "INSERT INTO `POINT` VALUES (0, ?, ?, ?, ?, ?, null);";
+  const UpdateSQL = "UPDATE `USER` SET user_point=? WHERE user_id=?;";
+
+  db.query(PwCheckSQL, [Id, Id], function (err, rows) {
+    if (err) {
+      console.log("아이디, 패스워드 불일치");
+      res.send(false);
+    } else {
+      db.query(InsertSQL+UpdateSQL, [Date, PointAmount, PointResult, Id, Id, PointResult, Id], function(err2, result){
+        if (err2){
+          console.log("포인트 충전 insert 실패");
+          res.send(false);
+        } else {
+          console.log("포인트 충전 insert 성공");
+          res.send(true);
+        }
+      })
+    }
   });
 });
