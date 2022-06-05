@@ -305,7 +305,11 @@ app.post("/login", function (req, res) {
       }
       if (result.length > 0) {
         console.log("login succeed!");
-        res.send({ result: result, message: "일반회원" });
+        if(result[0].user_reliable === -1){
+          res.send({message: "영구정지 처리된 회원입니다!"})
+        }
+        else
+          res.send({ result: result, message: "일반회원" });
       } else {
         db.query(
           "SELECT * FROM `MANAGER` WHERE `manager_id` = ? AND `manager_pw` = ?",
@@ -320,7 +324,7 @@ app.post("/login", function (req, res) {
               res.send({ result: result, message: "매니저" });
             } else {
               console.log("login fail");
-              res.send(false);
+              res.send({message: "로그인 정보가 존재하지 않습니다!"});
             }
           }
         );
