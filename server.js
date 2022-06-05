@@ -7,7 +7,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "alsdlWkd72!",
+  password: "",
   database: "lychee",
 });
 
@@ -550,8 +550,8 @@ app.post("/getmyinfo", function (req, res) {
 
 /*
  * 목적 : 내 정보 변경하기
- * input : id
- * output : user 정보 / null
+ * input : id, pw, nickname, location
+ * output : 실패/성공
  */
 app.post("/changemyinfo", function (req, res) {
   const id = req.body.id;
@@ -714,4 +714,84 @@ app.post("/mypage/:type", function (req, res) {
       res.send(rows);
     }
   })
+});
+
+/*
+ * 목적 : 신고 글 작성
+ * input : 필요한 정보 모두
+ * output : 실패 / 성공
+ */
+app.post('/reportwrite', function(req, res) {
+    const reporterid = req.body.reporterid;
+    const reportedid = req.body.reportedid;
+    const type = req.body.type;
+    const date = req.body.date;
+    const title = req.body.title;
+    const detail = req.body.detail;
+    const attach = req.body.attach
+    const cid = req.body.cid;
+    const pid = req.body.pid;
+
+    const datas = [reporterid, reportedid, date, title, type, detail, attach, cid, pid];
+
+    //console.log(datas);
+    
+    db.query("INSERT INTO `REPORT` (`reporter_id`, `reported_id`, `report_date`, `report_title`, `report_type`,\
+     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?)",
+    datas, (err, result) => {
+        if(err){
+            console.log("writereport error");
+            res.send({message: "실패"});
+        }
+        if(result){
+            console.log("writereport succeed!");
+            res.send({message: "성공"});
+        }
+    });
+});
+
+
+/*
+ * 목적 : 제품 판매/구매 글 작성
+ * input : 
+ * output : 
+ */
+app.post('/newproduct', function(req, res) {
+
+  const date = req.body.date;
+  const sellerid = req.body.sellerid;
+  const buyerid = req.body.buyerid;
+  const like = req.body.like;
+  const image_num = req.body.image_num;
+  const dealflag = req.body.dealflag;
+  const dealtype = req.body.dealtype;
+  const title = req.body.title
+  const category = req.body.category;
+  const price = req.body.price;
+  const detail = req.body.detail;
+  const dealmethod = req.body.dealmethod;
+  const image = req.body.image;
+
+    // const datas = [sellerid, buyerid, title, category, price, like, 
+    //     date, image, image_num, detail, dealmethod, dealtype, dealflag];
+  const datas = [sellerid, buyerid, title, category, price, like, 
+    date, detail, dealmethod, dealtype, dealflag];
+
+  console.log(datas);
+  
+  // db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+  //  `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+  db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+  `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+    datas, (err, result) => {
+      if(err){
+        console.log("newproduct error");
+        res.send({message: "실패"});
+      }
+      if(result){
+          //db.query("SELECT `product_id` FROM `PRODUCT` WHERE ")
+        console.log("newproduct succeed!");
+        res.send({message: "성공"});
+      }
+  });
 });
