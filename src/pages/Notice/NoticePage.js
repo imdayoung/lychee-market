@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
-import momnet from 'moment';
+import moment from 'moment';
 import Header from "../../components/Header"
 import NoticeListComponent from "./components/NoticeListComponent";
-
+import "../../style/Notice.css"
 export default function Notice(){
     // 관리자인지 확인 필요
     const IsManager = true;
@@ -68,7 +68,7 @@ export default function Notice(){
                     </div>
                     <div className="writeNotice">
                         <Link to='/notice/write'>
-                            <button type='button' hidden={IsManager?false:true}>공지 작성</button>
+                            <button type='button' hidden={!IsManager}>공지 작성</button>
                         </Link>
                     </div>
                 </div>
