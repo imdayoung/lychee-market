@@ -30,7 +30,6 @@ export default function MAIN(){
         axios.get('http://localhost:8080/bestcategory')
         .then((res) => {
             SetCategory(res.data);
-            console.log(res.data);
         })
     }, []);
 
@@ -64,6 +63,7 @@ export default function MAIN(){
                     <div>
                         <div className="Description1">Best Category</div>
                         <div className="Description2">오늘 많은 사람들이 관심있게 지켜본 카테고리입니다.</div>
+                        <div className="Categories">{CategoryList}</div>
                     </div>
                 </div>
             </div>
