@@ -21,6 +21,8 @@ import FindPw from './pages/FindPw/FindPw';
 import Register from './pages/Register/Register';
 import ChangeMyInfo from './pages/ChangeMyInfo/ChangeMyInfo'
 import ReportWrite from './pages/ReportWrite/ReportWrite'
+import ReportBoard from './pages/Report/ReportBoard';
+import ReportDetail from './pages/Report/ReportDetail';
 import MyPage from "./pages/MyPage/MyPage";
 
 function App() {
@@ -45,7 +47,9 @@ function App() {
         <Route path="/findpw" element={<FindPw/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/changemyinfo" element={<ChangeMyInfo/>}/>
+        <Route path="/report" element={<ReportBoard/>}/>
         <Route path="/report/write" element={<ReportWrite/>}/>
+        <Route path="/report/detail/*" element={<ReportDetail/>}/>
       </Routes>
     </BrowserRouter>
   );
