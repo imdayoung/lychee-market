@@ -1,0 +1,294 @@
+/*MyPage.js*/
+/*개인정보 라인*/
+.MyPageMenu {
+  width: 100%;
+  height: 134px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #ff3d60;
+}
+
+.MyInfo {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 20px;
+  color: white;
+  background-color: #ff3d60;
+}
+
+#MyInfoNickname {
+  font-size: 24px;
+}
+
+#MyInfoDetail {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  flex-grow: 2;
+}
+
+#MyInfoDetailTitle {
+  text-align: end;
+}
+
+.MyInfoRight {
+  color: black;
+  background-color: white;
+  text-align: right;
+}
+
+.MyInfoDiv {
+  align-self: center;
+  width: 1px;
+  height: 100px;
+  background-color: #ff3d60
+}
+
+.MyInfoHighlight {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.MyPag {
+  width: 214px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MyPageBtn {
+  background: white;
+  border: 1px solid #ff3d60;
+  border-radius: 20px;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+#Reliability {
+  width: 100px;
+  height: 28px;
+  border-radius: 5px;
+  border: 1px solid #ff3d60;
+  margin-top: 8px;
+}
+
+#MyPageSpace {
+  height: 52px;
+}
+
+/*탭바*/
+.MyHistoryTabBar {
+  font-size: 24px;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.MyHistoryTab{
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #cdcdcd;
+}
+
+li {
+  border: 1px solid #cdcdcd;
+}
+
+.TabActive {
+  background-color: #ff3d60;
+  border: 1px solid #ff3d60;
+  color: white;
+}
+
+#MyHistory {
+  padding: 20px;
+  border: 1px solid #cdcdcd;
+}
+
+/*Product.js*/
+#MyPageProduct {
+  height: 300px;
+  border: 1px solid #cdcdcd;
+  font-size: 20px;
+}
+
+#MyPageProductImg {
+  object-fit: cover;
+  width: 100%;
+  height: 222px;
+}
+
+#MyPageProductDetail {
+  padding-top: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.OnlyFontBold {
+  font-weight: bold;
+}
+
+/*ProductHistory*/
+#DropDown {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.MyPageProductList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+/*PointHistory*/
+.MyPagePointTitle {
+  width: 100%;
+  height: 46px;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+table {
+  table-layout: fixed;
+}
+
+th {
+  height: 46px;
+  border: 1px solid #cdcdcd;
+}
+
+td {
+  height: 72px;
+  border: 0;
+  border-bottom: 1px solid #cdcdcd;
+  text-align: center;
+  font-weight: 400;
+}
+
+td:first-child {
+  border-left: 1px solid #cdcdcd;
+  font-size: 20px;
+}
+
+td:nth-child(3) {
+  font-size: 20px;
+}
+
+td:last-child {
+  font-weight: bold;
+  border-right: 1px solid #cdcdcd;
+}
+
+.PinkBold {
+  color: #ff3d60;
+  font-weight: bold;
+}
+
+.GrayBold {
+  color: #8e8e8e;
+  font-weight: bold;
+}
+
+.BlackBold {
+  color: black;
+  font-weight: bold;
+}
+
+.PointTitleDetail {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/*PointModal*/
+#PointModalContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0,0,0,0.5);
+  position: fixed;
+  z-index: 10;
+}
+
+.PointModalMain {
+  width: 600px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: white;
+  transform: translate(-50%, -50%);
+  z-index:100;
+}
+
+.PointModalContent {
+  display: flex;
+  flex-direction: column;
+}
+
+#PointModalTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#CloseIcon {
+  position: absolute;
+  right: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.FontTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.PointModalInput {
+  width: 460px;
+  height: 30px;
+  font-size: 18px;
+  resize: none;
+  outline: none;
+  padding: 10px;
+  border: 1px solid #cdcdcd;
+  margin-top: 20px;
+}
+
+#PointModalBtn {
+  width: 480px;
+  height: 50px;
+  font-size: 18px;
+  outline: none;
+  color: white;
+  background-color: #ff3d60;
+  border: 1px solid #ff3d60;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+#PointModalName {
+  background-color: #ececec;
+}

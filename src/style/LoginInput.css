@@ -1,0 +1,40 @@
+.inputshort,
+.input{
+  height: 50px;
+  width: 450px;
+  
+  /* border: none;
+  background-color: #F8F8F8;
+  또는 */
+  border: 2px solid #CDCDCD;
+  background-color: #FFF;
+  outline: none;
+ 
+  padding-left: 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+.inputshort{
+  width: 350px;
+}
+
+.r_inputshort,
+.r_input{
+  height: 50px;
+  width: 600px;
+  
+  border: 2px solid #CDCDCD;
+  background-color: #FFF;
+  outline: none;
+ 
+  padding-left: 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+.r_inputshort{
+  width: 500px;
+}

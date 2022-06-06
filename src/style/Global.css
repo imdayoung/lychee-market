@@ -1,10 +1,15 @@
 @font-face {
-  font-family: "Noto Sans KR";
-  src: url("./fonts/NotoSansKR-Regular.otf");
+    font-family: "Noto Sans KR";
+    src: url("./fonts/NotoSansKR-Regular.otf");
+}
+
+@font-face {
+    font-family: "Dohyeon";
+    src: url(./fonts/BMDOHYEON_otf.otf);
 }
 
 * {
-  font-family: 'Noto Sans KR';
+    font-family: 'Noto Sans KR';
 }
 
 main {

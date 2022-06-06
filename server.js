@@ -805,55 +805,52 @@ app.post("/mypage/:type", function (req, res) {
     case "sell":
       switch (req.body.Option) {
         case "all":
-          SQL = "SELECT * FROM `Product` WHERE seller_id = ?;";
+          SQL = "SELECT * FROM `Product` WHERE seller_id = ?;"
           break;
         case "doing":
-          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=0;";
+          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=0;"
           break;
         case "done":
-          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=1;";
+          SQL = "SELECT * FROM `Product` WHERE seller_id = ? AND deal_flag=1;"
           break;
       }
       break;
     case "buy":
       switch (req.body.Option) {
         case "all":
-          SQL = "SELECT * FROM `Product` WHERE buyer_id = ?;";
+          SQL = "SELECT * FROM `Product` WHERE buyer_id = ?;"
           break;
         case "doing":
-          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=0;";
+          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=0;"
           break;
         case "done":
-          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=1;";
+          SQL = "SELECT * FROM `Product` WHERE buyer_id = ? AND deal_flag=1;"
           break;
       }
       break;
     case "like":
       switch (req.body.Option) {
         case "all":
-          SQL =
-            "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ?;";
+          SQL = "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ?;"
           break;
         case "doing":
-          SQL =
-            "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 0;";
+          SQL = "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 0;"
           break;
         case "done":
-          SQL =
-            "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 1;";
+          SQL = "SELECT * FROM product P INNER JOIN product_like L ON P.product_id = L.product_id WHERE L.user_id = ? AND P.deal_flag = 1;"
           break;
       }
       break;
   }
 
-  db.query(SQL, Id, function (err, rows) {
-    if (err) {
-      console.log("마이페이지 내역 정보 불러오기 실패", err);
+  db.query(SQL, Id, function(err, rows){
+    if(err) {
+      console.log('마이페이지 내역 정보 불러오기 실패', err);
     } else {
-      console.log("마이페이지 내역 정보 불러오기 성공");
+      console.log('마이페이지 내역 정보 불러오기 성공');
       res.send(rows);
     }
-  });
+  })
 });
 
 /*
@@ -868,16 +865,18 @@ app.post('/reportwrite', function(req, res) {
     const date = req.body.date;
     const title = req.body.title;
     const detail = req.body.detail;
-    const attach = req.body.attach
+
+    const attach = req.body.fileName;
     const cid = req.body.cid;
     const pid = req.body.pid;
 
     const datas = [reporterid, reportedid, date, title, type, detail, attach, cid, pid];
 
-    //console.log(datas);
+    console.log(datas);
     
     db.query("INSERT INTO `REPORT` (`reporter_id`, `reported_id`, `report_date`, `report_title`, `report_type`,\
-     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?)",
+     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?);",
+
     datas, (err, result) => {
         if(err){
             console.log("writereport error");
@@ -995,3 +994,28 @@ app.post("/pointcharge", function (req, res) {
     }
   });
 });
+const path = require("path");
+const multer = require("multer");
+
+app.use(express.static("public"));
+
+const storage = multer.diskStorage({
+  destination: "./public/images/report",
+  filename: function(req, file, cb) {
+    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }
+});
+
+app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  console.log(req.file.filename);
+  res.send({
+    fileName: req.file.filename
+  });
+});
+
+

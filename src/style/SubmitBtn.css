@@ -1,0 +1,24 @@
+button.NSubmitBtn,
+button.SubmitBtn,
+button.r_NSubmitBtn,
+button.r_SubmitBtn{
+  height: 50px;
+  width: 470px;
+  font-size: 16px;
+  border: none;
+  background-color: #FF9696;
+  color: #FFF;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+button.NSubmitBtn,
+button.r_NSubmitBtn{
+  background-color: #999999;
+  opacity: 0.7;
+}
+
+button.r_NSubmitBtn,
+button.r_SubmitBtn{
+  width: 620px;
+}
