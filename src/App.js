@@ -21,6 +21,7 @@ import FindPw from './pages/FindPw/FindPw';
 import Register from './pages/Register/Register';
 import ChangeMyInfo from './pages/ChangeMyInfo/ChangeMyInfo'
 import ReportWrite from './pages/ReportWrite/ReportWrite'
+import MyPage from "./pages/MyPage/MyPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/notice/write" element={<NoticeWrite/>}/>
         <Route path="/notice/search/*" element={<NoticeSearch/>}/>
         <Route path="/msgbox" element={<Message/>}/>
+        <Route path="/mypage" element={<MyPage/>} />
         <Route path="/findid" element={<FindId/>}/>
         <Route path="/findpw" element={<FindPw/>}/>
         <Route path="/register" element={<Register/>}/>
