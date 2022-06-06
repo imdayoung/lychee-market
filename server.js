@@ -374,11 +374,7 @@ app.post("/login", function (req, res) {
       }
       if (result.length > 0) {
         console.log("login succeed!");
-        if(result[0].user_reliable === -1){
-          res.send({message: "영구정지 처리된 회원입니다!"})
-        }
-        else
-          res.send({ result: result, message: "일반회원" });
+        res.send({ result: result, message: "일반회원" });
       } else {
         db.query(
           "SELECT * FROM `MANAGER` WHERE `manager_id` = ? AND `manager_pw` = ?",
@@ -393,7 +389,7 @@ app.post("/login", function (req, res) {
               res.send({ result: result, message: "매니저" });
             } else {
               console.log("login fail");
-              res.send({message: "로그인 정보가 존재하지 않습니다!"});
+              res.send(false);
             }
           }
         );
@@ -623,8 +619,8 @@ app.post("/getmyinfo", function (req, res) {
 
 /*
  * 목적 : 내 정보 변경하기
- * input : id, pw, nickname, location
- * output : 실패/성공
+ * input : id
+ * output : user 정보 / null
  */
 app.post("/changemyinfo", function (req, res) {
   const id = req.body.id;
