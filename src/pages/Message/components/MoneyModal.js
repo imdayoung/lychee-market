@@ -3,51 +3,46 @@ import axios from "axios";
 import moment from "moment";
 import * as common from "../../../components/CommonFunc";
 
-const PointModal = ({ ModalClose, UserPoint }) => {
-  const [PointId, SetPointId] = useState("");
-  const [PointPw, SetPointPw] = useState("");
+const MoneyModal = ({ ModalClose, SenderId, ReceiverName, ProductId }) => {
+  const [SenderPw, SetSenderPw] = useState("");
   const [PointAmount, SetPointAmount] = useState(0);
 
-  const PointBtnHandler = (e) => {
+  const MoneyBtnHandler = (e) => {
     const CheckCharge = window.confirm(
-      `${PointId}로 ${common.MoneyComma(
+      `${ReceiverName.split("(")[0]}(으)로 ${common.MoneyComma(
         PointAmount
-      )} 포인트를 충전하시겠습니까?`
+      )} 포인트를 송금하시겠습니까?`
     );
     if (CheckCharge) {
       axios
-        .post("http://localhost:8080/pointcharge", {
-          PointId: PointId,
-          PointPw: PointPw,
+        .post("http://localhost:8080/pointsend", {
+          ReceiverId: ReceiverName.split("(")[1].split(")")[0],
+          SenderId: SenderId,
+          SenderPw: SenderPw,
           PointAmount: parseInt(PointAmount),
-          PointResult: parseInt(PointAmount) + parseInt(UserPoint),
           Date: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
+          ProductId: ProductId,
         })
         .then((res) => {
           if (res.data === true) {
-            if(!alert("충전에 성공했습니다")) {
-              window.location.href='/mypage';
-            };
-
+            alert("송금이 완료되었습니다.");
           } else {
-            alert(
-              "충전에 실패했습니다. \n정확한 아이디와 비밀번호를 입력해주세요"
-            );
+            alert(res.data);
           }
         })
         .catch((err) => {
-          alert("충전에 실패했습니다. \n다시 시도해주세요");
+          alert("송금을 실패했습니다. 다시 시도해주세요.");
         });
     } else {
-      alert("충전이 취소되었습니다.");
+      alert("송금이 취소되었습니다.");
     }
   };
 
   return (
-    <div id="PointModalContainer">
+    <div id="MsgModalContainer">
       <div className="PointModalMain">
         <div id="PointModalTitle">
-          <span className="FontTitle">포인트 충전</span>
+          <span className="FontTitle">포인트 송금</span>
           <img
             id="CloseIcon"
             alt="닫기"
@@ -56,24 +51,20 @@ const PointModal = ({ ModalClose, UserPoint }) => {
           />
         </div>
         <div className="PointModalContent">
+          <div className="PointModalInput" id="PointModalName">
+            {ReceiverName}
+          </div>
           <input
             className="PointModalInput"
-            placeholder="아이디"
-            onChange={(e) => {
-              SetPointId(e.target.value);
-            }}
-          />
-          <input
-            className="PointModalInput"
-            placeholder="비밀번호"
+            placeholder="내 비밀번호"
             type="password"
             onChange={(e) => {
-              SetPointPw(e.target.value);
+              SetSenderPw(e.target.value);
             }}
           />
           <input
             className="PointModalInput"
-            placeholder="충전할 금액"
+            placeholder="송금할 금액"
             type="number"
             min="0"
             onChange={(e) => {
@@ -83,11 +74,11 @@ const PointModal = ({ ModalClose, UserPoint }) => {
           <button
             id="PointModalBtn"
             onClick={() => {
-              PointBtnHandler();
+              MoneyBtnHandler();
               ModalClose();
             }}
           >
-            충전하기
+            송금하기
           </button>
         </div>
       </div>
@@ -95,4 +86,4 @@ const PointModal = ({ ModalClose, UserPoint }) => {
   );
 };
 
-export default PointModal;
+export default MoneyModal;

@@ -51,7 +51,7 @@ export default function PointHistory(props) {
             <th colSpan={2}>거래 대상</th>
             <th colSpan={3}>거래 물품</th>
             <th colSpan={2}>거래 포인트</th>
-            <th colSpan={2}>잔여 포인트</th>
+            {/* <th colSpan={2}>잔여 포인트</th> */}
           </tr>
         </thead>
         <tbody>

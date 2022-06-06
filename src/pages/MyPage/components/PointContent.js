@@ -28,7 +28,7 @@ export default function PointContent(props) {
         {props.DealAmount > 0 ? "+" : ""}
         {common.MoneyComma(props.DealAmount)}
       </td>
-      <td colSpan={2}>{common.MoneyComma(props.Point)}</td>
+      {/* <td colSpan={2}>{common.MoneyComma(props.Point)}</td> */}
     </tr>
   );
 }
