@@ -3,8 +3,9 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function ItemInfo(props) {
-    let Location = useLocation();
-    const DealType = Location.pathname.split('/').slice(1)[0];
+    var DealType;
+    if(props.deal_type === 0)   DealType = 'buy';
+    else                        DealType = 'sell';
 
     return (
             <div className='ItemInfo'>

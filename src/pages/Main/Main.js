@@ -17,7 +17,8 @@ export default function MAIN(){
         product_id: '',
         product_img: '',
         product_title: '',
-        product_price: ''
+        product_price: '',
+        deal_type: ''
     }]);
 
     // 전체 구매해요 물건 불러오기
@@ -38,7 +39,7 @@ export default function MAIN(){
         ProductList.push(<div id="NoProduct">상품이 존재하지 않습니다.</div>);
     } else {
         for(let i = 0; i < Product.length; i++) {
-            ProductList.push(<ItemInfo product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
+            ProductList.push(<ItemInfo deal_type={Product[i].deal_type} product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
         }
     }
 
