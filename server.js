@@ -682,7 +682,7 @@ app.post("/manager/product", function (req, res) {
       console.log("게시글 삭제 오류", result);
       res.send(false);
     }
-    if (rows) {
+    if (result) {
       console.log("게시글 삭제 결과", result);
       res.send(true);
     }
@@ -724,7 +724,7 @@ app.post("/manager/user/reliable", function (req, res) {
       console.log("사용자 신뢰도 조정 오류", result);
       res.send(false);
     }
-    if (rows) {
+    if (result) {
       console.log("사용자 신뢰도 조정 결과", result);
       res.send(true);
     }
@@ -745,7 +745,7 @@ app.post("/manager/user", function (req, res) {
       console.log("사용자 영구 정지 오류", result);
       res.send(false);
     }
-    if (rows) {
+    if (result) {
       console.log("사용자 영구 정지 결과", result);
       res.send(true);
     }
