@@ -1,0 +1,78 @@
+.r_row{
+    text-align: left;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    height: 60px;
+}
+
+.r_th{
+    width: 180px;
+    padding-left: 8px;
+    font-size: 16px;
+}
+
+.r_td, .r_td_content{
+    padding-left: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    height: 32px;
+    font-size: 16px;
+    outline: none;
+}
+
+.r_td_content{
+    height: 250px;
+    padding-top: 10px;
+    resize: none;
+}
+
+.r_td_image{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    /* min-height: 40px; */
+}
+
+.submitreport{
+    width: 1200px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+
+.report{
+    width: 1280px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report .buttons .back,
+.report .buttons .submit,
+.report .buttons .Nsubmit{
+    width: 160px;
+    height: 50px;
+    border: none;
+    background-color: #FF9696;
+    color: #FFF;
+    margin: 8px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.report .buttons .back{
+    border: 2px solid #888888;
+    background-color: #FFFFFF;
+    color: #888888;
+}
+
+.report .buttons .Nsubmit{
+    background-color: #999999;
+    opacity: 0.7;
+}

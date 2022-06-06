@@ -1,12 +1,10 @@
-import '../../style/LoginHeader.css';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-
-export default function LoginHeader(props){
+export default function RegHeader(props){
   return(
     <header>
       <nav className="Top">
-        <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
+      <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
           <div className="TopNav">로그인</div>
         </Link>
         <Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>
@@ -19,13 +17,13 @@ export default function LoginHeader(props){
       
       <div className="Divider"></div>
 
-      <div className="Title2">
+      <div className="Title">
         <div className="TitleName2">
           <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-            <div id="Logo2"></div>
+            <div id="Logo3"></div>
           </Link>
           <div id="TitleText2">리치마켓</div>
-          <div id="TitleDetail2"> | 로그인</div>
+          <div id="TitleDetail2"> | 회원가입</div>
         </div>
       </div>
     </header>

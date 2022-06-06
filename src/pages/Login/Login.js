@@ -22,10 +22,6 @@ function Login(){
       id: id,
       pw: pw,
     }).then((res) => {
-      if(res.data === false){
-        alert("로그인 정보가 존재하지 않습니다!");
-        return;
-      }
       if(res.data.message === "일반회원"){
         const result =  res.data.result[0];
         localStorage.setItem("user_id", result.user_id);
@@ -45,6 +41,9 @@ function Login(){
         localStorage.setItem("manager_nickname", result.manager_nickname);
         setCookie("is_login", true, 10);
         navigate('/manager');
+      }
+      else if(res.data.message){
+        alert(res.data.message);
       }
     })
   }
