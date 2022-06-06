@@ -29,10 +29,10 @@ export default function SELLSEARCH(){
 
     let ProductList = [];
     if(Product.length === 0) {
-        ProductList.push(<div id="NoProduct">상품이 존재하지 않습니다.</div>);
+        ProductList.push(<div key='0' id="NoProduct">상품이 존재하지 않습니다.</div>);
     } else {
         for(let i = 0; i < Product.length; i++) {
-            ProductList.push(<ItemInfo product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
+            ProductList.push(<ItemInfo key={i} product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
         }
     }
 

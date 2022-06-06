@@ -47,8 +47,10 @@ export default function SELLDETAIL(){
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             // return res;
-        })
-    }, []);
+        });
+    }, [ProdId, ProductImg]);
+
+    console.log("nn: " + ProductImg);
 
     return (
         <div>
@@ -59,7 +61,7 @@ export default function SELLDETAIL(){
                 <div>
                     <div id="Category">카테고리 &gt; {ProductCategory}</div>
                     <div id="ImageDiv">
-                        <img id='DetailItemImage' src={ProductImg} alt='상품 이미지'></img>
+                        <img id='DetailItemImage' src={'/'+ProductImg} alt='상품 이미지'></img>
                     </div>
                     <div id="DetailDescription">
                         <div id="DetailItemTitle">{ProductTitle}</div>

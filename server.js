@@ -868,7 +868,22 @@ app.get('/buy', function(req, res) {
 // 구매해요 상품 검색
 app.get('/buy/search/:target', function(req, res) {
 	const Target = "%"+req.params.target+"%";
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ?";
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price ASC";
+	db.query(SQL, Target, (err, result) => {
+		if(err) {
+			console.log("구매해요 상품 검색 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+app.get('/buy/search/distance/:target', function(req, res) {
+	const Target = "%"+req.params.target+"%";
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price DESC";
 	db.query(SQL, Target, (err, result) => {
 		if(err) {
 			console.log("구매해요 상품 검색 오류", err);
@@ -910,6 +925,21 @@ app.get('/sell/detail/:product_id', function(req, res) {
 			res.send(result);
 		}
 	})
+})
+
+app.get('/idtonickname/:seller_id', function(req, res) {
+  const SellerId = req.params.seller_id;
+  var SQL = "SELECT user_nickname FROM `USER` WHERE user_id=?"
+  db.query(SQL,SellerId, (err, result) => {
+    if(err) {
+			console.log("닉네임 얻어오기 오류", err);
+			res.send(false);
+		}
+		if(result) {
+			console.log(result);
+			res.send(result);
+		}
+  })
 })
 
 /* 베스트 카테고리 */

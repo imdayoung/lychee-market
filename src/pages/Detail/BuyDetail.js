@@ -6,6 +6,7 @@ import '../../style/Detail.css';
 // import ItemInfo from "./components/ItemInfo";
 
 export default function BUYDETAIL(){
+    const Id = 'mouse0429';
     let Location = useLocation();
 
     // 물건 정보
@@ -22,6 +23,7 @@ export default function BUYDETAIL(){
     const [DealMethod, SetDealMethod] = useState('');
     const [DealType, SetDealType] = useState(0);
     const [DealFlag, SetDealFlag] = useState(0);
+    const [SellerNick, SetSellerNick] = useState('');
 
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
@@ -41,13 +43,22 @@ export default function BUYDETAIL(){
             SetProductImgNum(res.data[0].product_img_num);
             SetProductDetail(res.data[0].product_detail);
             SetDealMethod(res.data[0].deal_method);
-            SetDealType();
             if(res.data[0].deal_type == 1)  SetDealType('판매해요');
             else                            SetDealType('구매해요');
             if(res.data[0].deal_flag == 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
-            // return res;
-        })
+            // console.log("닉네임 달라고" + SellerId);
+            // axios.get('http://localhost:8080/idtonickname/'+SellerId)
+            // .then((res) => {
+            //     SetSellerNick(res.data[0].user_nickname);
+            // })
+        })   
+    }, []);
+    
+
+    useEffect(() => {
+        console.log("닉네임 내놔"+SellerId);
+        
     }, []);
 
     return (
@@ -59,7 +70,7 @@ export default function BUYDETAIL(){
                 <div>
                     <div id="Category">카테고리 &gt; {ProductCategory}</div>
                     <div id="ImageDiv">
-                        <img id='DetailItemImage' src={ProductImg} alt='상품 이미지'></img>
+                        <img id='DetailItemImage' src={'/'+ProductImg} alt='상품 이미지'></img>
                     </div>
                     <div id="DetailDescription">
                         <div id="DetailItemTitle">{ProductTitle}</div>

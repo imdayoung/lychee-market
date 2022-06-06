@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function ItemInfo(props) {
     let Location = useLocation();
     const DealType = Location.pathname.split('/').slice(1)[0];
+    console.log("sdfsdkfljsdkalf: "+props.image);
 
     return (
             <div className='ItemInfo'>

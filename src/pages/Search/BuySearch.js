@@ -19,6 +19,18 @@ export default function BUYSEARCH(){
 
     const HandlerOption = (e) => {
         SetOption(e.target.value);
+        if(e.target.value === 'distance'){
+            axios.get('http://localhost:8080/buy/search/distance/'+Target)
+            .then((res) => {
+                SetProduct(res.data);
+            })
+        } else {
+            axios.get('http://localhost:8080/buy/search/'+Target)
+            .then((res) => {
+                SetProduct(res.data);
+            })
+        }
+        
     }
 
     // location의 pathname으로부터 검색 단어 얻기
