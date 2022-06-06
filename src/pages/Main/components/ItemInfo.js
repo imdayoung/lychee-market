@@ -4,13 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function ItemInfo(props) {
     let Location = useLocation();
-
-    useEffect(() => {
-        console.log('location', Location);
-    }, [Location]);
     const DealType = Location.pathname.split('/').slice(1)[0];
-    console.log(DealType);
-    
 
     return (
             <div className='ItemInfo'>

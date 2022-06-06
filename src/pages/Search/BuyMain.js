@@ -18,8 +18,6 @@ export default function BUY(){
         axios.get('http://localhost:8080/buy')
         .then((res) => {
             SetProduct(res.data);
-            console.log(res.data);
-            // return res;
         })
     }, []);
 

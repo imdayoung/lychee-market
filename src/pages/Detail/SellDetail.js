@@ -24,16 +24,12 @@ export default function SELLDETAIL(){
     const [DealFlag, SetDealFlag] = useState(0);
 
     // production_id 얻기
-    useEffect(() => {
-        console.log('location', Location);
-    }, [Location]);
     const ProdId = Location.pathname.split('/').slice(-1)[0];
 
     // 물건 세부정보 불러오기
     useEffect(() => {
         axios.get('http://localhost:8080/sell/detail/'+ProdId)
         .then((res) => {
-            console.log(res.data[0]);
             SetProductId(res.data[0].product_id);
             SetSellerId(res.data[0].seller_id);
             SetProductTitle(res.data[0].product_title);

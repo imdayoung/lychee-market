@@ -18,8 +18,6 @@ export default function SELL(){
         axios.get('http://localhost:8080/sell')
         .then((res) => {
             SetProduct(res.data);
-            console.log(res.data);
-            // return res;
         })
     }, []);
 

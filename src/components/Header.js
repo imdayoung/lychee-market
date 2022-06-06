@@ -1,18 +1,8 @@
 import '../style/Header.css';
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Header(props){
-  let Location = useLocation();
-
-  useEffect(() => {
-      console.log('location', Location);
-  }, [Location]);
-  const DealType = Location.pathname.split('/').slice(1)[0];
-  console.log(DealType);
-
-  const [Target, SetTarget] = useState('');
-
   const {keyword} = props;
   let exist = false;
   

@@ -3,9 +3,15 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Header from "../../components/Header"
 import ItemInfo from "./components/ItemInfo";
+import CategoryInfo from "./components/CategoryInfo";
 import '../../style/Main.css';
 
 export default function MAIN(){
+    // 카테고리 정보
+    const [Category, SetCategory] = useState([{
+        product_category: ''
+    }]);
+
     // 물건 정보
     const [Product, SetProduct] = useState([{
         product_id: '',
@@ -19,8 +25,12 @@ export default function MAIN(){
         axios.get('http://localhost:8080/all')
         .then((res) => {
             SetProduct(res.data);
+        })
+
+        axios.get('http://localhost:8080/bestcategory')
+        .then((res) => {
+            SetCategory(res.data);
             console.log(res.data);
-            // return res;
         })
     }, []);
 
@@ -30,6 +40,15 @@ export default function MAIN(){
     } else {
         for(let i = 0; i < Product.length; i++) {
             ProductList.push(<ItemInfo product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
+        }
+    }
+
+    let CategoryList = [];
+    if(Category.length === 0) {
+        CategoryList.push(<div id="NoProduct">오늘 올라온 상품이 없습니다.</div>);
+    } else {
+        for(let i = 0; i < Category.length; i++) {
+            CategoryList.push(<CategoryInfo name={Category[i].product_category}></CategoryInfo>)
         }
     }
 

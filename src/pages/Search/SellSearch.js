@@ -16,9 +16,6 @@ export default function SELLSEARCH(){
     }]);
 
     // location의 pathname으로부터 검색 단어 얻기
-    useEffect(()=>{
-        console.log('location', Location);
-    }, [Location]);
     const Target = Location.pathname.split('/').slice(-1)[0];
 
     // 구매해요 물건 불러오기
@@ -26,7 +23,6 @@ export default function SELLSEARCH(){
         axios.get('http://localhost:8080/sell/search/'+Target)
         .then((res) => {
             SetProduct(res.data);
-            console.log(res.data);
             // return res;
         })
     }, [Target]);

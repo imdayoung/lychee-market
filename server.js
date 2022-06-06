@@ -912,6 +912,21 @@ app.get('/sell/detail/:product_id', function(req, res) {
 	})
 })
 
+/* 베스트 카테고리 */
+app.get('/bestcategory', function(req, res) {
+  var SQL = "SELECT product_category FROM `PRODUCT` WHERE DATE_FORMAT(product_date, '%Y-%m-%d')=DATE_FORMAT(now(), '%Y-%m-%d') GROUP BY product_category ORDER BY COUNT(product_category) DESC;"
+  db.query(SQL, (err, result) => {
+    if(err) {
+      console.log("상품 세부정보 불러오기 오류", err);
+			res.send(false);
+		}
+		if(result) {
+			console.log(result);
+			res.send(result);
+		}
+  })
+})
+
 const path = require("path");
 const multer = require("multer");
 
