@@ -7,7 +7,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "1234",
+  password: "sally1926*",
   database: "lychee",
 });
 
@@ -799,6 +799,72 @@ app.post('/newproduct', function(req, res) {
         console.log("newproduct succeed!");
         res.send({message: "성공"});
       }
+  });
+});
+
+
+/*
+ * 목적 : 문의 글 작성
+ * input : 필요한 정보 모두
+ * output : 실패 / 성공
+ */
+app.post('/qnawrite', function(req, res) {
+  const id = req.body.id;
+  const title = req.body.title;
+  const category = req.body.category;
+  const pflag = req.body.pflag;
+  const content = req.body.content;
+  const date = req.body.date;
+  const view = req.body.view;
+
+  const datas = [id, date, category, title, content, view, pflag];
+  console.log(datas);
+  
+  db.query("INSERT INTO `QNA` (`q_id`, `q_date`, `q_category`, `q_title`,\
+  `q_content`, `view`, `private_flag`) VALUES (?,?,?,?,?,?,?);",
+
+  datas, (err, result) => {
+      if(err){
+          console.log("writeqna error");
+          res.send(false);
+      }
+      if(result){
+          console.log("writeqna succeed!");
+          db.query("SELECT `qna_id` FROM `QNA` WHERE `q_id`=? AND `q_date`=? AND `q_category`=? AND\
+          `q_title`=? AND `q_content`=? AND `view`=? AND `private_flag`=?",
+          datas, (err, result) => {
+            if(err){
+              console.log("writeqna_get qna id error");
+              return;
+            }
+            if(result){
+              console.log("writeqna_get qna id error");
+              res.send({id: result[0].qna_id});
+            }
+          })
+          //res.send();
+      }
+  });
+});
+
+/*
+ * 목적: qna 목록
+ * input:
+ * output: 전체 문의사항 정보 / false
+ */
+app.get("/qna", function (req, res) {
+  const SQL =
+    "SELECT `qna_id`,`q_id`,`q_date`,`q_category`,`q_title`,`a_id`,`view`,`private_flag` FROM `NOTICE`";
+  db.query(SQL, function (err, rows) {
+    if(err) {
+      console.log("get qna error", err);
+      res.send(false);
+    }
+    if(rows) {
+      console.log("get qna result ", rows);
+      if(rows[0].private_flag === '')
+      res.send(rows);
+    }
   });
 });
 

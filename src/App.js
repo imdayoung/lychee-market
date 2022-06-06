@@ -22,6 +22,8 @@ import Register from './pages/Register/Register';
 import ChangeMyInfo from './pages/ChangeMyInfo/ChangeMyInfo'
 import ReportWrite from './pages/ReportWrite/ReportWrite'
 import MyPage from "./pages/MyPage/MyPage";
+import QnAWrite from './pages/QnA/QnAWrite';
+import QnA from './pages/QnA/QnA';
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/changemyinfo" element={<ChangeMyInfo/>}/>
         <Route path="/report/write" element={<ReportWrite/>}/>
+        <Route path="/qna/write" element={<QnAWrite/>}/>
+        <Route path="/qna" element={<QnA/>}/>
       </Routes>
     </BrowserRouter>
   );
