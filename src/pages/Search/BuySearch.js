@@ -7,6 +7,8 @@ import ItemInfo from "./components/ItemInfo";
 export default function BUYSEARCH(){
     let Location = useLocation();
 
+    const [Option, SetOption] = useState("price");
+
     // 물건 정보
     const [Product, SetProduct] = useState([{
         product_id: '',
@@ -14,6 +16,10 @@ export default function BUYSEARCH(){
         product_title: '',
         product_price: ''
     }]);
+
+    const HandlerOption = (e) => {
+        SetOption(e.target.value);
+    }
 
     // location의 pathname으로부터 검색 단어 얻기
     useEffect(()=>{
@@ -46,10 +52,25 @@ export default function BUYSEARCH(){
                 <Header/>
             </div>
             <div className="Main">
-                <div className="Descript"><button id="WriteButton" type="submit">구매글쓰기</button></div>
+                <div className="Descript">
+                <div id="CategoryDiv">카테고리 </div>
+                    <div id="Symbol"> &gt;</div>
+                    <div id="InlineBlock">
+                        <select id="CategorySelect">
+                            <option key="" value="">전체</option>
+                        </select>
+                    </div>
+                    <button id="WriteButton" type="submit">구매글쓰기</button></div>
                 <div>
                     <div id="ResultInfo"><span id="TargetWorld">{decodeURI(Target)}</span>에 대한 검색결과입니다.</div>
-                     {ProductList}
+                    <div>
+                        <select id="SearchSelect" onChange={HandlerOption}>
+                            <option key="price" value="price">가격순</option>
+                            <option key="distance" value="distance">거리순</option>
+                        </select> 
+                    </div>
+                    
+                    {ProductList}
                 </div>
             </div>
         </div>

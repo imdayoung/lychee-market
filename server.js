@@ -9,6 +9,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "1234",
   database: "lychee",
+  dateStrings: "date"
 });
 
 app.use(cors());
@@ -801,6 +802,115 @@ app.post('/newproduct', function(req, res) {
       }
   });
 });
+
+/* 전체 상품 */
+app.get('/all', function(req, res) {
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` ORDER BY `product_date` DESC"
+	db.query(SQL, (err, result) => {
+		if(err) {
+			console.log("상품 불러오기 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+/* 검색 및 정렬 */
+// 판매해요 상품
+app.get('/sell', function(req, res) {
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=1";
+	db.query(SQL, (err, result) => {
+		if(err) {
+			console.log("판매해요 상품 불러오기 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+// 판매해요 상품 검색
+app.get('/sell/search/:target', function(req, res) {
+	const Target = "%"+req.params.target+"%";
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=1 AND `product_title` LIKE ?";
+	db.query(SQL, Target, (err, result) => {
+		if(err) {
+			console.log("판매해요 상품 검색 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+// 구매해요 상품
+app.get('/buy', function(req, res) {
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0";
+	db.query(SQL, (err, result) => {
+		if(err) {
+			console.log("구매해요 상품 불러오기 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+// 구매해요 상품 검색
+app.get('/buy/search/:target', function(req, res) {
+	const Target = "%"+req.params.target+"%";
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ?";
+	db.query(SQL, Target, (err, result) => {
+		if(err) {
+			console.log("구매해요 상품 검색 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+/* 상품 상세 보기 */
+app.get('/buy/detail/:product_id', function(req, res) {
+	const ProductId = req.params.product_id;
+	var SqlDetail = "SELECT * FROM `PRODUCT` WHERE product_id=?";
+	db.query(SqlDetail, ProductId, (err, result) => {
+		if(err) {
+			console.log("상품 세부정보 불러오기 오류", err);
+			res.send(false);
+		}
+		if(result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+app.get('/sell/detail/:product_id', function(req, res) {
+	const ProductId = req.params.product_id;
+	var SqlDetail = "SELECT * FROM `PRODUCT` WHERE product_id=?";
+	db.query(SqlDetail, ProductId, (err, result) => {
+		if(err) {
+			console.log("상품 세부정보 불러오기 오류", err);
+			res.send(false);
+		}
+		if(result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
 
 const path = require("path");
 const multer = require("multer");
