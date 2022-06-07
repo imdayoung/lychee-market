@@ -1,6 +1,8 @@
 import '../style/Header.css';
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import getCookie from './GetCookie';
+import setCookie from './SetCookie';
 
 export default function Header(props){
   let Location = useLocation();
@@ -12,6 +14,18 @@ export default function Header(props){
   console.log(DealType);
 
   const [Target, SetTarget] = useState('');
+  
+  const cookie = getCookie("is_login");
+  if(cookie === "true"){
+    // const tempid = localStorage.getItem("user_id");
+    // alert(tempid);
+    //로그인 없애고 로그아웃 나타내기
+  }
+
+  const onLogoutClick = () => {
+    setCookie("is_login", true, -1);
+    localStorage.clear();
+  }
 
   const {keyword} = props;
   let exist = false;
