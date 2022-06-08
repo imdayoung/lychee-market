@@ -36,19 +36,19 @@ export default function MAIN(){
 
     let ProductList = [];
     if(Product.length === 0) {
-        ProductList.push(<div id="NoProduct">상품이 존재하지 않습니다.</div>);
+        ProductList.push(<div key='0' id="NoProduct">상품이 존재하지 않습니다.</div>);
     } else {
         for(let i = 0; i < Product.length; i++) {
-            ProductList.push(<ItemInfo deal_type={Product[i].deal_type} product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
+            ProductList.push(<ItemInfo key={i} deal_type={Product[i].deal_type} product_id={Product[i].product_id} image={Product[i].product_img} title={Product[i].product_title} price={Product[i].product_price+"원"}/>)
         }
     }
 
     let CategoryList = [];
     if(Category.length === 0) {
-        CategoryList.push(<div id="NoProduct">오늘 올라온 상품이 없습니다.</div>);
+        CategoryList.push(<div key='0' id="NoProduct">오늘 올라온 상품이 없습니다.</div>);
     } else {
         for(let i = 0; i < Category.length; i++) {
-            CategoryList.push(<CategoryInfo name={Category[i].product_category}></CategoryInfo>)
+            CategoryList.push(<CategoryInfo key={i} name={Category[i].product_category}></CategoryInfo>)
         }
     }
 

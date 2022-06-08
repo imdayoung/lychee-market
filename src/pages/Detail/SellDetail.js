@@ -50,8 +50,6 @@ export default function SELLDETAIL(){
         });
     }, [ProdId, ProductImg]);
 
-    console.log("nn: " + ProductImg);
-
     return (
         <div>
             <div className='Head'>

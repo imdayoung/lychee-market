@@ -21,7 +21,7 @@ export default function Header(props){
 
       <div className="Title">
         <div className="TitleName">
-          <div id="Logo"></div>
+        <Link to={{pathname:'/'}} id='LinkNoLine'><div id="Logo"></div></Link>
           <div id="TitleText2">리치마켓</div>
         </div>
         <div className="Search">
