@@ -2,23 +2,17 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import Header from "../../components/Header"
-import '../../style/QnA.css'
 import QnAListComponent from "./components/QnAListComponent";
-import getCookie from "../../components/GetCookie";
 
-function QnA() {
-  const cookie = getCookie("is_login");
-  var IsManager = false;
-  let userid = ''
-  const [SearchWord, SetSearchWord] = useState('');
-  
-  if(cookie === "true"){
-    userid = localStorage.getItem("user_id");
-    const managerid = localStorage.getItem("manager_id");
-    if(managerid !== null)
-      IsManager = true;
-  }
-  
+export default function QnASearch(props){
+  // 관리자인지 확인 필요
+  const IsManager = true;
+
+  // 검색 단어
+  const [Word, SetWord] = useState('');
+  const [SearchWord, SetSearchWord] = useState(props.searchword);
+
+  // 문의사항 정보
   const [QnA, setQnA] = useState([{
     qna_id: '',
     q_id: '',
@@ -28,18 +22,20 @@ function QnA() {
     a_id: '',
     view: '',
     private_flag: '',
-  }]);
+  }]);   
 
-  useEffect(() => {
-    Axios.get('http://localhost:8080/qna')
-    .then((res) => {
-      setQnA(res.data);
-    });
-  }, []);
+  // 검색한 공지사항 정보 불러오기
+  useEffect(()=>{
+      Axios.get('http://localhost:8080/qna/search/'+SearchWord)
+      .then((res)=>{
+          console.log(res.data);
+          SetNotice(res.data);
+      });
+  },[SearchWord]);
 
   let QnAList = [];
   if(QnA.length === 0){
-    QnAList.push(<tr key={0} className="q_list_row"><td colSpan='6'>문의사항이 존재하지 않습니다.</td></tr>)
+    QnAList.push(<tr key={0} className="q_list_row"><td colSpan='6'>검색된 결과가 없습니다.</td></tr>)
   }
   else{
     for(let i=QnA.length-1; i>=0; i--){
@@ -57,7 +53,7 @@ function QnA() {
         />
       );
     }
-  }
+  }   
 
   return (
     <div className="main">
@@ -80,9 +76,9 @@ function QnA() {
         </table>
         <div className="QnABottom">
           <div className="searchQnA">
-            <input type='text' onChange={(event) => SetSearchWord(event.target.value)}/>
-            <Link to={{pathname: '/qna/search/'}} searchword={SearchWord}>
-              <button type='button'>검색</button>                       
+            <input type='text' onChange={(event) => SetWord(event.target.value)}/>
+            <Link to={{pathname: '/qna/search/'+Word}}>
+              <button type='button'onClick={()=>{SetSearchWord(Word)}}>검색</button>                       
             </Link>
           </div>
           <div className="writeQnA">
@@ -95,5 +91,3 @@ function QnA() {
     </div>
   )
 }
-
-export default QnA;

@@ -4,14 +4,21 @@ import Axios from 'axios'
 import QnACategory from "../../components/QnACategory";
 import Header from "../../components/Header";
 
-import '../../style/QnA.css'
+import '../../style/QnA.css';
+import getCookie from "../../components/GetCookie";
 
 function QnAWrite(){
   //들어갈 내용 : q_id, q_date, q_catgory, q_content, view=0, private_flag = 0이면 비공개
   const navigate = useNavigate();
   const location = useLocation();
-
-  const id = 'idtest2';  //로그인 정보에서 받아오기 ...
+  //const [id, setId] = useState('');
+  let id = "";
+  //const id = 'idtest2';  //로그인 정보에서 받아오기 ...
+  const cookie = getCookie("is_login");
+  if(cookie === "true"){
+    id = localStorage.getItem("user_id");
+  }
+  
   const view = 0;
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -66,7 +73,7 @@ function QnAWrite(){
       }
       else{
         alert("문의사항 작성 성공!");
-        navigate('/qna/'+res.data.id);
+        navigate('/qna/read/'+res.data.id);
       }
     })
   }
@@ -74,7 +81,7 @@ function QnAWrite(){
   return (
     <div className="main">
       <Header keyword="문의 작성하기"/>
-      <main className="newqna">
+      <main className="qna">
         <table className="submitqna">
           <tbody>
             <tr className="q_row">

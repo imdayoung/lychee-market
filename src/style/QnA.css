@@ -19,11 +19,6 @@
   font-weight: bold;
 }
 
-td {
-  height: 40px;
-  border: 1px solid #000
-}
-
 .qnaIndex{
   width: 60px;
 } 
@@ -90,7 +85,7 @@ td {
   border: none;
 }
 
-.newqna{
+.qna{
   width: 1280px;
   padding: 28px;
   display: flex;
@@ -99,9 +94,9 @@ td {
   align-items: center;
 }
 
-.newqna .buttons .back,
-.newqna .buttons .submit,
-.newqna .buttons .Nsubmit{
+.qna .buttons .back,
+.qna .buttons .submit,
+.qna .buttons .Nsubmit{
   width: 160px;
   height: 50px;
   border: none;
@@ -112,13 +107,80 @@ td {
   font-size: 16px;
 }
 
-.newqna .buttons .back{
+.qna .buttons .back{
   border: 2px solid #888888;
   background-color: #FFFFFF;
   color: #888888;
 }
 
-.newqna .buttons .Nsubmit{
+.qna .buttons .Nsubmit{
   background-color: #999999;
   opacity: 0.7;
+}
+
+.qnaRead{
+  width: 1200px;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-collapse: collapse;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+.qnaRead td input, 
+.qnaRead td textarea {
+  font-size: 16px;
+  outline: none;
+}
+
+.qna span {
+  font-size: 20px;
+  font-weight: bold;
+  width: 1200px;
+}
+
+.q_list_row{
+  height: 50px;
+  border-bottom: 1px solid #000;
+}
+
+.QnABottom{
+  display: flex;
+  width: 1200px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.searchQnA{
+  margin: 8px;
+}
+
+.searchQnA input{
+  margin-left: 25px;
+  margin-right: 8px;
+  height: 28px;
+  outline: none;
+}
+
+.searchQnA button{
+  width: 80px;
+  height: 32px;
+  border: 2px solid #888888;
+  background-color: #ffffff;
+  color: #888888;
+  font-weight: bold;
+}
+
+.writeQnA{
+  margin: 8px;
+}
+
+.writeQnA button{
+  width: 120px;
+  height: 32px;
+  border: 2px solid #ff3d60;
+  background-color: #FFFFFF;
+  color: #ff3d60;
+  font-weight: bold;
 }

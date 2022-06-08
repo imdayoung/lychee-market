@@ -7,7 +7,7 @@ const port = 8080;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "sally1926*",
+  password: "1234",
   database: "lychee",
 });
 
@@ -854,19 +854,87 @@ app.post('/qnawrite', function(req, res) {
  */
 app.get("/qna", function (req, res) {
   const SQL =
-    "SELECT `qna_id`,`q_id`,`q_date`,`q_category`,`q_title`,`a_id`,`view`,`private_flag` FROM `NOTICE`";
-  db.query(SQL, function (err, rows) {
+    "SELECT `qna_id`,`q_id`,`q_date`,`q_category`,`q_title`,`a_id`,`view`,`private_flag` FROM `QNA`";
+  db.query(SQL, function (err, result) {
     if(err) {
       console.log("get qna error", err);
       res.send(false);
     }
-    if(rows) {
-      console.log("get qna result ", rows);
-      if(rows[0].private_flag === '')
-      res.send(rows);
+    if(result) {
+      console.log("get qna result ", result);
+      res.send(result);
     }
   });
 });
+
+/*
+ * 목적: qna 세부정보
+ * input: qna_id
+ * output: 해당 문의사항 전체 정보 / false
+ */
+app.get("/qna/read/:qna_id", function (req, res) {
+  const QnaId = req.params.qna_id;
+
+  const SQL = "SELECT * FROM `QNA` WHERE `qna_id`=?";
+  db.query(SQL, QnaId, function (err, result) {
+    if (err) {
+      console.log("qna read error", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna read result", result);
+      res.send(result);
+    }
+  });
+});
+
+
+/*
+ * 목적: qna 삭제
+ * input: 문의사항 글 id
+ * output: true / false
+ */
+app.post("/qna/delete", function (req, res) {
+  const qid = req.body.qid;
+
+  const SQL = "DELETE FROM `QNA` WHERE `qna_id`=?";
+  db.query(SQL, qid, function (err, result) {
+    if (err) {
+      console.log("qna delete error", result);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna delete result", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: qna 답변
+ * input: 
+ * output: true / false
+ */
+app.post("/qna/answer/:qna_id", function (req, res) {
+  const qid = req.params.qna_id;
+  const aid = req.body.aid;
+  const adate = req.body.adate;
+  const acontent = req.body.acontent;
+  const datas = [aid, adate, acontent, qid];
+
+  const SQL = "UPDATE `QNA` SET `a_id`=?, `a_date`=?, `a_content`=? WHERE `qna_id`=?";
+  db.query(SQL, datas, function (err, result) {
+    if (err) {
+      console.log("qna answer error", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna answer result", result);
+      res.send(true);
+    }
+  });
+});
+
 
 const path = require("path");
 const multer = require("multer");
