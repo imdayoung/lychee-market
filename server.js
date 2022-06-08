@@ -9,6 +9,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "1234",
   database: "lychee",
+  multipleStatements: true,
 });
 
 app.use(cors());
