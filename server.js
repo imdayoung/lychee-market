@@ -8,15 +8,21 @@ const port = 8080;
 
 app.use(express.static("public"));
 
+// 신고 이미지 저장 방식
 const ReportStorage = multer.diskStorage({
-  destination: function(req, file, cb){  // 이미지 저장 위치
-      cb(null, "./public/images/report/");
-  },
-  filename: function(req, file, cb){  // 이미지 저장 이름
-      cb(null, `${file.originalname}`);
+  destination: "./public/images/report",
+  filename: function(req, file, cb) {
+    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
   }
 });
 
+// 신고 이미지 업로드
+const upload = multer({
+  storage: ReportStorage,
+  limits: { fileSize: 1000000 }
+});
+
+// 공지 이미지 저장 방식
 const NoticeStorage = multer.diskStorage({
   destination: function(req, file, cb){  // 이미지 저장 위치
       cb(null, "./public/images/notice/");
@@ -26,11 +32,7 @@ const NoticeStorage = multer.diskStorage({
   }
 });
 
-const upload = multer({
-  storage: ReportStorage,
-  limits: { fileSize: 1000000 }
-});
-
+// 공지 이미지 업로드
 const NoticeUpload = multer({
   storage: NoticeStorage,
   limits: { fileSize: 1000000 }
