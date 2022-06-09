@@ -38,10 +38,9 @@ export default function NoticeSearch(){
 
     let NoticeList = [];
     if(Notice.length === 0){
-        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>{SearchWord}에 대한 검색결과가 없습니다.</td></tr>)
+        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>"{SearchWord}"에 대한 검색결과가 없습니다.</td></tr>)
     }
     else{
-        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>{SearchWord}에 대한 검색결과입니다.</td></tr>)
         for(let i=Notice.length-1; i>=0; i--){    
             NoticeList.push(
                 <NoticeListComponent key={i} notice_id={ Notice[i].notice_id} notice_title={Notice[i].notice_title}
@@ -54,6 +53,7 @@ export default function NoticeSearch(){
         <div>
             <Header detail='공지사항'/>
             <main className="noticeMain">
+                <div className="SearchResult"><span>{SearchWord}</span>에 대한 검색결과입니다.</div>
                 <table className="noticeList">
                     <thead className="noticeHead">
                         <tr>
@@ -74,9 +74,12 @@ export default function NoticeSearch(){
                             <button type='button' onClick={()=>{SetSearchWord(Word)}}>검색</button>                
                         </Link>
                     </div>
-                    <div className="writeNotice">
+                    <div>
+                        <Link to='/notice'>
+                            <button className="allNotice" type="button">전체 목록</button>
+                        </Link>
                         <Link to='/notice/write'>
-                            <button type='button' hidden={!IsManager}>공지 작성</button>
+                            <button className="writeNotice" type='button' hidden={!IsManager}>공지 작성</button>
                         </Link>
                     </div>
                 </div>

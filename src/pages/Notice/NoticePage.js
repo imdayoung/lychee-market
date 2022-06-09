@@ -65,9 +65,9 @@ export default function Notice(){
                             <button type='button'>검색</button>                       
                         </Link>
                     </div>
-                    <div className="writeNotice">
+                    <div>
                         <Link to='/notice/write'>
-                            <button type='button' hidden={!IsManager}>공지 작성</button>
+                            <button type='button' className="writeNotice" hidden={!IsManager}>공지 작성</button>
                         </Link>
                     </div>
                 </div>
