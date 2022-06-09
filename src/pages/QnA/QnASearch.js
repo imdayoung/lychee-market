@@ -1,16 +1,33 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Axios from 'axios';
 import Header from "../../components/Header"
 import QnAListComponent from "./components/QnAListComponent";
+import getCookie from "../../components/GetCookie";
 
 export default function QnASearch(props){
   // 관리자인지 확인 필요
-  const IsManager = true;
+  const cookie = getCookie("is_login");
+  var IsManager = false;
+  let userid = ''
+  let location = useLocation();
+  
+  if(cookie === "true"){
+    userid = localStorage.getItem("user_id");
+    const managerid = localStorage.getItem("manager_id");
+    if(managerid !== null)
+      IsManager = true;
+  }
 
   // 검색 단어
   const [Word, SetWord] = useState('');
-  const [SearchWord, SetSearchWord] = useState(props.searchword);
+  const [SearchWord, SetSearchWord] = useState('');
+
+  //QnA에서 넘어올 때 searchword 설정
+  useEffect(()=>{
+    const tempsearchword = location.state.searchword;
+    SetSearchWord(tempsearchword);
+  },[]);
 
   // 문의사항 정보
   const [QnA, setQnA] = useState([{
@@ -29,7 +46,7 @@ export default function QnASearch(props){
       Axios.get('http://localhost:8080/qna/search/'+SearchWord)
       .then((res)=>{
           console.log(res.data);
-          SetNotice(res.data);
+          setQnA(res.data);
       });
   },[SearchWord]);
 

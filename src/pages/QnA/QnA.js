@@ -59,6 +59,10 @@ function QnA() {
     }
   }
 
+  const Test = () => {
+    alert("냠냠");
+  }
+
   return (
     <div className="main">
       <Header keyword="문의사항"/>
@@ -81,8 +85,8 @@ function QnA() {
         <div className="QnABottom">
           <div className="searchQnA">
             <input type='text' onChange={(event) => SetSearchWord(event.target.value)}/>
-            <Link to={{pathname: '/qna/search/'}} searchword={SearchWord}>
-              <button type='button'>검색</button>                       
+            <Link to={{pathname: '/qna/search/'+SearchWord}} state={{searchword: SearchWord}}>
+              <button type='button'>검색</button> 
             </Link>
           </div>
           <div className="writeQnA">

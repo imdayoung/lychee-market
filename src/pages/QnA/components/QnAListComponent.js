@@ -15,7 +15,7 @@ export default function QnAListComponent(props){
       <td className="qnaView">{props.qna_view}</td>
       <td className="qnaCategory">{props.qna_category}</td>
       {matchUser ? <td className="qnaTitle">
-        <Link to={{pathname:'/qna/read/'+props.qna_id}}>{props.qna_title}</Link></td> 
+        <Link to={{pathname:'/qna/read/'+props.qna_id}} id='LinkNoLine'>{props.qna_title}</Link></td> 
         : <td className="qnaTitle">{props.qna_title}</td>
       }
       <td className="qnaDate">{props.qna_date}</td>

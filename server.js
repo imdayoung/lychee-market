@@ -264,6 +264,7 @@ app.get("/notice/search/:word", function (req, res) {
   });
 });
 
+
 /*
  * 목적: 내 신고 내역 불러오기
  * input: id
@@ -935,6 +936,29 @@ app.post("/qna/answer/:qna_id", function (req, res) {
   });
 });
 
+
+/*
+ * 목적: 공지사항 검색
+ * input: 검색 단어
+ * output: 해당 단어를 제목에 포함하는 공지사항 / false
+ */
+app.get("/qna/search/:word", function (req, res) {
+  const SearchWord = req.params.word;
+
+  const SQL =
+    "SELECT `qna_id`,`q_id`,`q_date`,`q_category`,`q_title`,`a_id`,`view`,`private_flag`\
+     FROM `QNA` WHERE `q_title` LIKE ?";
+  db.query(SQL, "%" + SearchWord + "%", function (err, rows) {
+    if (err) {
+      console.log("qna search error", err);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("qna search result", rows);
+      res.send(rows);
+    }
+  });
+});
 
 const path = require("path");
 const multer = require("multer");
