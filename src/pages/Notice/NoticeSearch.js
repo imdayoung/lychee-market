@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Axios from 'axios';
 import moment from 'moment';
 import Header from "../../components/Header"
@@ -8,10 +8,16 @@ import NoticeListComponent from "./components/NoticeListComponent";
 export default function NoticeSearch(props){
     // 관리자인지 확인 필요
     const IsManager = true;
+    let location = useLocation();
 
     // 검색 단어
     const [Word, SetWord] = useState('');
-    const [SearchWord, SetSearchWord] = useState(props.searchword);
+    const [SearchWord, SetSearchWord] = useState('');
+
+    useEffect(()=>{
+        const tempsearchword = location.state.searchword;
+        SetSearchWord(tempsearchword);
+      },[]);
 
     // 공지사항 정보
     const [Notice, SetNotice] = useState([{ 

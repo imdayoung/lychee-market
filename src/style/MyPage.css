@@ -164,7 +164,7 @@ li {
   font-size: 24px;
   font-weight: bold;
 }
-
+/* 
 table {
   table-layout: fixed;
 }
@@ -194,7 +194,7 @@ td:nth-child(3) {
 td:last-child {
   font-weight: bold;
   border-right: 1px solid #cdcdcd;
-}
+} */
 
 .PinkBold {
   color: #ff3d60;

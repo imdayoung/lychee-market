@@ -61,7 +61,7 @@ export default function Notice(){
                 <div className="noticeBottom">
                     <div className="searchNotice">
                         <input type='text' onChange={(event) => SetSearchWord(event.target.value)}/>
-                        <Link to={{pathname: '/notice/search/'}} searchword={SearchWord}>
+                        <Link to={{pathname: '/notice/search/'}} state={{searchword: SearchWord}}>
                             <button type='button'>검색</button>                       
                         </Link>
                     </div>

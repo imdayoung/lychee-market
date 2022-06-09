@@ -265,6 +265,7 @@ app.get("/notice/search/:word", function (req, res) {
   });
 });
 
+
 /*
  * 목적: 내 신고 내역 불러오기
  * input: id
@@ -988,5 +989,185 @@ app.post("/pointsend", function (req, res) {
         res.send("아이디와 패스워드가 일치하지 않습니다.");
       }
     }
+  });
+});
+
+/*
+ * 목적 : 문의 글 작성
+ * input : 필요한 정보 모두
+ * output : 실패 / 성공
+ */
+app.post('/qnawrite', function(req, res) {
+  const id = req.body.id;
+  const title = req.body.title;
+  const category = req.body.category;
+  const pflag = req.body.pflag;
+  const content = req.body.content;
+  const date = req.body.date;
+  const view = req.body.view;
+
+  const datas = [id, date, category, title, content, view, pflag];
+  console.log(datas);
+  
+  db.query("INSERT INTO `QNA` (`q_id`, `q_date`, `q_category`, `q_title`,\
+  `q_content`, `view`, `private_flag`) VALUES (?,?,?,?,?,?,?);",
+
+  datas, (err, result) => {
+      if(err){
+          console.log("writeqna error");
+          res.send(false);
+      }
+      if(result){
+          console.log("writeqna succeed!");
+          db.query("SELECT `qna_id` FROM `QNA` WHERE `q_id`=? AND `q_date`=? AND `q_category`=? AND\
+          `q_title`=? AND `q_content`=? AND `view`=? AND `private_flag`=?",
+          datas, (err, result) => {
+            if(err){
+              console.log("writeqna_get qna id error");
+              return;
+            }
+            if(result){
+              console.log("writeqna_get qna id error");
+              res.send({id: result[0].qna_id});
+            }
+          })
+          //res.send();
+      }
+  });
+});
+
+/*
+ * 목적: qna 목록
+ * input:
+ * output: 전체 문의사항 정보 / false
+ */
+app.get("/qna", function (req, res) {
+  const SQL =
+    "SELECT `qna_id`,`q_id`,`q_date`,`q_category`,`q_title`,`a_id`,`view`,`private_flag` FROM `QNA`";
+  db.query(SQL, function (err, result) {
+    if(err) {
+      console.log("get qna error", err);
+      res.send(false);
+    }
+    if(result) {
+      console.log("get qna result ", result);
+      res.send(result);
+    }
+  });
+});
+
+/*
+ * 목적: qna 세부정보
+ * input: qna_id
+ * output: 해당 문의사항 전체 정보 / false
+ */
+app.get("/qna/read/:qna_id", function (req, res) {
+  const QnaId = req.params.qna_id;
+
+  const SQL = "SELECT * FROM `QNA` WHERE `qna_id`=?";
+  db.query(SQL, QnaId, function (err, result) {
+    if (err) {
+      console.log("qna read error", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna read result", result);
+      res.send(result);
+    }
+  });
+});
+
+
+/*
+ * 목적: qna 삭제
+ * input: 문의사항 글 id
+ * output: true / false
+ */
+app.post("/qna/delete", function (req, res) {
+  const qid = req.body.qid;
+
+  const SQL = "DELETE FROM `QNA` WHERE `qna_id`=?";
+  db.query(SQL, qid, function (err, result) {
+    if (err) {
+      console.log("qna delete error", result);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna delete result", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: qna 답변
+ * input: 
+ * output: true / false
+ */
+app.post("/qna/answer/:qna_id", function (req, res) {
+  const qid = req.params.qna_id;
+  const aid = req.body.aid;
+  const adate = req.body.adate;
+  const acontent = req.body.acontent;
+  const datas = [aid, adate, acontent, qid];
+
+  const SQL = "UPDATE `QNA` SET `a_id`=?, `a_date`=?, `a_content`=? WHERE `qna_id`=?";
+  db.query(SQL, datas, function (err, result) {
+    if (err) {
+      console.log("qna answer error", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna answer result", result);
+      res.send(true);
+    }
+  });
+});
+
+
+/*
+ * 목적: 공지사항 검색
+ * input: 검색 단어
+ * output: 해당 단어를 제목에 포함하는 공지사항 / false
+ */
+app.get("/qna/search/:word", function (req, res) {
+  const SearchWord = req.params.word;
+
+  const SQL =
+    "SELECT `qna_id`,`q_id`,`q_date`,`q_category`,`q_title`,`a_id`,`view`,`private_flag`\
+     FROM `QNA` WHERE `q_title` LIKE ?";
+  db.query(SQL, "%" + SearchWord + "%", function (err, rows) {
+    if (err) {
+      console.log("qna search error", err);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("qna search result", rows);
+      res.send(rows);
+    }
+  });
+});
+
+const path = require("path");
+const multer = require("multer");
+
+app.use(express.static("public"));
+
+const storage = multer.diskStorage({
+  destination: "./public/images/report",
+  filename: function(req, file, cb) {
+    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }
+});
+
+app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  console.log(req.file.filename);
+  res.send({
+    fileName: req.file.filename
   });
 });
