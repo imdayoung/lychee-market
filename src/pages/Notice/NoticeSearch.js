@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Axios from 'axios';
 import moment from 'moment';
 import Header from "../../components/Header"
 import NoticeListComponent from "./components/NoticeListComponent";
 
-export default function NoticeSearch(props){
+export default function NoticeSearch(){
     // 관리자인지 확인 필요
     const IsManager = true;
+    let location = useLocation();
 
     // 검색 단어
     const [Word, SetWord] = useState('');
-    const [SearchWord, SetSearchWord] = useState(props.searchword);
+    const [SearchWord, SetSearchWord] = useState('');
+
+    useEffect(()=>{
+        const TempWord = location.state.searchword;
+        SetSearchWord(TempWord);
+      },[location]);
 
     // 공지사항 정보
     const [Notice, SetNotice] = useState([{ 
@@ -32,9 +38,10 @@ export default function NoticeSearch(props){
 
     let NoticeList = [];
     if(Notice.length === 0){
-        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>검색된 결과가 없습니다.</td></tr>)
+        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>{SearchWord}에 대한 검색결과가 없습니다.</td></tr>)
     }
     else{
+        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>{SearchWord}에 대한 검색결과입니다.</td></tr>)
         for(let i=Notice.length-1; i>=0; i--){    
             NoticeList.push(
                 <NoticeListComponent key={i} notice_id={ Notice[i].notice_id} notice_title={Notice[i].notice_title}
@@ -63,13 +70,13 @@ export default function NoticeSearch(props){
                 <div className="noticeBottom">
                     <div className="searchNotice">
                         <input type='text' onChange={(event) => SetWord(event.target.value)}/>
-                        <Link to={{pathname: '/notice/search/'+Word}}>
+                        <Link to={{pathname: '/notice/search/'+Word}} state={{searchword: Word}}>
                             <button type='button' onClick={()=>{SetSearchWord(Word)}}>검색</button>                
                         </Link>
                     </div>
                     <div className="writeNotice">
                         <Link to='/notice/write'>
-                            <button type='button' hidden={IsManager?false:true}>공지 작성</button>
+                            <button type='button' hidden={!IsManager}>공지 작성</button>
                         </Link>
                     </div>
                 </div>

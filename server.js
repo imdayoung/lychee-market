@@ -1,8 +1,33 @@
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const mysql = require("mysql");
 const app = express();
 const port = 8080;
+
+app.use(express.static("public"));
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){  // 이미지 저장 위치
+      cb(null, "./public/images/");
+  },
+  filename: function(req, file, cb){  // 이미지 저장 이름
+      cb(null, `${file.originalname}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }
+});
+
+app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  console.log(req.file.filename);
+  res.send({
+    fileName: req.file.filename
+  });
+});
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -152,12 +177,12 @@ app.get("/notice", function (req, res) {
  * input: manager_id, notice_date, notice_title, notice_content, notice_img
  * output: true / false
  */
-app.post("/notice/write", function (req, res) {
+app.post("/notice/write", /*upload.single('file'),*/ function (req, res) {
   const ManagerId = req.body.manager_id;
   const NoticeDate = req.body.notice_date;
   const NoticeTitle = req.body.notice_title;
   const NoticeContent = req.body.notice_content;
-  const NoticeImg = req.body.notice_img;
+  const NoticeImg = req.body.notice_img;// req.body.file!==undefined?`/images/${req.file.filename}`:null;
   const Datas = [ManagerId, NoticeDate, NoticeTitle, NoticeContent, NoticeImg];
 
   const SQL =
@@ -172,6 +197,15 @@ app.post("/notice/write", function (req, res) {
       res.send(true);
     }
   });
+});
+
+/*
+ * 목적: 이미지 업로드
+ * input: file
+ * output: filename / false
+ */
+app.post("/upload/image", upload.single('img'), function(req, res){
+  console.log("이미지 업로드", req.file);
 });
 
 /*
@@ -336,7 +370,7 @@ app.post("/report/answer", function (req, res) {
 /*
  * 목적: 신고 삭제
  * input: report_id
- * output: 해당 id로 신고한 정보 / false
+ * output: true / false
  */
 app.post("/report/delete", function (req, res) {
   const ReportId = req.body.report_id;
@@ -1070,29 +1104,5 @@ app.post("/pointsend", function (req, res) {
         res.send("아이디와 패스워드가 일치하지 않습니다.");
       }
     }
-  });
-});
-
-const path = require("path");
-const multer = require("multer");
-
-app.use(express.static("public"));
-
-const storage = multer.diskStorage({
-  destination: "./public/images/report",
-  filename: function(req, file, cb) {
-    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 }
-});
-
-app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
-  console.log(req.file.filename);
-  res.send({
-    fileName: req.file.filename
   });
 });
