@@ -22,6 +22,7 @@ export default function SELLDETAIL(){
     const [DealMethod, SetDealMethod] = useState('');
     const [DealType, SetDealType] = useState(0);
     const [DealFlag, SetDealFlag] = useState(0);
+    const [SellerNick, SetSellerNick] = useState('');
 
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
@@ -46,7 +47,7 @@ export default function SELLDETAIL(){
             else                            SetDealType('구매해요');
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
-            // return res;
+            SetSellerNick(res.data[0].seller_nickname);
         });
     }, [ProdId, ProductImg]);
 
@@ -84,7 +85,7 @@ export default function SELLDETAIL(){
                 
                 <div id="Infos">
                     <div id="InfoTitle">판매자 정보</div>
-                    <div id="Info">{SellerId}</div><br></br>
+                    <div id="Info">{SellerNick}</div><br></br>
                     <div id="InfoTitle">상품 설명</div>
                     <div id="Info">{ProductDetail}</div>
                 </div>

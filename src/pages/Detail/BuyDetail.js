@@ -47,18 +47,8 @@ export default function BUYDETAIL(){
             else                            SetDealType('구매해요');
             if(res.data[0].deal_flag == 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
-            // console.log("닉네임 달라고" + SellerId);
-            // axios.get('http://localhost:8080/idtonickname/'+SellerId)
-            // .then((res) => {
-            //     SetSellerNick(res.data[0].user_nickname);
-            // })
+            SetSellerNick(res.data[0].seller_nickname);
         })   
-    }, []);
-    
-
-    useEffect(() => {
-        console.log("닉네임 내놔"+SellerId);
-        
     }, []);
 
     return (
@@ -95,7 +85,7 @@ export default function BUYDETAIL(){
                 
                 <div id="Infos">
                     <div id="InfoTitle">판매자 정보</div>
-                    <div id="Info">{SellerId}</div><br></br>
+                    <div id="Info">{SellerNick}</div><br></br>
                     <div id="InfoTitle">상품 설명</div>
                     <div id="Info">{ProductDetail}</div>
                 </div>

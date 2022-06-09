@@ -899,8 +899,8 @@ app.get('/buy/search/distance/:target', function(req, res) {
 /* 상품 상세 보기 */
 app.get('/buy/detail/:product_id', function(req, res) {
 	const ProductId = req.params.product_id;
-	var SqlDetail = "SELECT * FROM `PRODUCT` WHERE product_id=?";
-	db.query(SqlDetail, ProductId, (err, result) => {
+	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `seller_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
+	db.query(SqlDetail, [ProductId, ProductId], (err, result) => {
 		if(err) {
 			console.log("상품 세부정보 불러오기 오류", err);
 			res.send(false);
@@ -914,8 +914,8 @@ app.get('/buy/detail/:product_id', function(req, res) {
 
 app.get('/sell/detail/:product_id', function(req, res) {
 	const ProductId = req.params.product_id;
-	var SqlDetail = "SELECT * FROM `PRODUCT` WHERE product_id=?";
-	db.query(SqlDetail, ProductId, (err, result) => {
+	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `seller_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
+	db.query(SqlDetail, [ProductId, ProductId], (err, result) => {
 		if(err) {
 			console.log("상품 세부정보 불러오기 오류", err);
 			res.send(false);
