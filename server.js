@@ -8,9 +8,18 @@ const port = 8080;
 
 app.use(express.static("public"));
 
-const storage = multer.diskStorage({
+const ReportStorage = multer.diskStorage({
   destination: function(req, file, cb){  // 이미지 저장 위치
-      cb(null, "./public/images/");
+      cb(null, "./public/images/report/");
+  },
+  filename: function(req, file, cb){  // 이미지 저장 이름
+      cb(null, `${file.originalname}`);
+  }
+});
+
+const NoticeStorage = multer.diskStorage({
+  destination: function(req, file, cb){  // 이미지 저장 위치
+      cb(null, "./public/images/notice/");
   },
   filename: function(req, file, cb){  // 이미지 저장 이름
       cb(null, `${file.originalname}`);
@@ -18,7 +27,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({
-  storage: storage,
+  storage: ReportStorage,
+  limits: { fileSize: 1000000 }
+});
+
+const NoticeUpload = multer({
+  storage: NoticeStorage,
   limits: { fileSize: 1000000 }
 });
 
@@ -200,11 +214,11 @@ app.post("/notice/write", /*upload.single('file'),*/ function (req, res) {
 });
 
 /*
- * 목적: 이미지 업로드
+ * 목적: 공지사항 이미지 업로드
  * input: file
  * output: filename / false
  */
-app.post("/upload/image", upload.single('img'), function(req, res){
+app.post("/upload/image", NoticeUpload.single('img'), function(req, res){
   console.log("이미지 업로드", req.file);
 });
 

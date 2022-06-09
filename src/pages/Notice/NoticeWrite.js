@@ -36,7 +36,7 @@ export default function NoticeWrite(){
             notice_date: NoticeDate,
             notice_title: NoticeTitle,
             notice_content: NoticeContent,
-            notice_img: ImgName!==''?'/images/'+ImgName:null,
+            notice_img: ImgName!==''?'/images/notice/'+ImgName:null,
         }).then((res)=>{
             console.log(res);
             if(res.data === true){
