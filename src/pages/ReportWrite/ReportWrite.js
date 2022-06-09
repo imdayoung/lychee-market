@@ -149,7 +149,7 @@ function ReportWrite(){
           <tr className="r_row">
             <th className="r_th">첨부파일</th>
             <td>
-              <input type="file" onChange={onChange}/>
+              <input type="file" accept="image/png, image/jpeg" onChange={onChange}/>
             </td>
           </tr>
           </tbody>

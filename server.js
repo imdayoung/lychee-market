@@ -9,6 +9,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "1234",
   database: "lychee",
+  multipleStatements: true,
 });
 
 app.use(cors());
@@ -110,8 +111,8 @@ app.post("/msgSend", function (req, res) {
  * input: qna_id
  * output: 해당 문의사항 전체 정보 / false
  */
-app.get("/qna/detail", function (req, res) {
-  var QnaId = "1"; // 문의사항 번호, post로 수정 필요
+app.post("/qna/detail", function (req, res) {
+  const QnaId = req.body.qna_id;
 
   var SQL = "SELECT * FROM `QNA` WHERE `qna_id` = ?";
   db.query(SQL, QnaId, function (err, row) {
@@ -288,6 +289,73 @@ app.post("/report", function (req, res) {
 });
 
 /*
+ * 목적: 신고 상세 내역 불러오기
+ * input: report_id
+ * output: 해당 번호의 신고 내역 / false
+ */
+app.get("/report/detail/:report_id", function (req, res) {
+  const ReportId = req.params.report_id;
+
+  const SQL = "SELECT * FROM `REPORT` WHERE `report_id`=?";
+  db.query(SQL, ReportId, function (err, row) {
+    if (err) {
+      console.log("신고 상세 내역 불러오기 오류", err);
+      res.send(false);
+    }
+    if (row) {
+      console.log("신고 상세 내역 불러오기 결과", row);
+      res.send(row);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 답변 저장
+ * input: report_id, solve_id, solve_date, solve_content
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post("/report/answer", function (req, res) {
+  const ReportId = req.body.report_id;
+  const SolveId = req.body.solve_id;
+  const SolveDate = req.body.solve_date;
+  const SolveContent = req.body.solve_content;
+  const datas = [SolveId, SolveDate, SolveContent, ReportId]
+
+  const SQL = "UPDATE `REPORT` SET `solve_id`=?, `solve_date`=?, `solve_content`=? WHERE `report_id`=?";
+  db.query(SQL, datas, function (err, result) {
+    if (err) {
+      console.log("신고 답변 저장 오류", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("신고 답변 저장 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: 신고 삭제
+ * input: report_id
+ * output: 해당 id로 신고한 정보 / false
+ */
+app.post("/report/delete", function (req, res) {
+  const ReportId = req.body.report_id;
+
+  const SQL = "DELETE FROM `REPORT` WHERE `report_id`=?";
+  db.query(SQL, ReportId, function (err, result) {
+    if (err) {
+      console.log("신고 삭제 오류", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("신고 삭제 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
  * 목적 : 로그인
  * input : id, pw
  * output : user에 대한 정보 / false
@@ -306,11 +374,7 @@ app.post("/login", function (req, res) {
       }
       if (result.length > 0) {
         console.log("login succeed!");
-        if(result[0].user_reliable === -1){
-          res.send({message: "영구정지 처리된 회원입니다!"})
-        }
-        else
-          res.send({ result: result, message: "일반회원" });
+        res.send({ result: result, message: "일반회원" });
       } else {
         db.query(
           "SELECT * FROM `MANAGER` WHERE `manager_id` = ? AND `manager_pw` = ?",
@@ -325,7 +389,7 @@ app.post("/login", function (req, res) {
               res.send({ result: result, message: "매니저" });
             } else {
               console.log("login fail");
-              res.send({message: "로그인 정보가 존재하지 않습니다!"});
+              res.send(false);
             }
           }
         );
@@ -555,8 +619,8 @@ app.post("/getmyinfo", function (req, res) {
 
 /*
  * 목적 : 내 정보 변경하기
- * input : id, pw, nickname, location
- * output : 실패/성공
+ * input : id
+ * output : user 정보 / null
  */
 app.post("/changemyinfo", function (req, res) {
   const id = req.body.id;
@@ -602,6 +666,27 @@ app.get("/manager/product", function (req, res) {
 });
 
 /*
+ * 목적: 게시글 관리자가 삭제
+ * input: product_id
+ * output: true / false
+ */
+app.post("/manager/product", function (req, res) {
+  const ProductId = req.body.product_id;
+
+  const SQL ="DELETE FROM `PRODUCT` WHERE `product_id`=?";
+  db.query(SQL, ProductId, function (err, result) {
+    if (err) {
+      console.log("게시글 삭제 오류", result);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("게시글 삭제 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
  * 목적: 사용자 관리
  * input: 관리자인 경우만 res 받아오도록 수정 필요
  * output: 전체 사용자 정보 / false
@@ -617,6 +702,49 @@ app.get("/manager/user", function (req, res) {
     if (rows) {
       console.log("사용자 관리 불러오기 결과", rows);
       res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 사용자 신뢰도 관리자가 조정
+ * input: 관리자인 경우만 res 받아오도록 수정 필요
+ * output: true / false
+ */
+app.post("/manager/user/reliable", function (req, res) {
+  const UserId = req.body.user_id;
+  const Reliable = req.body.user_reliable;
+
+  const SQL = "UPDATE `USER` SET `user_reliable`=? WHERE `user_id`=?";
+  db.query(SQL, [Reliable,UserId], function (err, result) {
+    if (err) {
+      console.log("사용자 신뢰도 조정 오류", result);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("사용자 신뢰도 조정 결과", result);
+      res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: 사용자 영구 정지
+ * input: user_id
+ * output: true / false
+ */
+app.post("/manager/user", function (req, res) {
+  const UserId = req.body.user_id;
+
+  const SQL = "UPDATE `USER` SET `user_reliable`=-1 WHERE `user_id`=?";
+  db.query(SQL, [Reliable,UserId], function (err, result) {
+    if (err) {
+      console.log("사용자 영구 정지 오류", result);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("사용자 영구 정지 결과", result);
+      res.send(true);
     }
   });
 });
@@ -722,87 +850,147 @@ app.post("/mypage/:type", function (req, res) {
 });
 
 /*
- * 목적 : 신고 글 작성
- * input : 필요한 정보 모두
- * output : 실패 / 성공
+ * 목적: 마이페이지 포인트내역 불러오기
+ * input: login_id
+ * output: 마이페이지 포인트 내역 / none
  */
-app.post('/reportwrite', function(req, res) {
-    const reporterid = req.body.reporterid;
-    const reportedid = req.body.reportedid;
-    const type = req.body.type;
-    const date = req.body.date;
-    const title = req.body.title;
-    const detail = req.body.detail;
+app.post("/point", function (req, res) {
+  const Id = req.body.Id;
+  const SQL =
+    "SELECT P.deal_date, P.deal_amount, P.receiver_id, U.user_nickname AS receiver_nickname, P.sender_id, S.user_nickname AS sender_nickname, P.product_id, D.product_title \
+  FROM ((`POINT` AS P LEFT OUTER JOIN `PRODUCT` D ON P.product_id = D.product_id) \
+  INNER JOIN `USER` AS U ON P.receiver_id = U.user_id)\
+  INNER JOIN `USER` AS S On P.sender_id = S.user_id\
+  WHERE P.receiver_id = ? OR P.sender_id = ?\
+  ORDER BY deal_date DESC;";
 
-    const attach = req.body.fileName;
-    const cid = req.body.cid;
-    const pid = req.body.pid;
-
-    const datas = [reporterid, reportedid, date, title, type, detail, attach, cid, pid];
-
-    console.log(datas);
-    
-    db.query("INSERT INTO `REPORT` (`reporter_id`, `reported_id`, `report_date`, `report_title`, `report_type`,\
-     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?);",
-
-    datas, (err, result) => {
-        if(err){
-            console.log("writereport error");
-            res.send({message: "실패"});
-        }
-        if(result){
-            console.log("writereport succeed!");
-            res.send({message: "성공"});
-        }
-    });
-});
-
-
-/*
- * 목적 : 제품 판매/구매 글 작성
- * input : 
- * output : 
- */
-app.post('/newproduct', function(req, res) {
-
-  const date = req.body.date;
-  const sellerid = req.body.sellerid;
-  const buyerid = req.body.buyerid;
-  const like = req.body.like;
-  const image_num = req.body.image_num;
-  const dealflag = req.body.dealflag;
-  const dealtype = req.body.dealtype;
-  const title = req.body.title
-  const category = req.body.category;
-  const price = req.body.price;
-  const detail = req.body.detail;
-  const dealmethod = req.body.dealmethod;
-  const image = req.body.image;
-
-    // const datas = [sellerid, buyerid, title, category, price, like, 
-    //     date, image, image_num, detail, dealmethod, dealtype, dealflag];
-  const datas = [sellerid, buyerid, title, category, price, like, 
-    date, detail, dealmethod, dealtype, dealflag];
-
-  console.log(datas);
-  
-  // db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
-  //  `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-  db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
-  `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-    datas, (err, result) => {
-      if(err){
-        console.log("newproduct error");
-        res.send({message: "실패"});
-      }
-      if(result){
-          //db.query("SELECT `product_id` FROM `PRODUCT` WHERE ")
-        console.log("newproduct succeed!");
-        res.send({message: "성공"});
-      }
+  db.query(SQL, [Id, Id], function (err, rows) {
+    if (err) {
+      console.log("마이페이지 포인트 내역 불러오기 실패", err);
+    } else {
+      console.log("마이페이지 포인트 내역 불러오기 성공");
+      res.send(rows);
+    }
   });
 });
 
+/*
+ * 목적: 마이페이지 포인트 충전하기
+ * input: user_id, user_password, point_amount
+ * output: true / false
+ */
+app.post("/pointcharge", function (req, res) {
+  const Id = req.body.PointId;
+  const Pw = req.body.PointPw;
+  const PointAmount = req.body.PointAmount;
+  const Date = req.body.Date;
+
+  const PwCheckSQL = "SELECT * FROM `USER` WHERE user_id=? AND user_pwd=?;";
+  const InsertSQL = "INSERT INTO `POINT` VALUES (0, ?, ?, ?, ?, null);";
+  const UpdateSQL =
+    "UPDATE `USER` SET user_point=user_point+? WHERE user_id=?;";
+
+  db.query(PwCheckSQL, [Id, Pw], function (err, rows) {
+    if (err) {
+      console.log("포인트 충전 아이디, 패스워드 일치 에러");
+      res.send(false);
+    } else {
+      if (rows.length > 0){
+        db.query(
+          InsertSQL + UpdateSQL,
+          [Date, PointAmount, Id, Id, PointAmount, Id],
+          function (err2, result) {
+            if (err2) {
+              console.log("포인트 충전 insert 실패");
+              res.send(false);
+            } else {
+              console.log("포인트 충전 insert 성공");
+              res.send(true);
+            }
+          }
+        );
+      } else {
+        console.log("아이디, 패스워드 불일치");
+        res.send(false);
+      }
+    }
+  });
+});
+
+/*
+ * 목적: 쪽지함 포인트 송금하기
+ * input: sender_id, sender_pw, receiver_id, point_amount, date
+ * output: true / 에러메세지
+ */
+app.post("/pointsend", function (req, res) {
+  const SenderId = req.body.SenderId;
+  const SenderPw = req.body.SenderPw;
+  const ReceiverId = req.body.ReceiverId;
+  const PointAmount = req.body.PointAmount;
+  const Date = req.body.Date;
+  const ProductId = req.body.ProductId;
+
+  console.log(SenderId, SenderPw, ReceiverId, PointAmount, Date, ProductId);
+  const PwCheckSQL = "SELECT * FROM `USER` WHERE user_id=? AND user_pwd=?;";
+  const PointCheckSQL =
+    "SELECT * FROM `USER` WHERE User_id=? AND user_point>=?";
+  const UpdateSQL =
+    "UPDATE `USER` SET user_point=user_point+? WHERE user_id=?;\
+  UPDATE `USER` SET user_point=user_point-? WHERE user_id=?;";
+  const InsertSQL = "INSERT INTO `POINT` VALUES (0, ?, ?, ?, ?, ?);";
+
+  db.query(PwCheckSQL, [SenderId, SenderPw], function (err, rows) {
+    if (err) {
+      console.log("포인트 송금 아이디 체크 에러");
+      res.send(err);
+    } else {
+      if (rows.length > 0) {
+        db.query(
+          PointCheckSQL,
+          [SenderId, PointAmount],
+          function (err2, rows2) {
+            if (err2) {
+              console.log("포인트 송금 잔여 포인트 체크 에러");
+              res.send(err2);
+            } else {
+              if (rows2.length > 0) {
+                db.query(
+                  UpdateSQL + InsertSQL,
+                  [
+                    PointAmount,
+                    ReceiverId,
+                    PointAmount,
+                    SenderId,
+                    Date,
+                    PointAmount,
+                    ReceiverId,
+                    SenderId,
+                    ProductId,
+                  ],
+                  function (err3, row3) {
+                    if (err3) {
+                      console.log("포인트 업데이트 에러");
+                      res.send(err3);
+                    } else {
+                      console.log("포인트 업데이트 성공");
+                      res.send(true);
+                    }
+                  }
+                );
+              } else {
+                res.send(
+                  "잔여 포인트가 충분하지 않습니다. 포인트 충전 후 다시 이용해주세요."
+                );
+              }
+            }
+          }
+        );
+      } else {
+        res.send("아이디와 패스워드가 일치하지 않습니다.");
+      }
+    }
+  });
+});
 
 /*
  * 목적 : 문의 글 작성
@@ -983,5 +1171,3 @@ app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
     fileName: req.file.filename
   });
 });
-
-
