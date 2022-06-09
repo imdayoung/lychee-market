@@ -938,7 +938,7 @@ app.post('/newproduct', function(req, res) {
 app.post("/point", function (req, res) {
   const Id = req.body.Id;
   const SQL =
-    "SELECT P.deal_date, P.deal_amount, P.left_point, P.receiver_id, U.user_nickname AS receiver_nickname, P.sender_id, S.user_nickname AS sender_nickname, P.product_id, D.product_title \
+    "SELECT P.deal_date, P.deal_amount, P.receiver_id, U.user_nickname AS receiver_nickname, P.sender_id, S.user_nickname AS sender_nickname, P.product_id, D.product_title \
   FROM ((`POINT` AS P LEFT OUTER JOIN `PRODUCT` D ON P.product_id = D.product_id) \
   INNER JOIN `USER` AS U ON P.receiver_id = U.user_id)\
   INNER JOIN `USER` AS S On P.sender_id = S.user_id\
@@ -964,31 +964,115 @@ app.post("/pointcharge", function (req, res) {
   const Id = req.body.PointId;
   const Pw = req.body.PointPw;
   const PointAmount = req.body.PointAmount;
-  const PointResult = req.body.PointResult;
   const Date = req.body.Date;
 
-  console.log(Id, Pw, PointAmount, PointResult, Date);
   const PwCheckSQL = "SELECT * FROM `USER` WHERE user_id=? AND user_pwd=?;";
-  const InsertSQL = "INSERT INTO `POINT` VALUES (0, ?, ?, ?, ?, ?, null);";
-  const UpdateSQL = "UPDATE `USER` SET user_point=? WHERE user_id=?;";
+  const InsertSQL = "INSERT INTO `POINT` VALUES (0, ?, ?, ?, ?, null);";
+  const UpdateSQL =
+    "UPDATE `USER` SET user_point=user_point+? WHERE user_id=?;";
 
-  db.query(PwCheckSQL, [Id, Id], function (err, rows) {
+  db.query(PwCheckSQL, [Id, Pw], function (err, rows) {
     if (err) {
-      console.log("아이디, 패스워드 불일치");
+      console.log("포인트 충전 아이디, 패스워드 일치 에러");
       res.send(false);
     } else {
-      db.query(InsertSQL+UpdateSQL, [Date, PointAmount, PointResult, Id, Id, PointResult, Id], function(err2, result){
-        if (err2){
-          console.log("포인트 충전 insert 실패");
-          res.send(false);
-        } else {
-          console.log("포인트 충전 insert 성공");
-          res.send(true);
-        }
-      })
+      if (rows.length > 0){
+        db.query(
+          InsertSQL + UpdateSQL,
+          [Date, PointAmount, Id, Id, PointAmount, Id],
+          function (err2, result) {
+            if (err2) {
+              console.log("포인트 충전 insert 실패");
+              res.send(false);
+            } else {
+              console.log("포인트 충전 insert 성공");
+              res.send(true);
+            }
+          }
+        );
+      } else {
+        console.log("아이디, 패스워드 불일치");
+        res.send(false);
+      }
     }
   });
 });
+
+/*
+ * 목적: 쪽지함 포인트 송금하기
+ * input: sender_id, sender_pw, receiver_id, point_amount, date
+ * output: true / 에러메세지
+ */
+app.post("/pointsend", function (req, res) {
+  const SenderId = req.body.SenderId;
+  const SenderPw = req.body.SenderPw;
+  const ReceiverId = req.body.ReceiverId;
+  const PointAmount = req.body.PointAmount;
+  const Date = req.body.Date;
+  const ProductId = req.body.ProductId;
+
+  console.log(SenderId, SenderPw, ReceiverId, PointAmount, Date, ProductId);
+  const PwCheckSQL = "SELECT * FROM `USER` WHERE user_id=? AND user_pwd=?;";
+  const PointCheckSQL =
+    "SELECT * FROM `USER` WHERE User_id=? AND user_point>=?";
+  const UpdateSQL =
+    "UPDATE `USER` SET user_point=user_point+? WHERE user_id=?;\
+  UPDATE `USER` SET user_point=user_point-? WHERE user_id=?;";
+  const InsertSQL = "INSERT INTO `POINT` VALUES (0, ?, ?, ?, ?, ?);";
+
+  db.query(PwCheckSQL, [SenderId, SenderPw], function (err, rows) {
+    if (err) {
+      console.log("포인트 송금 아이디 체크 에러");
+      res.send(err);
+    } else {
+      if (rows.length > 0) {
+        db.query(
+          PointCheckSQL,
+          [SenderId, PointAmount],
+          function (err2, rows2) {
+            if (err2) {
+              console.log("포인트 송금 잔여 포인트 체크 에러");
+              res.send(err2);
+            } else {
+              if (rows2.length > 0) {
+                db.query(
+                  UpdateSQL + InsertSQL,
+                  [
+                    PointAmount,
+                    ReceiverId,
+                    PointAmount,
+                    SenderId,
+                    Date,
+                    PointAmount,
+                    ReceiverId,
+                    SenderId,
+                    ProductId,
+                  ],
+                  function (err3, row3) {
+                    if (err3) {
+                      console.log("포인트 업데이트 에러");
+                      res.send(err3);
+                    } else {
+                      console.log("포인트 업데이트 성공");
+                      res.send(true);
+                    }
+                  }
+                );
+              } else {
+                res.send(
+                  "잔여 포인트가 충분하지 않습니다. 포인트 충전 후 다시 이용해주세요."
+                );
+              }
+            }
+          }
+        );
+      } else {
+        res.send("아이디와 패스워드가 일치하지 않습니다.");
+      }
+    }
+  });
+});
+
 const path = require("path");
 const multer = require("multer");
 
@@ -1012,5 +1096,3 @@ app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
     fileName: req.file.filename
   });
 });
-
-
