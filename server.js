@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const multer = require("multer");
 const mysql = require("mysql");
 const app = express();
 const port = 8080;
