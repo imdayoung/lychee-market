@@ -1,8 +1,33 @@
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const mysql = require("mysql");
 const app = express();
 const port = 8080;
+
+app.use(express.static("public"));
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){  // 이미지 저장 위치
+      cb(null, "./public/images/");
+  },
+  filename: function(req, file, cb){  // 이미지 저장 이름
+      cb(null, `${file.originalname}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }
+});
+
+app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  console.log(req.file.filename);
+  res.send({
+    fileName: req.file.filename
+  });
+});
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -152,12 +177,12 @@ app.get("/notice", function (req, res) {
  * input: manager_id, notice_date, notice_title, notice_content, notice_img
  * output: true / false
  */
-app.post("/notice/write", function (req, res) {
+app.post("/notice/write", /*upload.single('file'),*/ function (req, res) {
   const ManagerId = req.body.manager_id;
   const NoticeDate = req.body.notice_date;
   const NoticeTitle = req.body.notice_title;
   const NoticeContent = req.body.notice_content;
-  const NoticeImg = req.body.notice_img;
+  const NoticeImg = req.body.notice_img;// req.body.file!==undefined?`/images/${req.file.filename}`:null;
   const Datas = [ManagerId, NoticeDate, NoticeTitle, NoticeContent, NoticeImg];
 
   const SQL =
@@ -172,6 +197,15 @@ app.post("/notice/write", function (req, res) {
       res.send(true);
     }
   });
+});
+
+/*
+ * 목적: 이미지 업로드
+ * input: file
+ * output: filename / false
+ */
+app.post("/upload/image", upload.single('img'), function(req, res){
+  console.log("이미지 업로드", req.file);
 });
 
 /*
@@ -337,7 +371,7 @@ app.post("/report/answer", function (req, res) {
 /*
  * 목적: 신고 삭제
  * input: report_id
- * output: 해당 id로 신고한 정보 / false
+ * output: true / false
  */
 app.post("/report/delete", function (req, res) {
   const ReportId = req.body.report_id;
@@ -850,6 +884,88 @@ app.post("/mypage/:type", function (req, res) {
 });
 
 /*
+ * 목적 : 신고 글 작성
+ * input : 필요한 정보 모두
+ * output : 실패 / 성공
+ */
+app.post('/reportwrite', function(req, res) {
+    const reporterid = req.body.reporterid;
+    const reportedid = req.body.reportedid;
+    const type = req.body.type;
+    const date = req.body.date;
+    const title = req.body.title;
+    const detail = req.body.detail;
+
+    const attach = req.body.fileName;
+    const cid = req.body.cid;
+    const pid = req.body.pid;
+
+    const datas = [reporterid, reportedid, date, title, type, detail, attach, cid, pid];
+
+    console.log(datas);
+    
+    db.query("INSERT INTO `REPORT` (`reporter_id`, `reported_id`, `report_date`, `report_title`, `report_type`,\
+     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?);",
+
+    datas, (err, result) => {
+        if(err){
+            console.log("writereport error");
+            res.send({message: "실패"});
+        }
+        if(result){
+            console.log("writereport succeed!");
+            res.send({message: "성공"});
+        }
+    });
+});
+
+
+/*
+ * 목적 : 제품 판매/구매 글 작성
+ * input : 
+ * output : 
+ */
+app.post('/newproduct', function(req, res) {
+
+  const date = req.body.date;
+  const sellerid = req.body.sellerid;
+  const buyerid = req.body.buyerid;
+  const like = req.body.like;
+  const image_num = req.body.image_num;
+  const dealflag = req.body.dealflag;
+  const dealtype = req.body.dealtype;
+  const title = req.body.title
+  const category = req.body.category;
+  const price = req.body.price;
+  const detail = req.body.detail;
+  const dealmethod = req.body.dealmethod;
+  const image = req.body.image;
+
+    // const datas = [sellerid, buyerid, title, category, price, like, 
+    //     date, image, image_num, detail, dealmethod, dealtype, dealflag];
+  const datas = [sellerid, buyerid, title, category, price, like, 
+    date, detail, dealmethod, dealtype, dealflag];
+
+  console.log(datas);
+  
+  // db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+  //  `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+  db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+  `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+    datas, (err, result) => {
+      if(err){
+        console.log("newproduct error");
+        res.send({message: "실패"});
+      }
+      if(result){
+          //db.query("SELECT `product_id` FROM `PRODUCT` WHERE ")
+        console.log("newproduct succeed!");
+        res.send({message: "성공"});
+      }
+  });
+});
+
+/*
  * 목적: 마이페이지 포인트내역 불러오기
  * input: login_id
  * output: 마이페이지 포인트 내역 / none
@@ -1148,26 +1264,26 @@ app.get("/qna/search/:word", function (req, res) {
   });
 });
 
-const path = require("path");
-const multer = require("multer");
+// const path = require("path");
+// const multer = require("multer");
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
-const storage = multer.diskStorage({
-  destination: "./public/images/report",
-  filename: function(req, file, cb) {
-    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
-  }
-});
+// const storage = multer.diskStorage({
+//   destination: "./public/images/report",
+//   filename: function(req, file, cb) {
+//     cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
+//   }
+// });
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 }
-});
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 1000000 }
+// });
 
-app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
-  console.log(req.file.filename);
-  res.send({
-    fileName: req.file.filename
-  });
-});
+// app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+//   console.log(req.file.filename);
+//   res.send({
+//     fileName: req.file.filename
+//   });
+// });

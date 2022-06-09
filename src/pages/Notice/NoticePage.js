@@ -61,13 +61,13 @@ export default function Notice(){
                 <div className="noticeBottom">
                     <div className="searchNotice">
                         <input type='text' onChange={(event) => SetSearchWord(event.target.value)}/>
-                        <Link to={{pathname: '/notice/search/'}} state={{searchword: SearchWord}}>
+                        <Link to={{pathname: '/notice/search/'+SearchWord}} state={{searchword: SearchWord}}>
                             <button type='button'>검색</button>                       
                         </Link>
                     </div>
-                    <div className="writeNotice">
+                    <div>
                         <Link to='/notice/write'>
-                            <button type='button' hidden={IsManager?false:true}>공지 작성</button>
+                            <button type='button' className="writeNotice" hidden={!IsManager}>공지 작성</button>
                         </Link>
                     </div>
                 </div>

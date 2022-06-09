@@ -42,6 +42,17 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.noticeMain .SearchResult{
+  margin-bottom: 12px;
+  padding: 8px;
+  width: 1200px;
+  text-align: center;
+  font-size: 20px;
+}
+.noticeMain .SearchResult span{
+    color: #ff3d60;
+}
+
 .searchNotice{
     margin: 8px;
 }
@@ -58,10 +69,17 @@
     color: #888888;
     font-weight: bold;
 }
+.allNotice{
+    margin: 8px;
+    width: 120px;
+    height: 32px;
+    border: 2px solid #888888;
+    background-color: #FFFFFF;
+    color: #888888;
+    font-weight: bold;
+}
 .writeNotice{
     margin: 8px;
-}
-.writeNotice button{
     width: 120px;
     height: 32px;
     border: 2px solid #ff3d60;
