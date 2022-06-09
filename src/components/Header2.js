@@ -12,9 +12,9 @@ export default function Header(props){
   return(
     <header>
       <nav className="Top">
-        <div className="TopNav">로그인</div>
-        <div className="TopNav">회원가입</div>
-        <div className="TopNav">고객센터</div>
+        <Link to={{pathname:'/login'}} id='LinkNoLine'><div className="TopNav">로그인</div></Link>
+        <Link to={{pathname:'/register'}} id='LinkNoLine'><div className="TopNav">회원가입</div></Link>
+        <Link to={{pathname:'/qna'}} id='LinkNoLine'><div className="TopNav">고객센터</div></Link>
       </nav>
       
       <div className="Divider"></div>
