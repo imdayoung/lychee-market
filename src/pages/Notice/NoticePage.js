@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
-import moment from 'moment';
 import Header from "../../components/Header"
 import NoticeListComponent from "./components/NoticeListComponent";
-import "../../style/Notice.css"
+
 export default function Notice(){
     // 관리자인지 확인 필요
     const IsManager = true;
@@ -37,7 +36,7 @@ export default function Notice(){
         for(let i=Notice.length-1; i>=0; i--){
             NoticeList.push(
                 <NoticeListComponent key={i} notice_id={Notice[i].notice_id} notice_title={Notice[i].notice_title}
-                notice_date={moment(Notice[i].notice_date).format('YYYY-MM-DD')} manager_id={Notice[i].manager_id}/>
+                notice_date={Notice[i].notice_date.toString().split('T')[0]} manager_id={Notice[i].manager_id}/>
             );
         }
     }
@@ -68,7 +67,7 @@ export default function Notice(){
                     </div>
                     <div className="writeNotice">
                         <Link to='/notice/write'>
-                            <button type='button' hidden={!IsManager}>공지 작성</button>
+                            <button type='button' hidden={IsManager?false:true}>공지 작성</button>
                         </Link>
                     </div>
                 </div>

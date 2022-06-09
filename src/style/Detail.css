@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* font, main */
+* {
+    font-family: 'Noto Sans KR';
+}
+.Head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.DetailMain {
+    display: block;
+    margin: auto;
+    flex-direction: row;
+    width: 1080px;
+    margin-top: 30px;
+}
+
+/* search */
+.Descript {
+    display: block;
+    height: 100px;
+}
+
+.Prod {
+    display: block;
+}
+
+#Category {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+#ImageDiv {
+    display: inline-block;
+    border: 1px solid #ff9696;
+    width: 500px;
+    height: 500px;
+    margin-right: 60px;
+}
+
+#DetailItemImage {
+    width: 500px;
+    height: 500px;
+}
+
+#DetailDescription {
+    display: inline-block;
+    width: 700px;
+    height: 500px;
+    position: absolute;
+}
+
+#DetailItemTitle {
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+
+#DetailItemPrice {
+    display: inline;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#DealFlag {
+    display: inline;
+    font-size: 40px;
+    float: right;
+    margin-right: 150px;
+}
+
+#DealTypeDiv {
+    display: inline-block;
+    border: 1px solid #ff9696;
+    border-radius: 100px;
+    background-color: #ff9696;
+    width: 130px;
+    height: 40px;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 40px;
+    line-height: 40px;
+    font-size: 22px;
+}
+
+#DealType {
+    display: inline;
+    font-size: 22px;
+}
+
+#MoreInfo {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#LikeDate {
+    display: inline;
+    font-size: 25px;
+}
+
+#ReportButton {
+    display: inline;
+    float: right;
+    margin-right: 150px;
+    font-size: 25px;
+}
+
+#LikeButton {
+    width: 260px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff9696;
+}
+
+#MessageButton {
+    width: 260px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff3d60;
+    float: right;
+    margin-right: 150px;
+    color: white;
+}
+
+#Infos {
+    margin-top: 20px;
+}
+
+#InfoTitle {
+    font-size: 30px;
+}
+
+#Info {
+    font-size: 20px;
+}

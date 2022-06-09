@@ -16,6 +16,7 @@ export default function NoticeRead(){
     if(IsManager){
         var now = moment();
         var UpdateDate = now.format('YYYY-MM-DD');
+        console.log(UpdateDate);
     }
     
     // 공지사항 정보
@@ -41,6 +42,7 @@ export default function NoticeRead(){
             SetNoticeTitle(res.data[0].notice_title);
             SetNoticeContent(res.data[0].notice_content);
             SetNoticeImg(res.data[0].notice_img);
+            // setNotice(res.data[0]);
         });
     },[NoticeId]);
 
@@ -94,7 +96,7 @@ export default function NoticeRead(){
                 <table className="noticeRead">
                     <tr className="n_row">
                         <th className="n_th">제목</th>
-                        <td><input className="n_td" type='text' value={NoticeTitle} readOnly={!IsManager} onChange={(event) => SetNoticeTitle(event.target.value)}/></td>
+                        <td><input className="n_td" type='text' value={NoticeTitle} readOnly={IsManager?false:true} onChange={(event) => SetNoticeTitle(event.target.value)}/></td>
                     </tr>
                     <tr className="n_row">
                         <th className="n_th">{Date}</th>
@@ -107,7 +109,7 @@ export default function NoticeRead(){
                     <tr className="n_row">
                         <th className="n_th">내용</th>
                         <td>
-                            <textarea className="n_td_content" value={NoticeContent} readOnly={!IsManager} onChange={(event) => SetNoticeContent(event.target.value)}/>
+                            <textarea className="n_td_content" value={NoticeContent} readOnly={IsManager?false:true} onChange={(event) => SetNoticeContent(event.target.value)}/>
                         </td>
                     </tr>
                     <tr className="n_row">
@@ -118,8 +120,8 @@ export default function NoticeRead(){
                 </table>
                 <div className="buttons">
                     <button className="list" type="button" onClick={ListClick}>목록</button>
-                    <button className="update" type="button" hidden={!IsManager} onClick={UpdateClick}>수정하기</button>
-                    <button className="delete" type="button" hidden={!IsManager} onClick={DeleteClick}>삭제하기</button>
+                    <button className="update" type="button" hidden={IsManager?false:true} onClick={UpdateClick}>수정하기</button>
+                    <button className="delete" type="button" hidden={IsManager?false:true} onClick={DeleteClick}>삭제하기</button>
                 </div>
             </main>
         </div>

@@ -1,4 +1,3 @@
-//import './App.css';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './style/Global.css';
@@ -29,7 +28,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/msgbox" element={<MessagePage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/" element={<MAIN/>}/>
         <Route path="/buy" element={<BUY/>}/>
