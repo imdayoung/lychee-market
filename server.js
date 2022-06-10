@@ -457,7 +457,11 @@ app.post("/login", function (req, res) {
       }
       if (result.length > 0) {
         console.log("login succeed!");
-        res.send({ result: result, message: "일반회원" });
+        if(result[0].user_reliable === -1){
+          res.send({message: "영구정지 처리된 회원입니다!"})
+        }
+        else
+          res.send({ result: result, message: "일반회원" });
       } else {
         db.query(
           "SELECT * FROM `MANAGER` WHERE `manager_id` = ? AND `manager_pw` = ?",
@@ -472,7 +476,7 @@ app.post("/login", function (req, res) {
               res.send({ result: result, message: "매니저" });
             } else {
               console.log("login fail");
-              res.send(false);
+              res.send({message: "로그인 정보가 존재하지 않습니다!"});
             }
           }
         );
@@ -1289,11 +1293,32 @@ app.post("/qna/answer/:qna_id", function (req, res) {
   });
 });
 
+/*
+ * 목적: qna 조회수 변경
+ * input: 
+ * output: true / false
+ */
+app.post("/qnaview", function (req, res) {
+  const qna_id = req.body.qna_id;
+
+  const SQL = "UPDATE `QNA` SET `view`=`view`+1 WHERE `qna_id`=?";
+  console.log("qna view started");
+  db.query(SQL, qna_id, function (err, result) {
+    if (err) {
+      console.log("qna view error", err);
+      res.send(false);
+    }
+    if (result) {
+      console.log("qna view result", result);
+      res.send(true);
+    }
+  });
+});
 
 /*
- * 목적: 공지사항 검색
+ * 목적: 문의사항 검색
  * input: 검색 단어
- * output: 해당 단어를 제목에 포함하는 공지사항 / false
+ * output: 해당 단어를 제목에 포함하는 문의사항 / false
  */
 app.get("/qna/search/:word", function (req, res) {
   const SearchWord = req.params.word;
