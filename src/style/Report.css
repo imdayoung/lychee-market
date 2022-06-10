@@ -41,10 +41,10 @@
 }
 .ReportList .ReportTitle{
   width:600px;
-  height: 60px;
-  text-align: center;
-  vertical-align: middle;
-  color: black;
+}
+.ReportList .ReportTitleToDetail{
+  width:600px;
+  cursor: pointer;
 }
 .ReportList .ReportDate{
   width:200px;
