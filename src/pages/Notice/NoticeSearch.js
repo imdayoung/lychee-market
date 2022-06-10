@@ -38,7 +38,7 @@ export default function NoticeSearch(){
 
     let NoticeList = [];
     if(Notice.length === 0){
-        NoticeList.push(<tr className="n_list_row"><td colSpan='4'>"{SearchWord}"에 대한 검색결과가 없습니다.</td></tr>)
+        NoticeList.push(<tr key={0} className="n_list_row"><td colSpan='4'>"{SearchWord}"에 대한 검색결과가 없습니다.</td></tr>)
     }
     else{
         for(let i=Notice.length-1; i>=0; i--){    

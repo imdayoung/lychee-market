@@ -75,9 +75,10 @@
 }
 .searchNotice button{
     width: 80px;
-    height: 32px;
+    height: 34px;
     border: 2px solid #888888;
     background-color: #ffffff;
+    font-size: 16px;
     color: #888888;
     font-weight: bold;
     cursor: pointer;
@@ -85,9 +86,10 @@
 .allNotice{
     margin: 8px;
     width: 120px;
-    height: 32px;
+    height: 34px;
     border: 2px solid #888888;
     background-color: #FFFFFF;
+    font-size: 16px;
     color: #888888;
     font-weight: bold;
     cursor: pointer;
@@ -95,9 +97,10 @@
 .writeNotice{
     margin: 8px;
     width: 120px;
-    height: 32px;
+    height: 34px;
     border: 2px solid #ff3d60;
     background-color: #FFFFFF;
+    font-size: 16px;
     color: #ff3d60;
     font-weight: bold;
     cursor: pointer;
@@ -147,9 +150,10 @@
 }
 .noticeMain .buttons .list, .noticeMain .buttons .delete{
     width: 120px;
-    height: 32px;
+    height: 34px;
     border: 2px solid #888888;
     background-color: #FFFFFF;
+    font-size: 16px;
     color: #888888;
     font-weight: bold;
     margin: 8px;
@@ -157,9 +161,10 @@
 }
 .noticeMain .buttons .update, .noticeMain .buttons .submit{
     width: 120px;
-    height: 32px;
+    height: 34px;
     border: 2px solid #ff3d60;
     background-color: #FFFFFF;
+    font-size: 16px;
     color: #ff3d60;
     font-weight: bold;
     margin: 8px;
