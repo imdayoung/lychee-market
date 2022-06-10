@@ -738,8 +738,9 @@ app.post("/changemyinfo", function (req, res) {
  */
 app.get("/manager/product", function (req, res) {
   const SQL =
-    "SELECT P.`product_id`,IF(`deal_type`=0,`seller_id`,`buyer_id`) AS `writer_id`,`product_category`,\
-    `product_title`,`product_price`, `report_id` FROM `PRODUCT` P LEFT OUTER JOIN `REPORT` R ON P.`product_id` = R.`product_id`";
+    "SELECT P.`product_id`,IF(`deal_type`=0,`seller_id`,`buyer_id`) AS `writer_id`,`deal_type`,`product_category`,\
+    `product_title`,`product_price`, `report_id` FROM `PRODUCT` P LEFT OUTER JOIN `REPORT` R ON\
+     P.`product_id` = R.`product_id` GROUP BY P.`product_id`";
   db.query(SQL, function (err, rows) {
     if (err) {
       console.log("게시글 관리 불러오기 오류", err);
@@ -747,6 +748,30 @@ app.get("/manager/product", function (req, res) {
     }
     if (rows) {
       console.log("게시글 관리 불러오기 결과", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 게시글 관리 창에서 검색
+ * input: 검색 단어
+ * output: 해당 단어를 제목 또는 카테고리에 포함하는 게시글 / false
+ */
+app.get("/manager/product/:word", function (req, res) {
+  const SearchWord = req.params.word;
+
+  const SQL =
+    "SELECT P.`product_id`,IF(`deal_type`=0,`seller_id`,`buyer_id`) AS `writer_id`,`deal_type`,`product_category`,\
+     `product_title`,`product_price`, `report_id` FROM `PRODUCT` P LEFT OUTER JOIN `REPORT` R ON\
+     P.`product_id` = R.`product_id` WHERE `product_category` LIKE ? OR `product_title` LIKE ? GROUP BY P.`product_id`";
+  db.query(SQL, ["%" + SearchWord + "%", "%" + SearchWord + "%"], function (err, rows) {
+    if (err) {
+      console.log("게시글 관리 검색 오류", err);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("게시글 관리 검색 결과", rows);
       res.send(rows);
     }
   });
@@ -763,10 +788,10 @@ app.post("/manager/product", function (req, res) {
   const SQL ="DELETE FROM `PRODUCT` WHERE `product_id`=?";
   db.query(SQL, ProductId, function (err, result) {
     if (err) {
-      console.log("게시글 삭제 오류", result);
+      console.log("게시글 삭제 오류", err);
       res.send(false);
     }
-    if (rows) {
+    if (result) {
       console.log("게시글 삭제 결과", result);
       res.send(true);
     }
@@ -794,6 +819,29 @@ app.get("/manager/user", function (req, res) {
 });
 
 /*
+ * 목적: 사용자 관리 창에서 검색
+ * input: 검색 단어
+ * output: 해당 단어를 아이디, 닉네임, 이름에 포함하는 게시글 / false
+ */
+app.get("/manager/user/:word", function (req, res) {
+  const SearchWord = req.params.word;
+
+  const SQL =
+    "SELECT `user_id`,`user_nickname`,`user_name`,`user_reliable` FROM `USER` WHERE `user_id` LIKE ?\
+     OR `user_name` LIKE ? OR `user_nickname` LIKE ?";
+  db.query(SQL, ["%" + SearchWord + "%", "%" + SearchWord + "%", "%" + SearchWord + "%"], function (err, rows) {
+    if (err) {
+      console.log("사용자 관리 검색 오류", err);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("사용자 관리 검색 결과", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
  * 목적: 사용자 신뢰도 관리자가 조정
  * input: 관리자인 경우만 res 받아오도록 수정 필요
  * output: true / false
@@ -802,13 +850,13 @@ app.post("/manager/user/reliable", function (req, res) {
   const UserId = req.body.user_id;
   const Reliable = req.body.user_reliable;
 
-  const SQL = "UPDATE `USER` SET `user_reliable`=? WHERE `user_id`=?";
-  db.query(SQL, [Reliable,UserId], function (err, result) {
+  const SQL = "UPDATE `USER` SET `user_reliable`=? WHERE `user_id`=?;";
+  db.query(SQL, [Reliable, UserId], function (err, result) {
     if (err) {
-      console.log("사용자 신뢰도 조정 오류", result);
+      console.log("사용자 신뢰도 조정 오류", err);
       res.send(false);
     }
-    if (rows) {
+    if (result) {
       console.log("사용자 신뢰도 조정 결과", result);
       res.send(true);
     }
@@ -824,12 +872,12 @@ app.post("/manager/user", function (req, res) {
   const UserId = req.body.user_id;
 
   const SQL = "UPDATE `USER` SET `user_reliable`=-1 WHERE `user_id`=?";
-  db.query(SQL, [Reliable,UserId], function (err, result) {
+  db.query(SQL, UserId, function (err, result) {
     if (err) {
       console.log("사용자 영구 정지 오류", result);
       res.send(false);
     }
-    if (rows) {
+    if (result) {
       console.log("사용자 영구 정지 결과", result);
       res.send(true);
     }
@@ -851,6 +899,28 @@ app.get("/manager/report", function (req, res) {
     }
     if (rows) {
       console.log("신고글 관리 불러오기 결과", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 신고글 관리 창에서 검색
+ * input: 검색 단어
+ * output: 해당 단어를 유형 또는 제목에 포함하는 게시글 / false
+ */
+app.get("/manager/report/:word", function (req, res) {
+  const SearchWord = req.params.word;
+
+  const SQL =
+    "SELECT `report_id`,`report_type`,`report_title`,`reporter_id` ,`report_date`, `solve_id` FROM `REPORT` WHERE `report_title` LIKE ? OR `report_type` LIKE ?";
+  db.query(SQL, ["%" + SearchWord + "%", "%" + SearchWord + "%"], function (err, rows) {
+    if (err) {
+      console.log("신고 관리 검색 오류", err);
+      res.send(false);
+    }
+    if (rows) {
+      console.log("신고 관리 검색 결과", rows);
       res.send(rows);
     }
   });
