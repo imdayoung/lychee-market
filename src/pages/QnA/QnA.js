@@ -59,10 +59,6 @@ function QnA() {
     }
   }
 
-  const Test = () => {
-    alert("냠냠");
-  }
-
   return (
     <div className="main">
       <Header keyword="문의사항"/>
