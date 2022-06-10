@@ -30,6 +30,9 @@
   height: 60px;
   border-bottom: 1px solid #000;
 }
+.ReportListRow a{
+  text-decoration: none;
+}
 .ReportList .ReportIndex{
   width:100px;
 }
@@ -37,7 +40,11 @@
   width:200px;
 }
 .ReportList .ReportTitle{
-  width:400px;
+  width:600px;
+  height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  color: black;
 }
 .ReportList .ReportDate{
   width:200px;
@@ -96,6 +103,11 @@
   height: flex;
   resize: vertical;
 }
+.ReportTdImg{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  max-width: 984px;
+}
 .ReportMain .ReportButtons{
   text-align: right;
   margin-right: 48px;
@@ -108,6 +120,7 @@
   color: #888888;
   font-weight: bold;
   margin: 8px;
+  cursor: pointer;
 }
 .ToProduct{
   margin-left:8px;
@@ -116,6 +129,7 @@
   border: 2px solid #ff3d60;
   background-color: #ff3d60;
   color: #ffffff;
+  cursor: pointer;
 }
 .ReportMain .ReportButtons .Submit{
   width: 120px;
@@ -125,4 +139,5 @@
   color: #ff3d60;
   font-weight: bold;
   margin: 8px;
+  cursor: pointer;
 }

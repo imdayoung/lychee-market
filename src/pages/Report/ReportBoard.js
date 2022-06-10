@@ -44,7 +44,7 @@ export default function ReportBoard(){
 
   return (
     <div>
-      <Header props={'내 신고 내역'}/>
+      <Header keyword='내 신고 내역'/>
       <main className="ReportMain">
         <div className="ReportInfo">
           <p>
@@ -54,7 +54,7 @@ export default function ReportBoard(){
         </div>
         <table className="ReportList">
           <thead className="ReportHead">
-            <tr>
+            <tr className="ReportListRow">
               <td className="ReportIndex">신고번호</td>
               <td className="ReportType">유형</td>
               <td className="ReportTitle">제목</td>

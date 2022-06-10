@@ -5,7 +5,7 @@ export default function ReportListComponent(props){
     <tr className="ReportListRow">
       <td className="ReportIndex">{props.report_id}</td>
       <td className="ReportType">{props.report_type}</td>
-      <td className="ReportTitle"><Link to={{pathname:'/report/detail/'+props.report_id}}>{props.report_title}</Link></td>
+      <Link to={{pathname:'/report/detail/'+props.report_id}}><td className="ReportTitle">{props.report_title}</td></Link>
       <td className="ReportDate">{props.report_date}</td>
       <td className="EsSolved">{props.is_solved}</td>
     </tr>

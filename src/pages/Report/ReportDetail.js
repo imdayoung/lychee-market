@@ -8,7 +8,7 @@ export default function ReportDetail(){
   let Navigate = useNavigate();
   let Location = useLocation();
 
-  const IsManager = false;   // 관리자 추가 필요
+  const IsManager = true;   // 관리자 추가 필요
   const ManagerId = 'admin2';
 
   if(IsManager){
@@ -59,15 +59,11 @@ export default function ReportDetail(){
         solve_content: SolveContent,
       }).then((res)=>{
         console.log(res);
-        if(res.data === true)
-          Navigate(-1);
-        else{
-          alert("신고 답변 저장 실패");
-          Navigate(-1);
-        }
+        if(res.data === false) alert("신고 답변 저장 실패");
+        Navigate(-1);
       });
     }
-  }
+  };
   
   // 신고 삭제
   const DeleteClick = ()=>{
@@ -76,29 +72,39 @@ export default function ReportDetail(){
         report_id: Content.report_id
       }).then((res)=>{
         console.log(res);
-        if(res.data === true)
-          Navigate(-1);
-        else{
-          alert("신고 삭제 실패");
-          Navigate(-1);
-        }
+        if(res.data === false) alert("신고 삭제 실패");
+        Navigate(-1);
       });
     }
-  }
+  };
 
   // 목록으로 돌아가기
   const ListClick = ()=>{
     Navigate(-1);
-  }
+  };
 
   // 게시물 신고인 경우 상품글로 이동
-  const ProductClikc = ()=>{
-    Navigate("/buy"); // 상품 번호 추가해줘야함!!!!!
-  }
+  const ProductClick = ()=>{
+    console.log("productid:", Content.product_id);
+    Axios.post('http://localhost:8080/product/type',{
+      product_id: Content.product_id,
+    }).then(res =>{
+      console.log(res.data);
+      if(res.data === false) {
+        alert("해당 게시물로 이동하는데 실패하였습니다.");
+      }
+      else if(res.data === "deleted") {
+        alert("해당 게시물이 존재하지 않습니다.");
+      }
+      else{
+        Navigate("/"+res.data+"/detail/"+Content.product_id);
+      }
+    });
+  };
 
   return (
     <div>
-      <Header props={'신고 | 상세'}/>
+      <Header keyword='신고 상세 내용'/>
       <main className="ReportMain">
         <table className="ReportTable">
           <caption>문의</caption>
@@ -109,7 +115,7 @@ export default function ReportDetail(){
               <th className="ReportTh">유형</th>
               <td>
                 <input className={Content.report_type==="게시물 신고"?"ReportTdButton":"ReportTdShort"} value={Content.report_type} readOnly/>
-                <button className="ToProduct" type="button" onClick={ProductClikc} hidden={Content.report_type==="게시물 신고"?false:"ReportTdShort"}>이동</button>
+                <button className="ToProduct" type="button" onClick={ProductClick} hidden={Content.report_type==="게시물 신고"?false:true}>이동</button>
               </td>
             </tr>
             <tr className="ReportRow">
@@ -127,11 +133,12 @@ export default function ReportDetail(){
               <td colSpan="3"><textarea className="ReportTdContent" value={Content.report_detail} readOnly></textarea></td>
             </tr>
             <tr className="ReportRow">
-              <th className="ReportTh">첨부파일</th>
-              <td><img className="ReportTdShort" src={Content.report_file} alt={Content.report_file===null ? '파일 없음' : Content.report_file}/></td>
-              {/* 파일 불러오도록 수정필요한데 안된다는 얘기가 있네...? 이미지만 경로 통해서 불어올 수 있는 듯...? */}
               <th className="ReportTh">신고아이디</th>
-              <td><input className="ReportTdShort" value={Content.reported_id} readOnly/></td>
+              <td colSpan="3"><input className="ReportTdLong" value={Content.reported_id} readOnly/></td>
+            </tr>
+            <tr className="ReportRow" hidden={Content.report_file===null || Content.report_file==='' ? true : false}>
+              <th className="ReportTh">첨부파일</th>
+              <td colSpan="3"><img className="ReportTdImg" src={Content.report_file}/></td>
             </tr>
           </tbody>
         </table>
@@ -162,4 +169,4 @@ export default function ReportDetail(){
       </main>
     </div>
   );
-}
+};
