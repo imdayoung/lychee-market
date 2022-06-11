@@ -1,8 +1,6 @@
 import '../style/Header.css';
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import getCookie from './GetCookie';
-import setCookie from './SetCookie';
 
 export default function Header(props){
   return(
