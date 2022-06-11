@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './style/Global.css';
-import './style/Notice.css';
 import Message from './pages/Message/MessagePage';
 import Notice from './pages/Notice/NoticePage';
 import NoticeRead from './pages/Notice/NoticeRead';

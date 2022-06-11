@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import moment from 'moment';
 import Header from "../../components/Header"
+import "../../style/Notice.css";
 
 export default function NoticeWrite(){
     let Navigate = useNavigate();

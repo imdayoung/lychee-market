@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import Axios from "axios";
 import Header from "../../components/Header";
 import ProductListItem from "./components/ProductListItem";
+import Pagination from "../../components/Pagination";
 import "../../style/Management.css"
 
 export default function SearchProduct() {
@@ -18,6 +19,11 @@ export default function SearchProduct() {
       product_price: '',
       report_id: '',
   }]);
+
+  // 페이지네이션
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   // 검색 단어
   const [Word, SetWord] = useState('');
@@ -87,9 +93,15 @@ export default function SearchProduct() {
               </tr>
             </thead>
             <tbody>
-                {ProductList}
+                {ProductList.slice(offset, offset + limit)}
             </tbody>
         </table>
+        <Pagination
+          total={ProductList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
         <div className="ManageBottom">
         <div className="ManageSearch">
             <input type="text" onChange={(e)=>SetWord(e.target.value)}></input>

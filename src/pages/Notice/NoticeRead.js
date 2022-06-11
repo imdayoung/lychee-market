@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Axios from 'axios';
 import moment from 'moment';
 import Header from "../../components/Header"
-import e from "cors";
+import "../../style/Notice.css";
 
 export default function NoticeRead(){  
     let Navigate = useNavigate();

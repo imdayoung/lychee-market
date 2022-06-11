@@ -4,6 +4,7 @@ import moment from "moment";
 import Axios from "axios";
 import Header from "../../components/Header";
 import ReportListItem from "./components/ReportListItem";
+import Pagination from "../../components/Pagination";
 import "../../style/Management.css"
 
 export default function SearchReport() {
@@ -17,7 +18,12 @@ export default function SearchReport() {
     reporter_id: '',
     report_date: '',
     solve_id: '',
-  }]);    
+  }]);
+
+  // 페이지네이션
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   // 검색 단어
   const [Word, SetWord] = useState('');
@@ -66,9 +72,15 @@ export default function SearchReport() {
             </tr>
           </thead>
           <tbody>
-            {ReportList}
+            {ReportList.slice(offset, offset + limit)}
           </tbody>
         </table>
+        <Pagination
+          total={ReportList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
         <div className="ManageBottom">
           <div className="ManageSearch">
             <input type="text" onChange={(e)=>SetWord(e.target.value)}></input>

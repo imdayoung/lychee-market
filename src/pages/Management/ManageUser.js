@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import Header from "../../components/Header";
 import UserListItem from "./components/UserListItem";
+import Pagination from "../../components/Pagination";
 import "../../style/Management.css"
 
 export default function ManageUser() {
@@ -13,6 +14,11 @@ export default function ManageUser() {
     user_name: '',
     user_reliable: '',
   }]);
+
+  // 페이지네이션
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   // 검색 단어
   const [SearchWord, SetSearchWord] = useState('');
@@ -52,9 +58,15 @@ export default function ManageUser() {
             </tr>
           </thead>
           <tbody>
-            {UserList}
+            {UserList.slice(offset, offset + limit)}
           </tbody>
         </table>
+        <Pagination
+          total={UserList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
         <div className="ManageBottom">
           <div className="ManageSearch">
             <input type="text" onChange={e=>SetSearchWord(e.target.value)}></input>

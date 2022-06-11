@@ -1,0 +1,18 @@
+.Pagination button{
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  color: #888888;
+  font-size: 20px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.Pagination :disabled{
+  cursor: default;
+  color: white;
+}
+.Pagination [aria-current]{
+  cursor: default;
+  color: #ff3d60;
+  font-weight: bold;
+}

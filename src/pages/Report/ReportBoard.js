@@ -3,6 +3,7 @@ import Axios from "axios";
 import moment from "moment";
 import Header from "../../components/Header"
 import ReportListComponent from "./components/ReportListComponent";
+import Pagination from "../../components/Pagination";
 import "../../style/Report.css"
 
 export default function ReportBoard(){    
@@ -18,6 +19,11 @@ export default function ReportBoard(){
       solve_id: '',   // 신고 해결 여부 확인을 위해
 
   }]);
+
+  // 페이지네이션
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   useEffect(()=>{
       Axios.post('http://localhost:8080/report',{
@@ -63,9 +69,15 @@ export default function ReportBoard(){
             </tr>
           </thead>
           <tbody>
-            {ReportList}
+            {ReportList.slice(offset, offset + limit)}
           </tbody>
         </table>
+        <Pagination
+          total={ReportList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       </main>
     </div>
   );

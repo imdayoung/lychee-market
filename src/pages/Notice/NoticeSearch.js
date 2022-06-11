@@ -4,6 +4,7 @@ import Axios from 'axios';
 import moment from 'moment';
 import Header from "../../components/Header"
 import NoticeListComponent from "./components/NoticeListComponent";
+import "../../style/Notice.css";
 
 export default function NoticeSearch(){
     // 관리자인지 확인 필요
