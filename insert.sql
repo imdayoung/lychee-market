@@ -14,11 +14,9 @@ insert into `notice` (`manager_id`,`notice_date`,`notice_title`,`notice_content`
 ('admin2','2022-05-25','공지사항2','2번 공지사항입니다.',null),
 ('admin3','2022-05-30','공지사항3','3번 공지사항입니다.',null);
 
-DELETE FROM `PRODUCT` WHERE buyer_id='dlekdud0102';
-
 INSERT INTO `PRODUCT` (`seller_id`,`product_title`,`product_category`,`product_price`,`product_like`,`product_date`,`product_img`,`product_detail`,`deal_method`,`deal_type`,`deal_flag`) VALUES
 ('sy02lee','이거 팝니다.','패션 액세서리',50000,0,'2022-06-09','images/products/prod08.png','새 것 같은 이거 팝니다.','직거래',0,0),
-('tmddbs','갤럭시워치 팝니다','디지털/가전',200000,0,'2022-06-09','images/products/prod07.png','핸드폰이 아이폰이에유...','택배거래',0,0);
+('tmddbs','갤럭시워치 팝니다','디지털가전',200000,0,'2022-06-09','images/products/prod07.png','핸드폰이 아이폰이에유...','택배거래',0,0);
 
 INSERT INTO `MSGBOX` (`seller_id`,`buyer_id`,`product_id`) VALUES
 ('sy02lee','tmddbs',1);
@@ -35,12 +33,12 @@ INSERT INTO `user` VALUES
 ('mouse0818', '김민쟈', '2022-05-02', '감자인척', 'password1234', '01064010001', '일산동구 식사동', 0, 50),
 ('dlekdud0102', '이다영', '2022-03-02', '영계백숙', 'password1234', '01064010002', '일산서구 대화동', 0, 50);
 
-INSERT INTO `PRODUCT` VALUES
-(0, 'mouse0429', null, '감자 팔아요', '생활/가공식품', 1000, 0, '2022-06-09', 'images/products/prod05.png', 0, '싱싱해요', '직거래', 0, false),
-(0, 'mouse0429', 'dlekdud0102', '고구마 팔아요', '생활/가공식품', 1000, 0, '2022-06-09', 'images/products/prod02.png', 0, '싱싱해요', '직거래', 1, false),
-(0, 'mouse0429', null, '당근 팔아요', '생활/가공식품', 1000, 0, '2022-06-09', 'images/products/prod03.png', 0, '싱싱해요', '직거래', 0, false),
-(0, 'mouse0818', null, '가지 팔아요', '생활/가공식품', 1000, 0, '2022-06-09', 'images/products/prod04.png', 0, '싱싱해요', '직거래', 0, false),
-(0, 'mouse0818', 'mouse0429', '오이 팔아요', '생활/가공식품', 1000, 0, '2022-06-09', 'images/products/prod01.png', 0, '싱싱해요', '직거래', 1, false);
+INSERT INTO `PRODUCT` (`seller_id`,`buyer_id`,`product_title`,`product_category`,`product_price`,`product_like`,`product_date`,`product_img`,`product_img_num`,`product_detail`,`deal_method`,`deal_type`,`deal_flag`) VALUES
+('mouse0429', null, '감자 팔아요', '생활가공식품', 1000, 0, '2022-06-09', 'images/products/prod05.png', 0, '싱싱해요', '직거래', 0, false),
+('mouse0429', 'dlekdud0102', '고구마 팔아요', '생활가공식품', 1000, 0, '2022-06-09', 'images/products/prod02.png', 0, '싱싱해요', '직거래', 1, false),
+('mouse0429', null, '당근 팔아요', '생활가공식품', 1000, 0, '2022-06-09', 'images/products/prod03.png', 0, '싱싱해요', '직거래', 0, false),
+('mouse0818', null, '가지 팔아요', '생활가공식품', 1000, 0, '2022-06-09', 'images/products/prod04.png', 0, '싱싱해요', '직거래', 0, false),
+('mouse0818', 'mouse0429', '오이 팔아요', '생활가공식품', 1000, 0, '2022-06-09', 'images/products/prod01.png', 0, '싱싱해요', '직거래', 1, false);
 
 INSERT INTO `MSGBOX` VALUES
 (0, 'mouse0429', 'mouse0818', 1),

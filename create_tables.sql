@@ -28,6 +28,7 @@ CREATE TABLE `PRODUCT` (
     `deal_method` VARCHAR(15) NOT NULL,
     `deal_type` BOOLEAN NOT NULL,
     `deal_flag` BOOLEAN NOT NULL,
+    `distance` INT,
     PRIMARY KEY (`product_id`),
     FOREIGN KEY(`buyer_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE,
 	FOREIGN KEY(`seller_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE

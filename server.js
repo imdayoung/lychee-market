@@ -855,11 +855,11 @@ app.get('/buy', function(req, res) {
 	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0";
 	db.query(SQL, (err, result) => {
 		if(err) {
-			console.log("구매해요 상품 불러오기 오류", err);
+			console.log("구매해요 상품 불러오기 오류: ", err);
 			res.send(false);
 		}
 		if (result) {
-			console.log(result);
+			console.log("구매해요 상품 불러오기 성공: ", result);
 			res.send(result);
 		}
 	})
@@ -868,33 +868,77 @@ app.get('/buy', function(req, res) {
 // 구매해요 상품 검색
 app.get('/buy/search/:target', function(req, res) {
 	const Target = "%"+req.params.target+"%";
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price ASC";
+	var SQL = "SELECT seller_id, product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price ASC";
 	db.query(SQL, Target, (err, result) => {
 		if(err) {
-			console.log("구매해요 상품 검색 오류", err);
+			console.log("구매해요 상품 거리순 검색 오류: ", err);
 			res.send(false);
 		}
 		if (result) {
-			console.log(result);
+			console.log("구매해요 상품 거리순 검색 성공: ", result);
 			res.send(result);
 		}
 	})
 })
 
-app.get('/buy/search/distance/:target', function(req, res) {
-	const Target = "%"+req.params.target+"%";
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price DESC";
-	db.query(SQL, Target, (err, result) => {
-		if(err) {
-			console.log("구매해요 상품 검색 오류", err);
+app.get('/buy/search/:target/:category', function(req, res) {
+  const Target = "%"+req.params.target+"%";
+  const Category = req.params.category;
+  var SQL;
+  if(Category == "all") {
+    var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price ASC";
+  } else {
+    SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=? ORDER BY product_price ASC";
+  }
+  db.query(SQL, [Target, Category], (err, result) => {
+    if(err) {
+			console.log("구매해요 상품 카테고리별 가격순 검색 오류: ", err);
 			res.send(false);
 		}
 		if (result) {
-			console.log(result);
+			console.log("구매해요 상품 카테고리별 가격순 검색 성공: ", result);
 			res.send(result);
 		}
-	})
+  })
 })
+
+app.get('/buy/search/distance/:target/:category', function(req, res) {
+  const Target = "%"+req.params.target+"%";
+  const Category = req.params.category;
+  var SQL;
+  if(Category == "all") {
+    var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY `distance` ASC";
+  } else {
+    SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=? ORDER BY `distance` ASC";
+  }
+  db.query(SQL, [Target, Category], (err, result) => {
+    if(err) {
+			console.log("구매해요 상품 카테고리별 거리순 검색 오류: ", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log("구매해요 상품 카테고리별 거리순 검색 성공: ", result);
+			res.send(result);
+		}
+  })
+})
+
+app.post("/distanceupdate", function (req, res) {
+  const ProductId = req.body.product_id;
+  const Distance = req.body.distance;
+
+  const SQL = "UPDATE `PRODUCT` SET `distance`=? WHERE `product_id`=?";
+  db.query(SQL, [Distance, ProductId], (err, result) => {
+    if (err) {
+      console.log("거리 업데이트 오류: ", result);
+      res.send(false);
+    }
+    if (result) {
+      console.log("거리 업데이트 성공: ", result);
+      res.send(true);
+    }
+  });
+});
 
 /* 상품 상세 보기 */
 app.get('/buy/detail/:product_id', function(req, res) {
@@ -902,11 +946,11 @@ app.get('/buy/detail/:product_id', function(req, res) {
 	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `seller_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
 	db.query(SqlDetail, [ProductId, ProductId], (err, result) => {
 		if(err) {
-			console.log("상품 세부정보 불러오기 오류", err);
+			console.log("구매해요 상품 세부정보 불러오기 오류: ", err);
 			res.send(false);
 		}
 		if(result) {
-			console.log(result);
+			console.log("구매해요 상품 세부정보 불러오기 성공: ", result);
 			res.send(result);
 		}
 	})
@@ -927,16 +971,16 @@ app.get('/sell/detail/:product_id', function(req, res) {
 	})
 })
 
-app.get('/idtonickname/:seller_id', function(req, res) {
-  const SellerId = req.params.seller_id;
-  var SQL = "SELECT user_nickname FROM `USER` WHERE user_id=?"
-  db.query(SQL,SellerId, (err, result) => {
+app.get('/getlocation/:id', function(req, res) {
+  const Id = req.params.id;
+  var SQL = "SELECT `user_location` FROM `USER` WHERE `user_id`=?";
+  db.query(SQL, Id, (err, result) => {
     if(err) {
-			console.log("닉네임 얻어오기 오류", err);
+			console.log("사용자 주소 불러오기 오류: ", err);
 			res.send(false);
 		}
 		if(result) {
-			console.log(result);
+			console.log("사용자 주소 불러오기 성공: ", result);
 			res.send(result);
 		}
   })
@@ -947,11 +991,11 @@ app.get('/bestcategory', function(req, res) {
   var SQL = "SELECT product_category FROM `PRODUCT` WHERE DATE_FORMAT(product_date, '%Y-%m-%d')=DATE_FORMAT(now(), '%Y-%m-%d') GROUP BY product_category ORDER BY COUNT(product_category) DESC;"
   db.query(SQL, (err, result) => {
     if(err) {
-      console.log("상품 세부정보 불러오기 오류", err);
+      console.log("베스트 카테고리 불러오기 오류: ", err);
 			res.send(false);
 		}
 		if(result) {
-			console.log(result);
+			console.log("베스트 카테고리 불러오기 성공: ", result);
 			res.send(result);
 		}
   })

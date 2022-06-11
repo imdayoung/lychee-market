@@ -43,9 +43,9 @@ export default function BUYDETAIL(){
             SetProductImgNum(res.data[0].product_img_num);
             SetProductDetail(res.data[0].product_detail);
             SetDealMethod(res.data[0].deal_method);
-            if(res.data[0].deal_type == 1)  SetDealType('판매해요');
+            if(res.data[0].deal_type === 1)  SetDealType('판매해요');
             else                            SetDealType('구매해요');
-            if(res.data[0].deal_flag == 0)  SetDealFlag('거래중');
+            if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             SetSellerNick(res.data[0].seller_nickname);
         })   
