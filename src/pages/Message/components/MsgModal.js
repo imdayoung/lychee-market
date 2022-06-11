@@ -38,9 +38,12 @@ const MsgModal = ({ ModalClose, MsgName, MsgBoxId, SenderId }) => {
       <div id="MsgModalMain">
         <div id="MsgModalTitle">
           <span className="FontTitle">{MsgName}</span>
-          <span className="FontTitle" onClick={ModalClose}>
-            X
-          </span>
+          <img
+            id="CloseIcon"
+            alt="닫기"
+            src="images/close.png"
+            onClick={ModalClose}
+          />
         </div>
         <textarea id="MsgModalInput" placeholder="내용을 입력하세요" onChange={MsgContentHandler}></textarea>
         <button id="MsgModalBtn" onClick={() => {MsgBtnHandler(); ModalClose();}}>보내기</button>

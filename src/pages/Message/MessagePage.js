@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import "../../style/Message.css";
+import "../../style/MyPage.css";
 import Header from "../../components/Header";
 import MsgSender from "./components/MsgSender";
 import MsgContent from "./components/MsgContent";
 import MsgModal from "./components/MsgModal";
+import MoneyModal from "./components/MoneyModal";
+import { useNavigate } from "react-router-dom";
 
 /*아이디 받아오기*/
 const Id = "mouse0429";
@@ -15,10 +18,23 @@ export default function Message(props) {
   const [MsgSenderList, SetMsgSenderList] = useState();
   const [SelectedBox, SetSelectedBox] = useState(0);
   const [MsgSenderName, SetMsgSenderName] = useState();
-  const [IsModalOpen, SetIsModalOpen] = useState(false);
+  const [ProductId, SetProductId] = useState();
+  const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
+  const [IsMoneyModalOpen, SetIsMoneyModalOpen] = useState(false);
+  const [ReportInfo, SetReportInfo] = useState(null);
 
-  const ModalClose = () => {
-    SetIsModalOpen(!IsModalOpen);
+  let navigate = useNavigate();
+
+  const ReportNavigate = () => {
+    navigate('/report/write', {state:{info: ReportInfo}});
+  }
+
+  const MsgModalClose = () => {
+    SetIsMsgModalOpen(!IsMsgModalOpen);
+  };
+
+  const MoneyModalClose = () => {
+    SetIsMoneyModalOpen(!IsMoneyModalOpen);
   };
 
   useEffect(() => {
@@ -40,6 +56,12 @@ export default function Message(props) {
               <div
                 onClick={() => {
                   SetSelectedBox(data.msgbox_id);
+                  SetReportInfo({
+                    reportedid:
+                      data.buyer_id !== Id ? data.buyer_id : data.seller_id,
+                    cid: data.msgbox_id,
+                    type: "쪽지신고",
+                  });
                   SetMsgSenderName(
                     data.buyer_id !== Id
                       ? `${data.buyer_nickname}(${data.buyer_id})`
@@ -50,6 +72,7 @@ export default function Message(props) {
                       RoomId: data.msgbox_id,
                     })
                     .then((res) => {
+                      SetProductId(res.data[0].product_id);
                       SetSelectedMsg(
                         <div>
                           {res.data.map((data, index) => (
@@ -72,7 +95,9 @@ export default function Message(props) {
                                 <br />
                                 <span>판매 글 정보 </span>
                                 <span>
-                                  <a href={`http://localhost:3000/buy/${res.data[0].product_id}`}>{`http://localhost:3000/buy/${res.data[0].product_id}`}</a>
+                                  <a
+                                    href={`http://localhost:3000/buy/${res.data[0].product_id}`}
+                                  >{`http://localhost:3000/buy/${res.data[0].product_id}`}</a>
                                 </span>
                                 <br />
                                 <br />
@@ -110,17 +135,25 @@ export default function Message(props) {
       .catch((err) => {
         console.log("에러");
       });
-  }, [SelectedBox, MsgSenderName, SelectedMsg]);
+  }, [SelectedBox, MsgSenderName, SelectedMsg, ProductId]);
 
   return (
     <div>
-      {IsModalOpen && (
+      {IsMsgModalOpen && (
         <MsgModal
-          ModalClose={ModalClose}
+          ModalClose={MsgModalClose}
           MsgName={MsgSenderName}
           MsgBoxId={SelectedBox}
           SenderId={Id}
         ></MsgModal>
+      )}
+      {IsMoneyModalOpen && (
+        <MoneyModal
+          ModalClose={MoneyModalClose}
+          SenderId={Id}
+          ReceiverName={MsgSenderName}
+          ProductId={ProductId}
+        ></MoneyModal>
       )}
       <Header />
       <main className="MessageMain">
@@ -135,12 +168,23 @@ export default function Message(props) {
             <div className="RowBetween MsgTitle">
               {MsgSenderName}
               <div className="RowBetween">
-                <img className="Icon" src="images/warning.png" alt="신고아이콘"/>
                 <img
                   className="Icon"
-                  onClick={ModalClose}
+                  onClick={ReportNavigate}
+                  src="images/sad-face.png"
+                  alt="신고"
+                />
+                <img
+                  className="Icon"
+                  onClick={MoneyModalClose}
+                  src="images/dollar.png"
+                  alt="송금"
+                />
+                <img
+                  className="Icon"
+                  onClick={MsgModalClose}
                   src="images/mail.png"
-                  alt="쪽지아이콘"
+                  alt="쪽지"
                 />
               </div>
             </div>
