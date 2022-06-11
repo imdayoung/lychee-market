@@ -85,8 +85,8 @@
 
 /*탭바*/
 .MyHistoryTabBar {
-  font-size: 24px;
-  height: 56px;
+  font-size: 20px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -144,7 +144,7 @@ li {
 
 /*ProductHistory*/
 #DropDown {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 20px;
   padding-left: 10px;
   padding-right: 10px;
@@ -161,40 +161,37 @@ li {
   width: 100%;
   height: 46px;
   border: none;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-}
-/* 
-table {
   table-layout: fixed;
 }
 
-th {
-  height: 46px;
+.MyPagePointTitle th {
+  height: 40px;
   border: 1px solid #cdcdcd;
 }
 
-td {
-  height: 72px;
+.MyPagePointTitle td {
+  height: 64px;
   border: 0;
   border-bottom: 1px solid #cdcdcd;
   text-align: center;
   font-weight: 400;
 }
 
-td:first-child {
+.MyPagePointTitle td:first-child {
   border-left: 1px solid #cdcdcd;
-  font-size: 20px;
+  font-size: 18px;
 }
 
-td:nth-child(3) {
-  font-size: 20px;
+.MyPagePointTitle td:nth-child(3) {
+  font-size: 18px;
 }
 
-td:last-child {
+.MyPagePointTitle td:last-child {
   font-weight: bold;
   border-right: 1px solid #cdcdcd;
-} */
+} 
 
 .PinkBold {
   color: #ff3d60;
@@ -262,7 +259,7 @@ td:last-child {
 }
 
 .FontTitle {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
 }
 

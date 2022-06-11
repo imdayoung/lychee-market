@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 
 import '../../style/ReportWrite.css'
 
-function ReportWrite(){
+function ReportWrite(props){
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,9 +13,9 @@ function ReportWrite(){
   //location.state 통해서 받아와야 하는 정보
   const reporterid = 'repid';  //로그인 한 사람 id
   //const reportedid = location.state.uid;  //신고당한 사람 id
-  const reportedid = 'repdid';
-  const type = 'type';        //게시글/쪽지 둘 중 하나 선택
-  const cid = 1;         //chatroom id, nullable
+  // const reportedid = 'repdid';
+  // const type = 'type';        //게시글/쪽지 둘 중 하나 선택
+  // const cid = 1;         //chatroom id, nullable
   const pid = 1;         //product id, nullable
 
   const [error, setError] = useState(false);
@@ -25,9 +25,19 @@ function ReportWrite(){
   const [file, setFile] = useState("");
   const [fileName, setFileName] = useState('');
 
+  const [type, setType] = useState("");
+  const [cid, setCid] = useState("");
+  const [reportedid, setReportedid] = useState();
+
   const goBack = () => {
     navigate(-1);
   }
+
+  useEffect(()=>{
+    setType(location.state.info.type)
+    setCid(location.state.info.cid);
+    setReportedid(location.state.info.reportedid)
+  },[])
 
   useEffect(() => {
     console.log(error);

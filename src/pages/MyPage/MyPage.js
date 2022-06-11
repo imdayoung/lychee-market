@@ -7,6 +7,7 @@ import ProductHistory from "./components/ProductHistory";
 import PointHistory from "./components/PointHistory";
 import Statistics from "./components/Statistics";
 import PointModal from "./components/PointModal";
+import { Link } from "react-router-dom";
 
 const Id = "jaejae";
 
@@ -96,8 +97,8 @@ export default function MyPage() {
           <div className="MyInfoDiv"></div>
           <div className="MyInfo MyInfoRight">
             <div>기타</div>
-            <button className="MyPageBtn">내정보수정</button>
-            <button className="MyPageBtn">신고리스트</button>
+            <Link to={{pathname: '/changemyinfo'}}><button className="MyPageBtn">내정보수정</button></Link>
+            <Link to={{pathname: '/report'}}><button className="MyPageBtn">신고리스트</button></Link>
           </div>
         </div>
         <div id="MyPageSpace"></div>
