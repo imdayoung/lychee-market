@@ -118,7 +118,7 @@ export default function ReportDetail(){
       <Header keyword='신고 | 상세'/>}
       <main className="ReportMain">
         <table className="ReportTable">
-          <caption>문의</caption>
+          <caption>&lt;신고&gt;</caption>
           <tbody>
             <tr className="ReportRow">
               <th className="ReportTh">번호</th>
@@ -154,7 +154,7 @@ export default function ReportDetail(){
           </tbody>
         </table>
         <table className="AnswerTable">
-          <caption>답변</caption>
+          <caption>&lt;답변&gt;</caption>
           <tbody>
             <tr className="AnswerRow">
               <th className="AnswerTh">작성자</th>

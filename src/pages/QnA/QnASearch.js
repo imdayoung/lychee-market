@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Axios from 'axios';
+import ManagerHeader from "../../components/Header3";
 import Header from "../../components/Header"
 import QnAListComponent from "./components/QnAListComponent";
 import getCookie from "../../components/GetCookie";
@@ -88,7 +89,9 @@ export default function QnASearch(props){
 
   return (
     <div className="main">
-      <Header keyword="문의사항"/>
+      {IsManager ?
+      <ManagerHeader keyword='문의사항'/> :
+      <Header keyword='문의사항'/>}
       <main className="qnaMain">
         <div className="SearchResult"><span>{SearchWord}</span>에 대한 검색결과입니다.</div>
         <table className="qnaList">

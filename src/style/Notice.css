@@ -31,12 +31,8 @@
 .noticeTitle{
   width:700px;
   height: 60px;
-  text-align: center;
-  vertical-align: middle;
-  color: black;
 }
 .noticeTitleToRead{
-    width:500px;
     cursor: pointer;
 }
 .noticeDate{

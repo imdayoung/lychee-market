@@ -80,7 +80,7 @@ function QnAWrite(){
 
   return (
     <div className="main">
-      <Header keyword="문의 작성하기"/>
+      <Header keyword="문의사항 | 작성"/>
       <main className="qna">
         <table className="submitqna">
           <tbody>

@@ -14,9 +14,10 @@
   margin-bottom: 15px;
   border-collapse: collapse;
   text-align: center;
+  font-size: 18px;
 }
 
-.qnaList thead{
+.qnaHead{
   font-size: 20px;
   height: 60px;
   border-bottom: 2px solid #000;
@@ -24,6 +25,7 @@
 
 .qnaList td{
   text-align: center;
+  height: 60px;
 }
 
 .qnaIndex{
@@ -53,6 +55,7 @@
   width: 180px;
   padding-left: 8px;
   font-size: 16px;
+  font-size: 20px;
 }
 
 .q_td, .q_td_content{
@@ -61,8 +64,8 @@
   margin-bottom: 8px;
   width: 984px;
   height: 32px;
-  font-size: 16px;
-  outline: none;;
+  font-size: 18px;
+  outline: none;
 }
 
 .q_td_content{
@@ -81,11 +84,6 @@
   border-bottom: 2px solid #000;
 }
 
-.submitqna tbody {
-  border: none;
-  border-right: 2px solid #FFF;
-}
-
 .submitqna th, .submitqna td {
   height: 50px;
   text-align: left;
@@ -101,17 +99,24 @@
   align-items: center;
 }
 
+.qna .buttons{
+  width: 1200px;
+  text-align: right;
+  margin-right: 48px;
+}
+
 .qna .buttons .back,
 .qna .buttons .submit,
 .qna .buttons .Nsubmit{
-  width: 160px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
   border: none;
   background-color: #FF9696;
   color: #FFF;
   margin: 8px;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .qna .buttons .back{
@@ -137,14 +142,8 @@
 
 .qnaRead td input, 
 .qnaRead td textarea {
-  font-size: 16px;
+  font-size: 18px;
   outline: none;
-}
-
-.qna span {
-  font-size: 20px;
-  font-weight: bold;
-  width: 1200px;
 }
 
 .q_list_row{
@@ -162,7 +161,7 @@
 .searchQnA input{
   margin-right: 8px;
   height: 34.04px;
-  font-size: 20px;
+  font-size: 18px;
   outline: none;
 }
 
@@ -209,4 +208,12 @@
 }
 .qnaMain .SearchResult span{
     color: #ff3d60;
+}
+
+.qna caption{
+  width: 1200px;
+  margin-bottom: 8px;
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
 }

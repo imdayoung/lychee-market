@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import Header from "../../components/Header"
+import ManagerHeader from "../../components/Header3";
 import '../../style/QnA.css'
 import QnAListComponent from "./components/QnAListComponent";
 import getCookie from "../../components/GetCookie";
@@ -75,7 +76,9 @@ function QnA() {
 
   return (
     <div className="main">
-      <Header keyword="문의사항"/>
+      {IsManager ?
+      <ManagerHeader keyword='문의사항'/> :
+      <Header keyword='문의사항'/>}
       <main className="qnaMain">
         <table className="qnaList">
           <thead className="qnaHead">

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Axios from "axios";
 import Header from "../../components/Header";
+import ManagerHeader from "../../components/Header3";
 import getCookie from "../../components/GetCookie";
 
 export default function QnARead() {
@@ -116,10 +117,12 @@ export default function QnARead() {
 
   return (
     <div>
-      <Header keyword="문의사항" />
+      {IsManager ?
+      <ManagerHeader keyword='문의사항 | 상세'/> :
+      <Header keyword='문의사항 | 상세'/>}
       <main className="qna">
-        <span>&lt;문의&gt;</span>
         <table className="qnaRead">
+          <caption>&lt;문의&gt;</caption>
           <tbody className="qnaReadbody">
             <tr className="q_row">
               <th className="q_th">조회수</th>
@@ -189,8 +192,8 @@ export default function QnARead() {
           </tbody>
         </table>
         <br />
-        <span>&lt;답변&gt;</span>
         <table className="qnaRead">
+          <caption>&lt;답변&gt;</caption>
           <tbody>
             <tr className="q_row">
               <th className="q_th">작성자</th>
