@@ -28,7 +28,6 @@ CREATE TABLE `PRODUCT` (
     `deal_method` VARCHAR(15) NOT NULL,
     `deal_type` BOOLEAN NOT NULL,
     `deal_flag` BOOLEAN NOT NULL,
-    `distance` INT,
     PRIMARY KEY (`product_id`),
     FOREIGN KEY(`buyer_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE,
 	FOREIGN KEY(`seller_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE
@@ -78,7 +77,6 @@ CREATE TABLE `POINT` (
     `point_id` INT AUTO_INCREMENT,
     `deal_date` DATETIME NOT NULL,
     `deal_amount` INT NOT NULL,
-    `left_point` INT NOT NULL,
     `receiver_id` VARCHAR(15) NOT NULL,
 	`sender_id` VARCHAR(15) NOT NULL,
     `product_id` INT,
@@ -118,9 +116,8 @@ CREATE TABLE `REPORT`(
     `solve_id` VARCHAR(15) DEFAULT NULL,
     `solve_date` DATE DEFAULT NULL, 
     `solve_content` TEXT DEFAULT NULL,
-   PRIMARY KEY (`report_id`),
+	PRIMARY KEY (`report_id`),
     FOREIGN KEY (`msgbox_id`) REFERENCES `MSGBOX` (`msgbox_id`) ON UPDATE CASCADE,
-    FOREIGN KEY (`product_id`) REFERENCES `PRODUCT` (`product_id`) ON UPDATE CASCADE,
     FOREIGN KEY (`solve_id`) REFERENCES `MANAGER` (`manager_id`) ON UPDATE CASCADE
 );
 
