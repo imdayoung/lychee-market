@@ -16,7 +16,6 @@
     border-collapse: collapse;
     text-align: center;
 }
-
 .noticeHead{
     border-bottom: 2px solid #000;
     font-size: 20px;
@@ -24,9 +23,7 @@
 .n_list_row{
     height: 60px;
     border-bottom: 1px solid #000;
-}
-.n_list_row a{
-  text-decoration: none;
+    font-size: 18px;
 }
 .noticeIndex{
     width:100px;
@@ -64,43 +61,43 @@
 .noticeMain .SearchResult span{
     color: #ff3d60;
 }
-
 .searchNotice{
     margin: 8px;
 }
 .searchNotice input{
     margin-right: 8px;
-    height: 28px;
+    height: 34.04px;
+    font-size: 18px;
     outline: none;
 }
 .searchNotice button{
-    width: 80px;
-    height: 34px;
+    width: 100px;
+    height: 40px;
     border: 2px solid #888888;
     background-color: #ffffff;
-    font-size: 16px;
+    font-size: 20px;
     color: #888888;
     font-weight: bold;
     cursor: pointer;
 }
 .allNotice{
     margin: 8px;
-    width: 120px;
-    height: 34px;
+    width: 150px;
+    height: 40px;
     border: 2px solid #888888;
     background-color: #FFFFFF;
-    font-size: 16px;
+    font-size: 20px;
     color: #888888;
     font-weight: bold;
     cursor: pointer;
 }
 .writeNotice{
     margin: 8px;
-    width: 120px;
-    height: 34px;
+    width: 150px;
+    height: 40px;
     border: 2px solid #ff3d60;
     background-color: #FFFFFF;
-    font-size: 16px;
+    font-size: 20px;
     color: #ff3d60;
     font-weight: bold;
     cursor: pointer;
@@ -115,6 +112,10 @@
     border-collapse: collapse;
     border-top: 2px solid #000;
     border-bottom: 2px solid #000;
+    font-size: 20px;
+}
+.noticeRead input, .noticeWrite input{
+    font-size: 18px;
 }
 .n_row{
     text-align: left;
@@ -129,7 +130,6 @@
     margin-top: 8px;
     margin-bottom: 8px;
     width: 984px;
-    height: 32px;
 }
 .n_td_content{
     margin-top: 8px;
@@ -137,11 +137,13 @@
     width: 984px;
     min-height: 500px;
     resize: vertical;
+    font-size: 18px;
 }
 .n_td_image{
     margin-top: 8px;
     margin-bottom: 8px;
     max-width: 984px;
+    font-size: 18px
 }
 .noticeMain .buttons{
     width: 1200px;
@@ -149,22 +151,22 @@
     margin-right: 48px;
 }
 .noticeMain .buttons .list, .noticeMain .buttons .delete{
-    width: 120px;
-    height: 34px;
+    width: 150px;
+    height: 40px;
     border: 2px solid #888888;
     background-color: #FFFFFF;
-    font-size: 16px;
+    font-size: 20px;
     color: #888888;
     font-weight: bold;
     margin: 8px;
     cursor: pointer;
 }
 .noticeMain .buttons .update, .noticeMain .buttons .submit{
-    width: 120px;
-    height: 34px;
+    width: 150px;
+    height: 40px;
     border: 2px solid #ff3d60;
     background-color: #FFFFFF;
-    font-size: 16px;
+    font-size: 20px;
     color: #ff3d60;
     font-weight: bold;
     margin: 8px;

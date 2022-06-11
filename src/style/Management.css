@@ -28,29 +28,35 @@
 }
 .ManageSearch input{
   margin-right: 8px;
-  height: 28px;
+  height: 34.04px;
+  font-size: 18px;
   outline: none;
 }
 .ManageSearch button{
-  width: 80px;
-  height: 34px;
+  width: 100px;
+  height: 40px;
   border: 2px solid #888888;
   background-color: #ffffff;
-  font-size: 16px;
+  font-size: 20px;
   color: #888888;
   font-weight: bold;
   cursor: pointer;
 }
 .AllList{
   margin: 8px;
-  width: 120px;
-  height: 34px;
+  width: 150px;
+  height: 40px;
   border: 2px solid #888888;
   background-color: #FFFFFF;
-  font-size: 16px;
+  font-size: 20px;
   color: #888888;
   font-weight: bold;
   cursor: pointer;
+}
+.ListRow{
+  height: 60px;
+  border-bottom: 1px solid #000;
+  font-size: 18px;
 }
 
 /* ManagerProduct */
@@ -99,9 +105,9 @@
   width: 100px;
 }
 .DeleteBtn{
-  width: 52px;
-  height: 34px;
-  font-size: 16px;
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
   color: #ffffff;
   background-color: #ff3d60;
   border: solid 1px #ff3d60;
@@ -121,6 +127,7 @@
 .UserHead{
   border-bottom: 2px solid #000;
   font-size: 20px;
+  height: 60px;
 }
 .UserId{
   width: 200px;
@@ -142,14 +149,15 @@
 }
 .InputReliable{
   width: 200px;
-  height: 28px;
+  height: 34.04px;
+  font-size: 18px;
   margin-right: 8px;
   outline: none;
 }
 .SubmitReliable{
-  width: 52px;
-  height: 34px;
-  font-size: 16px;
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
   color: #ff3d60;
   font-weight: bold;
   background-color: #ffffff;
@@ -157,9 +165,9 @@
   cursor: pointer;
 }
 .BanButton{
-  width: 52px;
-  height: 34px;
-  font-size: 16px;
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
   color: #ffffff;
   background-color: #ff3d60;
   border: solid 1px #ff3d60;
@@ -179,6 +187,7 @@
 .ReportHead{
   border-bottom: 2px solid #000;
   font-size: 20px;
+  height: 60px;
 }
 .ReportId{
   width: 100px;
