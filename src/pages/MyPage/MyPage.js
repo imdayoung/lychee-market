@@ -8,7 +8,7 @@ import PointHistory from "./components/PointHistory";
 import Statistics from "./components/Statistics";
 import PointModal from "./components/PointModal";
 
-const Id = "mouse0429";
+const Id = "jaejae";
 
 const HistoryList = {
   0: <ProductHistory Id={Id} Type="sell" />,
