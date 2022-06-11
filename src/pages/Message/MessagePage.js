@@ -8,6 +8,7 @@ import MsgSender from "./components/MsgSender";
 import MsgContent from "./components/MsgContent";
 import MsgModal from "./components/MsgModal";
 import MoneyModal from "./components/MoneyModal";
+import { useNavigate } from "react-router-dom";
 
 /*아이디 받아오기*/
 const Id = "mouse0429";
@@ -20,6 +21,13 @@ export default function Message(props) {
   const [ProductId, SetProductId] = useState();
   const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
   const [IsMoneyModalOpen, SetIsMoneyModalOpen] = useState(false);
+  const [ReportInfo, SetReportInfo] = useState(null);
+
+  let navigate = useNavigate();
+
+  const ReportNavigate = () => {
+    navigate('/report/write', {state:{info: ReportInfo}});
+  }
 
   const MsgModalClose = () => {
     SetIsMsgModalOpen(!IsMsgModalOpen);
@@ -48,6 +56,12 @@ export default function Message(props) {
               <div
                 onClick={() => {
                   SetSelectedBox(data.msgbox_id);
+                  SetReportInfo({
+                    reportedid:
+                      data.buyer_id !== Id ? data.buyer_id : data.seller_id,
+                    cid: data.msgbox_id,
+                    type: "쪽지신고",
+                  });
                   SetMsgSenderName(
                     data.buyer_id !== Id
                       ? `${data.buyer_nickname}(${data.buyer_id})`
@@ -154,7 +168,12 @@ export default function Message(props) {
             <div className="RowBetween MsgTitle">
               {MsgSenderName}
               <div className="RowBetween">
-                <img className="Icon" src="images/sad-face.png" alt="신고" />
+                <img
+                  className="Icon"
+                  onClick={ReportNavigate}
+                  src="images/sad-face.png"
+                  alt="신고"
+                />
                 <img
                   className="Icon"
                   onClick={MoneyModalClose}
