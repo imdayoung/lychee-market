@@ -5,19 +5,33 @@ import Header from "../../components/Header"
 import '../../style/QnA.css'
 import QnAListComponent from "./components/QnAListComponent";
 import getCookie from "../../components/GetCookie";
+import Pagination from "../../components/Pagination";
 
 function QnA() {
   const cookie = getCookie("is_login");
   var IsManager = false;
+  var IsLogin = false;
   let userid = ''
   const [SearchWord, SetSearchWord] = useState('');
   
+  //로그인 정보
   if(cookie === "true"){
     userid = localStorage.getItem("user_id");
-    const managerid = localStorage.getItem("manager_id");
-    if(managerid !== null)
-      IsManager = true;
+    if(userid !== null)
+      IsLogin = true;
+    else{
+      const managerid = localStorage.getItem("manager_id");
+      if(managerid !== null){
+        IsManager = true;
+        IsLogin = true;
+      }
+    }
   }
+
+  //페이지네이션
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   
   const [QnA, setQnA] = useState([{
     qna_id: '',
@@ -39,7 +53,7 @@ function QnA() {
 
   let QnAList = [];
   if(QnA.length === 0){
-    QnAList.push(<tr key={0} className="q_list_row"><td colSpan='6'>문의사항이 존재하지 않습니다.</td></tr>)
+    QnAList.push(<tr key={0} className="q_list_row"><td colSpan='4'>문의사항이 존재하지 않습니다.</td></tr>)
   }
   else{
     for(let i=QnA.length-1; i>=0; i--){
@@ -75,9 +89,15 @@ function QnA() {
             </tr>
           </thead>
           <tbody>
-            {QnAList}
+            {QnAList.slice(offset, offset + limit)}
           </tbody>
         </table>
+        <Pagination
+          total={QnAList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+          />
         <div className="QnABottom">
           <div className="searchQnA">
             <input type='text' onChange={(event) => SetSearchWord(event.target.value)}/>
@@ -87,7 +107,7 @@ function QnA() {
           </div>
           <div className="writeQnA">
             <Link to='/qna/write'>
-              <button type='button' hidden={IsManager?true:false}>문의 작성</button>
+              <button type='button' hidden={IsManager?true:IsLogin?false:true}>문의 작성</button>
             </Link>
           </div>
         </div>
