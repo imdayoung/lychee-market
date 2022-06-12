@@ -1,12 +1,17 @@
 import '../style/Header.css';
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import setCookie from './SetCookie';
 
 export default function ManagerHeader(props){
+  const onLogoutClick = () => {
+    setCookie("is_login", true, -1);
+    localStorage.clear();
+  }
   return(
     <header>
       <nav className="Top">
-        <Link to={{pathname:'/login'}} id='LinkNoLine'><div className="TopNav">로그아웃</div></Link>
+        <Link to={{pathname:'/login'}} id='LinkNoLine' onClick={onLogoutClick}><div className="TopNav">로그아웃</div></Link>
       </nav>
       
       <div className="Divider"></div>
