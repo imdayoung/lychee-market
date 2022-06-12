@@ -9,7 +9,7 @@ import Statistics from "./components/Statistics";
 import PointModal from "./components/PointModal";
 import { Link } from "react-router-dom";
 
-const Id = "jaejae";
+const Id = "mouse0429";
 
 const HistoryList = {
   0: <ProductHistory Id={Id} Type="sell" />,

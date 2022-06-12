@@ -1455,6 +1455,28 @@ app.post("/chart/newsignin", function (req, res) {
 });
 
 /*
+ * 목적: 차트 - 일주일 동안 신규 충전 수
+ * input: 6DaysAgoDate
+ * output: 날짜별 신규 충전 수 / none
+ */
+app.post("/chart/newpoint", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT date(deal_date) AS deal_date, SUM(deal_amount) AS sum FROM `POINT` WHERE sender_id = receiver_id AND date(deal_date) >= ? \
+    GROUP BY date(deal_date);";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("신규 충전 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("신규 충전 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
  * 목적: 차트 - 일주일 동안 신고 수
  * input: 6DaysAgoDate
  * output: 날짜별 신고 수 / none
@@ -1496,3 +1518,26 @@ app.post("/chart/qna", function (req, res) {
     }
   });
 });
+
+/*
+ * 목적: 차트 - 일주일 동안 글 개수
+ * input: 6DaysAgoDate
+ * output: 날짜별 문의사항 수 / none
+ */
+app.post("/chart/productnum", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT date(product_date) AS product_date, COUNT(product_date) AS cnt FROM `PRODUCT` WHERE product_date>=?\
+    GROUP BY date(product_date);";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("게시글 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("게시글 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
