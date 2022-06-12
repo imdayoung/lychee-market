@@ -111,7 +111,7 @@ function ProductUpload() {
       price: price,
       detail: detail,
       dealmethod: dealmethod,
-      image: imagenamei!==''?'/images/products/'+imagename:null,
+      image: imagename!==''?'/images/products/'+imagename:null,
       date: date,
     }).then((res) => {            
       if(res.data !== false){
