@@ -126,6 +126,36 @@
     color: white;
 }
 
+#DeleteButton {
+    width: 163px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff9696;
+    margin-right: 31px;
+}
+
+#EditButton {
+    width: 163px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff3d60;
+    color: white;
+    margin-right: 31px;
+}
+
+#CompleteButton {
+    width: 163px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff9696;
+}
+
 #Infos {
     margin-top: 20px;
 }

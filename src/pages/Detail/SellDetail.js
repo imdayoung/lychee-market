@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import '../../style/Detail.css';
@@ -26,6 +26,7 @@ export default function SELLDETAIL(){
       }
     }
 
+    const navigate = useNavigate();
     let Location = useLocation();
 
     // 물건 정보
@@ -83,7 +84,16 @@ export default function SELLDETAIL(){
                 window.location.reload();
             }
         });
-        
+    }
+
+    function DeleteProduct() {
+        if(window.confirm("게시글을 삭제할까요?")) {
+            axios.post('http://localhost:8080/deleteproduct', { ProdId: parseInt(ProdId) })
+            .then((res) => {
+                alert("게시글이 삭제되었습니다.");
+                navigate(-1);
+            })
+        }
     }
 
     return (
@@ -109,11 +119,16 @@ export default function SELLDETAIL(){
                         </div>
                         <div id="MoreInfo">
                             <div id="LikeDate">💜{ProductLike} | ⏰{ProductDate}</div>
-                            <div id="ReportButton">📢신고하기</div>
+                            <div id="ReportButton" hidden={userid === SellerId ? false : true}>📢신고하기</div>
                         </div>
-                        <div>
+                        <div hidden={userid === SellerId ? true : false}>
                             <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
                             <button id="MessageButton">쪽지하기</button>
+                        </div>
+                        <div hidden={userid === SellerId ? false : true}>
+                            <button id="DeleteButton" onClick={DeleteProduct}>삭제</button>
+                            <button id="EditButton" >수정</button>
+                            <button id="CompleteButton" >거래완료</button>
                         </div>
                     </div>
                 </div>

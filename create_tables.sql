@@ -1,5 +1,6 @@
+# create schema `lychee`;
+use `lychee`;
 # CREATE 테이블
-use lychee;
 CREATE TABLE `USER`(
 	`user_id` VARCHAR(15) NOT NULL,
     `user_name` VARCHAR(15) NOT NULL,
@@ -15,8 +16,8 @@ CREATE TABLE `USER`(
 
 CREATE TABLE `PRODUCT` (
 	`product_id` INT NOT NULL AUTO_INCREMENT,
-    `seller_id` VARCHAR(15),
-    `buyer_id` VARCHAR(15),
+    `seller_id` VARCHAR(15) DEFAULT NULL,
+    `buyer_id` VARCHAR(15) DEFAULT NULL,
     `product_title` VARCHAR(20) NOT NULL,
     `product_category` VARCHAR(30) NOT NULL,
     `product_price` INT NOT NULL,
@@ -44,11 +45,11 @@ CREATE TABLE `MSGBOX` (
 	`msgbox_id` INT AUTO_INCREMENT NOT NULL,
 	`seller_id` VARCHAR(15) NOT NULL,
 	`buyer_id` VARCHAR(15) NOT NULL,
-	`product_id` INT NOT NULL,
+	`product_id` INT DEFAULT NULL,
 	PRIMARY KEY(`msgbox_id`),
 	FOREIGN KEY(`seller_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE,
 	FOREIGN KEY(`buyer_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE,
-	FOREIGN KEY(`product_id`) REFERENCES `PRODUCT`(`product_id`) ON UPDATE CASCADE
+	FOREIGN KEY(`product_id`) REFERENCES `PRODUCT`(`product_id`) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE `MSG` (
@@ -117,6 +118,7 @@ CREATE TABLE `REPORT`(
     `solve_date` DATE DEFAULT NULL, 
     `solve_content` TEXT DEFAULT NULL,
 	PRIMARY KEY (`report_id`),
+    FOREIGN KEY (`product_id`) REFERENCES `PRODUCT` (`product_id`) ON UPDATE CASCADE ON DELETE SET NULL,
     FOREIGN KEY (`msgbox_id`) REFERENCES `MSGBOX` (`msgbox_id`) ON UPDATE CASCADE,
     FOREIGN KEY (`solve_id`) REFERENCES `MANAGER` (`manager_id`) ON UPDATE CASCADE
 );
@@ -127,5 +129,5 @@ CREATE TABLE `PRODUCT_LIKE`(
 	`product_id` INT NOT NULL,
     PRIMARY KEY (`like_id`),
     FOREIGN KEY (`user_id`) REFERENCES `USER` (`user_id`) ON UPDATE CASCADE,
-    FOREIGN KEY (`product_id`) REFERENCES `PRODUCT` (`product_id`) ON UPDATE CASCADE
+    FOREIGN KEY (`product_id`) REFERENCES `PRODUCT` (`product_id`) ON UPDATE CASCADE ON DELETE CASCADE
 );

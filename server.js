@@ -2130,6 +2130,20 @@ app.post('/productupload', function(req, res) {
   });
 });
 
+app.post('/deleteproduct', function(req, res) {
+  const ProdId = req.body.ProdId;
+  var SQL = "DELETE FROM `PRODUCT` WHERE `product_id`=?"
+  db.query(SQL, ProdId, (err, result) => {
+    if(err) {
+      console.log("게시글 삭제 오류: ", err);
+      res.send(false);
+    } else {
+      console.log("게시글 삭제 성공: ", result);
+      res.send(result);
+    }
+  })
+})
+
 app.post("/evaluate", function(req, res) {
   const Id = req.body.id;
   const Score = req.body.score;
