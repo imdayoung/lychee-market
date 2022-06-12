@@ -1628,15 +1628,15 @@ app.get('/buy/search/distance/:target/:category/:mylocation', function(req, res)
                                         res.send(false);
                                       } else {
                                         console.log("드디어 성공: ", result);
-                                        db.query(SQLDeleteTemp, (err, result) => {
-                                          if(err) {
-                                            console.log("임시 테이블 삭제 오류: ", err);
-                                          } else {
-                                            console.log("임시 테이블 삭제 성공: ", result);
-                                          }
-                                        });
+                                        // db.query(SQLDeleteTemp, (err, result) => {
+                                        //   if(err) {
+                                        //     console.log("임시 테이블 삭제 오류: ", err);
+                                        //   } else {
+                                        //     console.log("임시 테이블 삭제 성공: ", result);
+                                        //   }
+                                        // });
                                         FinalResult = result;
-                                        res.send(FinalResult);
+                                        return res.send(FinalResult);
                                       }
                                     });
                                     }, 200);
@@ -2090,4 +2090,20 @@ app.post('/productupload', function(req, res) {
         }
       )}
   });
+});
+
+app.post("/evaluate", function(req, res) {
+  const Id = req.body.id;
+  const Score = req.body.score;
+
+  var SQL = "UPDATE `USER` SET `user_reliable`=`user_reliable`+? WHERE `user_id`=?;";
+  db.query(SQL, [Score, Id], (err, result) => {
+    if(err) {
+      console.log("신뢰도 업데이트 오류: ", err);
+      res.send(false);
+    } else {
+      console.log("신뢰도 업데이트 성공: ", result);
+      res.send(true);
+    }
+  })
 });

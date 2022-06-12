@@ -62,6 +62,7 @@ export default function SELLDETAIL(){
                 alert("이미 즐겨찾는 상품입니다.");
             } else {
                 alert("즐겨찾기 등록에 성공했습니다.");
+                window.location.reload();
             }
         });
         
@@ -93,7 +94,7 @@ export default function SELLDETAIL(){
                             <div id="ReportButton">📢신고하기</div>
                         </div>
                         <div>
-                            <button id="LikeButton" onClick={ILikeIt}>찜하기</button>
+                            <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
                             <button id="MessageButton">쪽지하기</button>
                         </div>
                     </div>

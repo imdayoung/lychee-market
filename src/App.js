@@ -33,6 +33,7 @@ import QnA from './pages/QnA/QnA';
 import QnARead from './pages/QnA/QnARead'
 import QnASearch from './pages/QnA/QnASearch';
 import ProductUpload from './pages/ProductUpload/ProductUpload';
+import Evaluate from './pages/Evaluate/Evaluate';
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
         <Route path="/qna/read/*" element={<QnARead/>}/>
         <Route path="/qna/search/*" element={<QnASearch/>}/>
         <Route path="/product/upload" element={<ProductUpload/>}/>
+        <Route path="/evaluate" element={<Evaluate/>}/>
       </Routes>
     </BrowserRouter>
   );
