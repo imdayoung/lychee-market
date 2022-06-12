@@ -70,7 +70,7 @@ export default function NoticeSearch(){
 			{IsManager ?
       <ManagerHeader keyword='공지사항'/> :
       <Header keyword='공지사항'/>}
-			<main className="noticeMain">
+			<div className="noticeMain">
 				<div className="SearchResult"><span>{SearchWord}</span>에 대한 검색결과입니다.</div>
 				<table className="noticeList">
 					<thead className="noticeHead">
@@ -107,7 +107,7 @@ export default function NoticeSearch(){
 						</Link>
 					</div>
 				</div>
-			</main>
+			</div>
 		</div>
 	)
 }

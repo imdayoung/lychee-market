@@ -1,44 +1,41 @@
 /* QnA List */
 .qnaMain {
-  width: 1240px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .qnaList {
   width: 1200px;
-  margin: auto;
-  margin-top: 22px;
-  margin-bottom: 15px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   border-collapse: collapse;
   text-align: center;
-  font-size: 18px;
+  cursor: default;
 }
 
 .qnaHead{
+  border-bottom: 2px solid #000;
   font-size: 20px;
   height: 60px;
-  border-bottom: 2px solid #000;
 }
 
-.qnaList td{
-  text-align: center;
+.q_list_row{
   height: 60px;
+  border-bottom: 1px solid #000;
+  font-size: 18px;
 }
 
 .qnaIndex{
-  width: 60px;
+  width: 100px;
 } 
 .qnaView{
-  width: 70px;
+  width: 100px;
 }
 .qnaCategory{
   width: 150px;
 }
 .qnaDate{
-  width: 170px;
+  width: 200px;
 }
 .qnaPflag, .qnaAnswered{
   width: 100px;
@@ -158,6 +155,10 @@
   justify-content: space-between;
 }
 
+.searchQnA{
+  margin: 8px;
+}
+
 .searchQnA input{
   margin-right: 8px;
   height: 34.04px;
@@ -177,6 +178,7 @@
 }
 
 .writeQnA button{
+  margin: 8px;
   width: 150px;
   height: 40px;
   font-size: 20px;

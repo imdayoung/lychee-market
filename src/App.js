@@ -18,7 +18,7 @@ import FindId from './pages/FindId/FindId';
 import FindPw from './pages/FindPw/FindPw';
 import Register from './pages/Register/Register';
 import ChangeMyInfo from './pages/ChangeMyInfo/ChangeMyInfo'
-import ReportWrite from './pages/ReportWrite/ReportWrite'
+import ReportWrite from './pages/Report/ReportWrite'
 import ReportBoard from './pages/Report/ReportBoard';
 import ReportDetail from './pages/Report/ReportDetail';
 import MyPage from "./pages/MyPage/MyPage";

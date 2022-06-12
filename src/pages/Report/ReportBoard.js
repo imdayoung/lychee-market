@@ -55,7 +55,7 @@ export default function ReportBoard(){
   return (
     <div>
       <Header keyword='내 신고 내역'/>
-      <main className="ReportMain">
+      <div className="ReportMain">
         <div className="ReportInfo">
           <p>
             {ReporterId}님이 작성하신 신고 내역입니다.<br></br>
@@ -82,7 +82,7 @@ export default function ReportBoard(){
           page={page}
           setPage={setPage}
         />
-      </main>
+      </div>
     </div>
   );
 }

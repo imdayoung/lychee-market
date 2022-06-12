@@ -56,8 +56,8 @@ export default function SELLDETAIL(){
             else                            SetDealFlag('거래완료');
             SetSellerNick(res.data[0].seller_nickname);
             SetReportInfo({
-                reportedid: res.data[0].buyer_id,
-                cid: "",
+                reportedid: res.data[0].seller_id,
+                cid: null,
                 pid: ProdId,
                 type: "게시글 신고"
             });

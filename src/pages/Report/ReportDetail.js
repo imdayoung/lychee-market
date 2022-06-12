@@ -174,7 +174,7 @@ export default function ReportDetail(){
         </table>
         <div className="ReportButtons">
           <button className="List" type="button" onClick={ListClick}>목록</button>
-          <button className="Submit" type="button" onClick={AnswerClick} hidden={!IsManager || Content.solve_id !== null}>답변 저장</button>
+          <button className="Submit" type="button" onClick={AnswerClick} hidden={!IsManager || Content.solve_id !== null}>답변하기</button>
           <button className="Submit" type="button" onClick={DeleteClick} hidden={IsManager}>신고 삭제</button>
         </div>
       </main>

@@ -6,6 +6,7 @@
 .ManageMain .ListRow{
   height: 60px;
   border-bottom: 1px solid #000;
+  font-size: 18px;
 }
 .ManageBottom{
   display: flex;
@@ -52,11 +53,6 @@
   color: #888888;
   font-weight: bold;
   cursor: pointer;
-}
-.ListRow{
-  height: 60px;
-  border-bottom: 1px solid #000;
-  font-size: 18px;
 }
 
 /* ManagerProduct */
@@ -175,9 +171,8 @@
 }
 
 /* ManageReport */
-.ReportList{
+.ManageMain .ReportList{
   width: 1200px;
-  margin: auto;
   margin-top: 16px;
   margin-bottom: 16px;
   border-collapse: collapse;
@@ -189,29 +184,29 @@
   font-size: 20px;
   height: 60px;
 }
-.ReportId{
+.ManageMain .ReportId{
   width: 100px;
 }
-.ReportType{
+.ManageMain .ReportType{
   width: 200px;
 }
-.ReportTitle{
+.ManageMain .ReportTitle{
   width: 400px;
 }
-.ReportTitleToDetail{
+.ManageMain .ReportTitleToDetail{
   width: 400px;
   cursor: pointer;
 }
-.ReporterId{
+.ManageMain .ReporterId{
   width: 200px;
 }
-.ReportDate{
+.ManageMain .ReportDate{
   width: 200px;
 }
-.IsSolved{
+.ManageMain .IsSolved{
   width: 100px;
 }
-.IsSolved .Incomplete{
+.ManageMain .IsSolved .Incomplete{
   color: #ff3d60;
 }
 

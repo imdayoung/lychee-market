@@ -1055,7 +1055,7 @@ app.post('/reportwrite', function(req, res) {
 
     datas, (err, result) => {
         if(err){
-            console.log("writereport error");
+            console.log("writereport error", err);
             res.send({message: "실패"});
         }
         if(result){

@@ -79,7 +79,7 @@ function QnA() {
       {IsManager ?
       <ManagerHeader keyword='문의사항'/> :
       <Header keyword='문의사항'/>}
-      <main className="qnaMain">
+      <div className="qnaMain">
         <table className="qnaList">
           <thead className="qnaHead">
             <tr>
@@ -114,7 +114,7 @@ function QnA() {
             </Link>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   )
 }

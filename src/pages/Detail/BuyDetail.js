@@ -57,7 +57,7 @@ export default function BUYDETAIL(){
             SetSellerNick(res.data[0].seller_nickname);
             SetReportInfo({
                 reportedid: res.data[0].buyer_id,
-                cid: "",
+                cid: null,
                 pid: ProdId,
                 type: "게시글 신고"
             });

@@ -3,8 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Axios from 'axios'
 import Header from "../../components/Header";
 import getCookie from "../../components/GetCookie";
-
-import '../../style/ReportWrite.css'
+import '../../style/Report.css'
 
 function ReportWrite(props){
 
@@ -17,14 +16,6 @@ function ReportWrite(props){
     reporterid = localStorage.getItem("user_id");
   }
 
-  //location.state 통해서 받아와야 하는 정보
-    //로그인 한 사람 id
-  //const reportedid = location.state.uid;  //신고당한 사람 id
-  // const reportedid = 'repdid';
-  // const type = 'type';        //게시글/쪽지 둘 중 하나 선택
-  // const cid = 1;         //chatroom id, nullable
-  // const pid = 1;         //product id, nullable
-
   const [error, setError] = useState(false);
   const [title, setTitle] = useState('');  
   const [detail, setDetail] = useState('');
@@ -33,8 +24,8 @@ function ReportWrite(props){
   const [fileName, setFileName] = useState('');
 
   const [type, setType] = useState("");
-  const [cid, setCid] = useState("");
-  const [pid, setPid] = useState("");
+  const [cid, setCid] = useState();
+  const [pid, setPid] = useState();
   const [reportedid, setReportedid] = useState();
 
   const goBack = () => {
@@ -47,6 +38,7 @@ function ReportWrite(props){
     setPid(location.state.info.pid);
     setReportedid(location.state.info.reportedid);
   },[location])
+  console.log(type, cid, pid);
 
   useEffect(() => {
     console.log(error);
@@ -122,7 +114,7 @@ function ReportWrite(props){
             <th className="r_th">신고게시글/채팅번호</th>
             <td>
               <input className="r_td" type="text"
-              value={cid === "" ? pid : cid} readOnly/>
+              value={cid === null ? pid : cid} readOnly/>
             </td>
           </tr>
 

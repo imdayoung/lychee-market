@@ -68,7 +68,7 @@ export default function Notice(){
       {IsManager ?
       <ManagerHeader keyword='공지사항'/> :
       <Header keyword='공지사항'/>}
-      <main className="noticeMain">       
+      <div className="noticeMain">       
         <table className="noticeList">
           <thead className="noticeHead">
             <tr>
@@ -107,7 +107,7 @@ export default function Notice(){
             </Link>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

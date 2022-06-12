@@ -92,7 +92,7 @@ export default function QnASearch(){
       {IsManager ?
       <ManagerHeader keyword='문의사항'/> :
       <Header keyword='문의사항'/>}
-      <main className="qnaMain">
+      <div className="qnaMain">
         <div className="SearchResult"><span>{SearchWord}</span>에 대한 검색결과입니다.</div>
         <table className="qnaList">
           <thead className="qnaHead">
@@ -131,7 +131,7 @@ export default function QnASearch(){
             </Link>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   )
 }
