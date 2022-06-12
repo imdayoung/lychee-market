@@ -32,7 +32,6 @@ import QnAWrite from './pages/QnA/QnAWrite';
 import QnA from './pages/QnA/QnA';
 import QnARead from './pages/QnA/QnARead'
 import QnASearch from './pages/QnA/QnASearch';
-import Evaluate from './pages/Evaluate/Evaluate';
 
 function App() {
   return (
