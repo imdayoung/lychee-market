@@ -21,7 +21,7 @@ const HistoryList = {
   1: <ProductHistory Id={Id} Type="buy" />,
   2: <ProductHistory Id={Id} Type="like" />,
   3: <PointHistory Id={Id} />,
-  4: <Statistics />,
+  4: <Statistics Id={Id} />,
 };
 
 export default function MyPage() {

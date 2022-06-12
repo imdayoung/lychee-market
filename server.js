@@ -1455,29 +1455,204 @@ app.post('/productupload', function(req, res) {
   // const datas = [sellerid, buyerid, title, category, price, like, 
   //   date, detail, dealmethod, dealtype, dealflag];
 
-  console.log(datas);
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 1000000 }
+// });
+
+// app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+//   console.log(req.file.filename);
+//   res.send({
+//     fileName: req.file.filename
+//   });
+// });
+console.log(datas);
   
-  db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
-   `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-  // db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
-  // `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-    datas, (err, result) => {
-      if(err){
-        console.log("newproduct error");
-        res.send(false);
-      }
-      if(result){
-        console.log("newproduct succeed!");
-        db.query("SELECT `product_id` FROM `PRODUCT` WHERE `product_title`=? AND `product_date`=? AND `product_detail`=?",
-        [title, date, detail], (err, result) => {
-          if(err){
-            console.log("newproduct id error");
-          }
-          if(result){
-            console.log("newproduct id succeed!");
-            res.send(result);
-          }
+db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+ `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+// db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+// `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+  datas, (err, result) => {
+    if(err){
+      console.log("newproduct error");
+      res.send(false);
+    }
+    if(result){
+      console.log("newproduct succeed!");
+      db.query("SELECT `product_id` FROM `PRODUCT` WHERE `product_title`=? AND `product_date`=? AND `product_detail`=?",
+      [title, date, detail], (err, result) => {
+        if(err){
+          console.log("newproduct id error");
         }
-      )}
+        if(result){
+          console.log("newproduct id succeed!");
+          res.send(result);
+        }
+      }
+    )}
+});
+});
+
+
+/*
+ * 목적: 차트 - 일주일 동안 신규 가입자 수
+ * input: 6DaysAgoDate
+ * output: 날짜 별 가입자 수 / none
+ */
+app.post("/chart/newsignin", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT join_date ,COUNT(join_date) AS cnt FROM `USER` WHERE join_date >= ? \
+    GROUP BY join_date;";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("신규 가입자 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("신규 가입자 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 일주일 동안 신규 충전 수
+ * input: 6DaysAgoDate
+ * output: 날짜별 신규 충전 수 / none
+ */
+app.post("/chart/newpoint", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT date(deal_date) AS deal_date, SUM(deal_amount) AS sum FROM `POINT` WHERE sender_id = receiver_id AND date(deal_date) >= ? \
+    GROUP BY date(deal_date);";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("신규 충전 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("신규 충전 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 일주일 동안 신고 수
+ * input: 6DaysAgoDate
+ * output: 날짜별 신고 수 / none
+ */
+app.post("/chart/report", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT report_date, COUNT(report_date) AS cnt FROM `REPORT` WHERE report_date >= ? \
+    GROUP BY report_date;";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("신고 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("신고 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 일주일 동안 문의사항 수
+ * input: 6DaysAgoDate
+ * output: 날짜별 문의사항 수 / none
+ */
+app.post("/chart/qna", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT q_date, COUNT(q_date) AS cnt FROM `QNA` WHERE q_date >= ? GROUP BY q_date;";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("문의 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("문의 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 일주일 동안 글 개수
+ * input: 6DaysAgoDate
+ * output: 날짜별 문의사항 수 / none
+ */
+app.post("/chart/productnum", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT date(product_date) AS product_date, COUNT(product_date) AS cnt FROM `PRODUCT` WHERE product_date>=?\
+    GROUP BY date(product_date);";
+
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("게시글 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("게시글 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 한달 판매 카테고리
+ * input: 6DaysAgoDate
+ * output: 한달 판매 카테고리 / none
+ */
+app.post("/chart/sellproduct", function (req, res) {
+  const Id = req.body.Id;
+  const StandardDate = req.body.Date;
+
+  console.log(Id, StandardDate);
+
+  const SQL =
+    "SELECT product_category AS product_category, COUNT(product_date) AS cnt, seller_id, buyer_id \
+    FROM `PRODUCT` WHERE seller_id = ? AND product_date>= ? \
+    GROUP BY product_category;";
+
+  db.query(SQL, [Id, StandardDate], function (err, rows) {
+    if (err) {
+      console.log("판매 상품 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("판매 상품 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 한달 구매 카테고리
+ * input: 6DaysAgoDate
+ * output: 한달 구매 카테고리 / none
+ */
+app.post("/chart/buyproduct", function (req, res) {
+  const Id = req.body.Id;
+  const StandardDate = req.body.Date;
+
+  console.log(Id, StandardDate);
+
+  const SQL =
+    "SELECT product_category AS product_category, COUNT(product_date) AS cnt, seller_id, buyer_id \
+    FROM `PRODUCT` WHERE buyer_id = ? AND product_date>= ? \
+    GROUP BY product_category;";
+
+  db.query(SQL, [Id, StandardDate], function (err, rows) {
+    if (err) {
+      console.log("구매 상품 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("구매 상품 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
   });
 });
