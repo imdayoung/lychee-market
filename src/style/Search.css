@@ -75,10 +75,13 @@
     width: 160px;
     height: 50px;
     background-color: #ff9696;
+    color: white;
+    font-weight: bold;
     border: none;
     float: right;
     margin-right: 20px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 #NoProduct {

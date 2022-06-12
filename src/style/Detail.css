@@ -28,8 +28,9 @@
 }
 
 #Category {
-    font-size: 25px;
+    font-size: 24px;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 #ImageDiv {
@@ -67,13 +68,22 @@
     font-size: 40px;
     float: right;
     margin-right: 150px;
+    color: #ff3d60;
+}
+
+#DealFlagDone{
+    display: inline;
+    font-size: 40px;
+    float: right;
+    margin-right: 150px;
+    color: #999999;
 }
 
 #DealTypeDiv {
     display: inline-block;
-    border: 1px solid #ff9696;
+    border: 2px solid #ff3d60;
     border-radius: 100px;
-    background-color: #ff9696;
+    background-color: white;
     width: 130px;
     height: 40px;
     text-align: center;
@@ -81,6 +91,8 @@
     margin-top: 40px;
     line-height: 40px;
     font-size: 22px;
+    font-weight: bold;
+    color: #ff3d60;
 }
 
 #DealType {
@@ -111,8 +123,10 @@
     height: 55px;
     line-height: 25px;
     font-size: 30px;
-    border: none;
-    background-color: #ff9696;
+    border: solid 2px #ff3d60;
+    background-color: #FFF;
+    font-weight: bold;
+    color: #ff3d60;
     cursor: pointer;
 }
 
@@ -121,10 +135,11 @@
     height: 55px;
     line-height: 25px;
     font-size: 30px;
-    border: none;
+    border: solid 2px #ff3d60;
     background-color: #ff3d60;
     float: right;
     margin-right: 150px;
+    font-weight: bold;
     color: white;
     cursor: pointer;
 }
@@ -134,9 +149,11 @@
     height: 55px;
     line-height: 25px;
     font-size: 30px;
-    border: none;
-    background-color: #ff9696;
+    border: solid 2px #ff3d60;
+    background-color: #FFF;
     margin-right: 31px;
+    font-weight: bold;
+    color: #ff3d60;
     cursor: pointer;
 }
 
@@ -145,10 +162,11 @@
     height: 55px;
     line-height: 25px;
     font-size: 30px;
-    border: none;
+    border: solid 2px #ff3d60;
     background-color: #ff3d60;
-    color: white;
+    color: #FFF;
     margin-right: 31px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -157,8 +175,10 @@
     height: 55px;
     line-height: 25px;
     font-size: 30px;
-    border: none;
-    background-color: #ff9696;
+    border: solid 2px #ff3d60;
+    background-color: #FFF;
+    font-weight: bold;
+    color: #ff3d60;
     cursor: pointer;
 }
 
@@ -167,16 +187,21 @@
 }
 
 #InfoTitle {
-    font-size: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 8px;
+    color: #ff3d60;
 }
 
 #Info {
     font-size: 20px;
+    margin: 12px;
+    
 }
 
 #Info2 {
-    margin-bottom: 150px;
     font-size: 20px;
+    margin: 12px;
 }
 
 /*모달창*/

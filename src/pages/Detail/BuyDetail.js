@@ -125,7 +125,7 @@ export default function BUYDETAIL(){
             </div>
             <div className="DetailMain">
                 <div>
-                    <div id="Category">카테고리 &gt; {ProductCategory}</div>
+                    <div id="Category">카테고리&nbsp; &gt; &nbsp;{ProductCategory}</div>
                     <div id="ImageDiv">
                         <img id='DetailItemImage' src={ProductImg} alt='상품 이미지'></img>
                     </div>
@@ -133,7 +133,7 @@ export default function BUYDETAIL(){
                         <div id="DetailItemTitle">{ProductTitle}</div>
                         <div>
                             <div id="DetailItemPrice">{Common.MoneyComma(ProductPrice)} 원</div>
-                            <div id="DealFlag">{DealFlag}</div>
+                            <div id={DealFlag==="거래완료"?"DealFlagDone":"DealFlag"}>{DealFlag}</div>
                         </div>
                         <div>
                             <div id="DealTypeDiv">거래방식</div>

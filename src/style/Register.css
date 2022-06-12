@@ -6,6 +6,7 @@ button.overlap {
   background-color: #FF9696;
   color: #FFF;
   text-align: center;
+  cursor: pointer;
 }
 
 div.hint {

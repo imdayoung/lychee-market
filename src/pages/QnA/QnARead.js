@@ -120,7 +120,7 @@ export default function QnARead() {
       {IsManager ?
       <ManagerHeader keyword='문의사항 | 상세'/> :
       <Header keyword='문의사항 | 상세'/>}
-      <main className="qna">
+      <div className="qna">
         <table className="qnaRead">
           <caption>&lt;문의&gt;</caption>
           <tbody className="qnaReadbody">
@@ -252,7 +252,7 @@ export default function QnARead() {
             삭제하기
           </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

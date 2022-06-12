@@ -81,6 +81,7 @@
   height: 64px;
   border: none;
   background-color: #ff3d60;
+  cursor: pointer;
 }
 
 .SearchButtonImage {
