@@ -1167,6 +1167,7 @@ app.get('/buy/search/:target', function(req, res) {
 	})
 })
 
+// 가격순(기본) 정렬
 app.get('/buy/search/:target/:category', function(req, res) {
   const Target = "%"+req.params.target+"%";
   const Category = req.params.category;
@@ -1188,6 +1189,7 @@ app.get('/buy/search/:target/:category', function(req, res) {
   })
 })
 
+// 거리순 정렬
 app.get('/buy/search/distance/:target/:category', function(req, res) {
   const Target = "%"+req.params.target+"%";
   const Category = req.params.category;
@@ -1209,6 +1211,7 @@ app.get('/buy/search/distance/:target/:category', function(req, res) {
   })
 })
 
+// 거리 정보 업데이트
 app.post("/distanceupdate", function (req, res) {
   const ProductId = req.body.product_id;
   const Distance = req.body.distance;
@@ -1255,6 +1258,35 @@ app.get('/sell/detail/:product_id', function(req, res) {
 			res.send(result);
 		}
 	})
+})
+
+app.post('/ilikeit', function(req, res) {
+  const UserId = req.body.UserId;
+  const ProdId = req.body.ProdId;
+  var SQLCheck = "SELECT * FROM `PRODUCT_LIKE` WHERE `user_id`=? AND `product_id`=?"
+  var SQLLike = "UPDATE `PRODUCT` SET `product_like`=`product_like`+1 WHERE `product_id`=?;"+"INSERT INTO `PRODUCT_LIKE`(`user_id`,`product_id`) VALUES(?, ?);";
+
+  db.query(SQLCheck, [UserId, ProdId], (err, result) => {
+    if(err) {
+      console.log("즐겨찾는 상품 불러오기 오류: ", err);
+      res.send(false);
+    }
+    if(result.length > 0) {
+      console.log("이미 즐겨찾는 상품: ", result);
+      res.send("이미");
+    } else {
+      db.query(SQLLike, [ProdId, UserId, ProdId], (err, results) => {
+        if(err) {
+          console.log("즐겨찾는 상품 등록 오류: ", err);
+          res.send(false);
+        }
+        if(results) {
+          console.log("즐겨찾는 상품 등록 성공: ", results);
+          res.send(results);
+        }
+      })
+    }
+  })
 })
 
 app.get('/getlocation/:id', function(req, res) {
