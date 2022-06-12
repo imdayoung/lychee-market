@@ -51,7 +51,7 @@ export default function CateogryInfo(props) {
         case('생활,가공식품'):
             imgsrc = '/images/category/category16.png';
             break;
-        case('유아동/출산'):
+        case('유아동,출산'):
             imgsrc = '/images/category/category17.png';
             break;
         case('반려동물용품'):
