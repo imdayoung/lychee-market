@@ -23,7 +23,7 @@ export default function RegHeader(props){
       <div className="Title">
         <div className="TitleName2">
           <Link to="/" id='LinkNoLine'>
-            <div id="Logo3"></div>
+          <img id="Logo3" src = "/images/logo.png" alt="로고"/>
           </Link>
           <div id="TitleText2">리치마켓</div>
           <div id="TitleDetail2"> | 회원가입</div>
