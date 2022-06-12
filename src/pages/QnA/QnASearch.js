@@ -79,7 +79,7 @@ export default function QnASearch(props){
         qna_id={QnA[i].qna_id}
         qna_title={QnA[i].q_title} 
         qna_date={QnA[i].q_date.split('T')[0]} 
-        qna_pflag={QnA[i].private_flag === '0' ? '공개' : '비공개'} 
+        qna_pflag={QnA[i].private_flag === 0 ? '공개' : '비공개'} 
         qna_answered={QnA[i].a_id !== "" ? '미완료' : '완료'}
         userid={userid}
         />
