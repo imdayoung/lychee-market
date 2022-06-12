@@ -67,7 +67,7 @@ export default function Message(props) {
                     reportedid:
                       data.buyer_id !== Id ? data.buyer_id : data.seller_id,
                     cid: data.msgbox_id,
-                    type: "쪽지신고",
+                    type: "쪽지 신고",
                   });
                   SetMsgSenderName(
                     data.buyer_id !== Id
