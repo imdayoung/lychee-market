@@ -7,29 +7,17 @@ import getCookie from "../../components/GetCookie";
 
 export default function BUYSEARCH(){
     const cookie = getCookie("is_login");
-    var IsManager = false;
-    var IsLogin = false;
     let userid = '';
     
     //로그인 정보
     if(cookie === "true"){
       userid = localStorage.getItem("user_id");
-      if(userid !== null)
-        IsLogin = true;
-      else{
-        const managerid = localStorage.getItem("manager_id");
-        if(managerid !== null){
-          IsManager = true;
-          IsLogin = true;
-        }
-      }
     }
 
     let Location = useLocation();
     // location의 pathname으로부터 검색 단어 얻기
     const Target = Location.pathname.split('/').slice(-1)[0];
     const [Category, SetCategory] = useState("all");
-    const [Order, SetOrder] = useState("price");
     const [MyLocation, SetMyLocation] = useState('');
 
     // 물건 정보
@@ -51,7 +39,6 @@ export default function BUYSEARCH(){
     }
 
     const OrderHandler = (e) => {
-        SetOrder(e.target.value);
         if(e.target.value === 'distance'){
             axios.get('http://localhost:8080/buy/search/distance/'+Target +'/'+Category+'/'+MyLocation)
             .then((res) => {

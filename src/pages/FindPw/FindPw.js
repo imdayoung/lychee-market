@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import LoginInput from "../../components/LoginInput";
 import SubmitBtn from "../../components/SubmitBtn";
 import FindPwHeader from "./FindPwHeader";
 
 function FindPw(){
-
-  const navigate = useNavigate();
-
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');

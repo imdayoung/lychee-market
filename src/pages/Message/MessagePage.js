@@ -143,7 +143,7 @@ export default function Message(props) {
       .catch((err) => {
         console.log("에러");
       });
-  }, [SelectedBox, MsgSenderName, SelectedMsg, ProductId]);
+  }, [SelectedBox, MsgSenderName, SelectedMsg, ProductId, Id]);
 
   return (
     <div>

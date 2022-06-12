@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import RegInput from "../../components/RegInput";
 import RegSubmitBtn from "../../components/RegSubmitBtn";
 import AddrModal from "../../components/AddrModal";
 import Header from "../../components/Header";
 import getCookie from "../../components/GetCookie";
-
-// import '../../style/ChangeMyInfo.css'
 
 function ChangeMyInfo(){
 
@@ -18,7 +16,6 @@ function ChangeMyInfo(){
     id = localStorage.getItem("user_id");
   }
   
-  //const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [pwconfirm, setPwconfirm] = useState('');
   const [name, setName] = useState('');
@@ -96,9 +93,7 @@ function ChangeMyInfo(){
         setLocation(res.data[0].user_location);
       }
     })
-  },
-  // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-  []);
+  }, [id]);
 
   useEffect(() => {
     console.log(error);

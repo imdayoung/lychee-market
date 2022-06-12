@@ -1,5 +1,4 @@
 import '../../../style/Search.css';
-import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as Common from "../../../components/CommonFunc"
 

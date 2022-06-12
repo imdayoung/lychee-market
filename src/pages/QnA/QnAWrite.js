@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import QnACategory from "../../components/QnACategory";
 import Header from "../../components/Header";
@@ -10,10 +10,8 @@ import getCookie from "../../components/GetCookie";
 function QnAWrite(){
   //들어갈 내용 : q_id, q_date, q_catgory, q_content, view=0, private_flag = 0이면 비공개
   const navigate = useNavigate();
-  const location = useLocation();
-  //const [id, setId] = useState('');
+
   let id = "";
-  //const id = 'idtest2';  //로그인 정보에서 받아오기 ...
   const cookie = getCookie("is_login");
   if(cookie === "true"){
     id = localStorage.getItem("user_id");

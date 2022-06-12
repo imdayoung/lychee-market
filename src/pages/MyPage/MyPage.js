@@ -10,20 +10,6 @@ import PointModal from "./components/PointModal";
 import { Link } from "react-router-dom";
 import getCookie from "../../components/GetCookie";
 
-// let Id;
-// const cookie = getCookie("is_login");
-// if(cookie === "true"){
-//   Id = localStorage.getItem("user_id");
-// }
-
-// const HistoryList = {
-//   0: <ProductHistory Id={Id} Type="sell" />,
-//   1: <ProductHistory Id={Id} Type="buy" />,
-//   2: <ProductHistory Id={Id} Type="like" />,
-//   3: <PointHistory Id={Id} />,
-//   4: <Statistics Id={Id} />,
-// };
-
 export default function MyPage() {
   const [Tab, SetTab] = useState(0);
   const [UserInfo, SetUserInfo] = useState({});
@@ -61,7 +47,7 @@ export default function MyPage() {
       .catch((err) => {
         console.log("마이페이지 불러오기 실패");
       });
-  }, [UserPoint]);
+  }, [UserPoint, Id]);
 
   return (
     <div>

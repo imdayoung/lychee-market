@@ -8,7 +8,6 @@ import getCookie from "../../components/GetCookie";
 
 export default function BUYDETAIL(){
     const cookie = getCookie("is_login");
-    var IsManager = false;
     var IsLogin = false;
     let userid = '';
     
@@ -17,20 +16,12 @@ export default function BUYDETAIL(){
       userid = localStorage.getItem("user_id");
       if(userid !== null)
         IsLogin = true;
-      else{
-        const managerid = localStorage.getItem("manager_id");
-        if(managerid !== null){
-          IsManager = true;
-          IsLogin = true;
-        }
-      }
     }
 
     const navigate = useNavigate();
     let Location = useLocation();
 
     // 물건 정보
-    const [ProductId, SetProductId] = useState('');
     const [SellerId, SetSellerId] = useState('');
     const [ProductTitle, SetProductTitle] = useState('');
     const [ProductCategory, SetProductCategory] = useState('');
@@ -38,10 +29,8 @@ export default function BUYDETAIL(){
     const [ProductLike, SetProductLike] = useState(0);
     const [ProductDate, SetProductDate] = useState('');
     const [ProductImg, SetProductImg] = useState('');
-    const [ProductImgNum, SetProductImgNum] = useState(0);
     const [ProductDetail, SetProductDetail] = useState('');
     const [DealMethod, SetDealMethod] = useState('');
-    const [DealType, SetDealType] = useState(0);
     const [DealFlag, SetDealFlag] = useState(0);
     const [SellerNick, SetSellerNick] = useState('');
 
@@ -54,7 +43,6 @@ export default function BUYDETAIL(){
     useEffect(() => {
         axios.get('http://localhost:8080/buy/detail/'+ProdId)
         .then((res) => {
-            SetProductId(res.data[0].product_id);
             SetSellerId(res.data[0].buyer_id);
             SetProductTitle(res.data[0].product_title);
             SetProductCategory(res.data[0].product_category);
@@ -62,11 +50,8 @@ export default function BUYDETAIL(){
             SetProductLike(res.data[0].product_like);
             SetProductDate(res.data[0].product_date);
             SetProductImg(res.data[0].product_img);
-            SetProductImgNum(res.data[0].product_img_num);
             SetProductDetail(res.data[0].product_detail);
             SetDealMethod(res.data[0].deal_method);
-            if(res.data[0].deal_type === 1)  SetDealType('판매해요');
-            else                            SetDealType('구매해요');
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             SetSellerNick(res.data[0].seller_nickname);
@@ -77,7 +62,7 @@ export default function BUYDETAIL(){
                 type: "게시글 신고"
             });
         });
-    }, []);
+    }, [ProdId]);
 
     function ILikeIt() {
         axios.post('http://localhost:8080/ilikeit', { UserId: userid, ProdId: parseInt(ProdId) })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import Header from "../../components/Header";
 import ProductCategory from "../../components/ProductCategory";
@@ -59,21 +59,18 @@ function ProductUpload() {
     } else {
       setError(false);
     }
-  }, [error, price, title, detail]);
+  }, [error, price, title, detail, category, dealmethod, dealtype]);
 
   const changeDealtype = (e) => {
     setDealtype(e.target.value);
-    // alert(e.target.value);
   }
 
   const changeDealmethod = (e) => {
     setDealmethod(e.target.value);
-    // alert(e.target.value);
   }
 
   const changeCategory = (e) => {
     setCategory(e.target.value);
-    //alert(e.target.value);
   }
 
   const changeImage = (e) => {

@@ -7,7 +7,7 @@ import QnAListComponent from "./components/QnAListComponent";
 import getCookie from "../../components/GetCookie";
 import Pagination from "../../components/Pagination";
 
-export default function QnASearch(props){
+export default function QnASearch(){
   // 관리자인지 확인 필요
   const cookie = getCookie("is_login");
   var IsManager = false;
@@ -37,7 +37,7 @@ export default function QnASearch(props){
   useEffect(()=>{
     const tempsearchword = location.state.searchword;
     SetSearchWord(tempsearchword);
-  },[]);
+  },[location]);
 
   //페이지네이션
   const limit = 10;

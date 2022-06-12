@@ -55,7 +55,6 @@ export default function QnARead() {
       setDate(tempdate.split("T")[0]);
       setUid(res.data[0].q_id);
       if (res.data[0].q_id === userid) {
-        //IsWriter = true;
         setIsWriter(true);
       }
       setTitle(res.data[0].q_title);
@@ -63,7 +62,6 @@ export default function QnARead() {
 
       setAid(res.data[0].a_id);
       if (res.data[0].a_id !== null) {
-        alert(res.data[0].a_id);
         setIsAnswered(true);
       } else {
         if (IsManager === true) setAid(managerid);
@@ -79,7 +77,7 @@ export default function QnARead() {
       }
       setAcontent(res.data[0].a_content);
     });
-  }, [qid]);
+  }, [qid, IsManager, managerid, userid]);
 
   // 공지사항 삭제
   const DeleteClick = () => {

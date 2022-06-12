@@ -1,15 +1,9 @@
 import "../style/Header.css";
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import getCookie from "./GetCookie";
 import setCookie from "./SetCookie";
 
 export default function Header(props) {
-  let Location = useLocation();
-  const DealType = Location.pathname.split("/").slice(1)[0];
-
-  const [Target, SetTarget] = useState("");
-
   var IsLogin = false;
   const cookie = getCookie("is_login");
   if (cookie === "true") {
@@ -22,13 +16,6 @@ export default function Header(props) {
     setCookie("is_login", true, -1);
     localStorage.clear();
   };
-
-    // const {keyword} = props;
-    // let exist = false;
-
-    // if(keyword !== undefined){
-    //   exist = true;
-    // }
 
   return (
     <header>
@@ -75,7 +62,6 @@ export default function Header(props) {
           ) : (
             <div id="TitleDetail2">{" | " + props.keyword}</div>
           )}
-          {/* {exist ? <div id="TitleDetail2"> | {keyword}</div> : <></>} */}
         </div>
         <nav className="Top">
           <Link to={{ pathname: "/sell" }} id="LinkNoLine">

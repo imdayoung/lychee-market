@@ -1,30 +1,17 @@
 import EvaluateModal from "./components/EvaluateModal";
 import Header from "../../components/Header";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import getCookie from "../../components/GetCookie";
 
 const YourId = "dlekdud0102";
 
-export default function Evaluate(props) {
+export default function Evaluate() {
     const cookie = getCookie("is_login");
-    var IsManager = false;
-    var IsLogin = false;
     let userid = '';
     
     //로그인 정보
     if(cookie === "true"){
       userid = localStorage.getItem("user_id");
-      if(userid !== null)
-        IsLogin = true;
-      else{
-        const managerid = localStorage.getItem("manager_id");
-        if(managerid !== null){
-          IsManager = true;
-          IsLogin = true;
-        }
-      }
     }
 
     const [ModalOpen, SetModalOpen] = useState(false);

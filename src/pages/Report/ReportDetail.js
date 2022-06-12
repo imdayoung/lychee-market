@@ -149,7 +149,7 @@ export default function ReportDetail(){
             </tr>
             <tr className="ReportRow" hidden={Content.report_file===null || Content.report_file==='' ? true : false}>
               <th className="ReportTh">첨부파일</th>
-              <td colSpan="3"><img className="ReportTdImg" src={Content.report_file}/></td>
+              <td colSpan="3"><img className="ReportTdImg" src={Content.report_file} alt="이미지"/></td>
             </tr>
           </tbody>
         </table>

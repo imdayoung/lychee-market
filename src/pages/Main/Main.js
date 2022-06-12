@@ -57,7 +57,7 @@ export default function MAIN(){
             <div className='Head'>
                 <Header/>
             </div>
-            <div id="BannerDiv"><img id="BannerImage" src="images/banner.png"></img></div>
+            <div id="BannerDiv"><img id="BannerImage" src="images/banner.png" alt="banner"></img></div>
 
             <div className="CategoryBackground">
                 <div className="Items">

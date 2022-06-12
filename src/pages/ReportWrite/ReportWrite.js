@@ -46,7 +46,7 @@ function ReportWrite(props){
     setCid(location.state.info.cid);
     setPid(location.state.info.pid);
     setReportedid(location.state.info.reportedid);
-  },[])
+  },[location])
 
   useEffect(() => {
     console.log(error);

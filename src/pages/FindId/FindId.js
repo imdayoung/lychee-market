@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import LoginInput from "../../components/LoginInput";
 import SubmitBtn from "../../components/SubmitBtn";
 import FindIdHeader from "./FindIdHeader";
 
 function FindId(){
-
-  const navigate = useNavigate();
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');

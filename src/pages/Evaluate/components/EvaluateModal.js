@@ -6,13 +6,10 @@ import Score from "../components/Score";
 const EvaluateModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, id, yourid } = props;
-
-  const [Select, SetSelect] = useState();
   const [SelectScore, SetSelectScore] = useState(0);
   
   const RadioHandler = (e) => {
     console.log(e.target.value);
-    SetSelect(e.target.value);
     if(e.target.value === "best")   SetSelectScore(2);
     else if(e.target.value === "good")  SetSelectScore(1);
     else if(e.target.value === "soso")  SetSelectScore(0);

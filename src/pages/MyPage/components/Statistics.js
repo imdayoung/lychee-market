@@ -101,7 +101,7 @@ export default function Statistics(props) {
       .catch((err) => {
         console.log("구매 카테고리 차트 에러");
       });
-  }, []);
+  }, [props]);
 
   return (
     <div>
