@@ -1292,15 +1292,15 @@ app.get('/sell/search/distance/:target/:category/:mylocation', function(req, res
                                         res.send(false);
                                       } else {
                                         console.log("드디어 성공: ", result);
-                                        db.query(SQLDeleteTemp, (err, result) => {
-                                          if(err) {
-                                            console.log("임시 테이블 삭제 오류: ", err);
-                                          } else {
-                                            console.log("임시 테이블 삭제 성공: ", result);
-                                          }
-                                        });
+                                        // db.query(SQLDeleteTemp, (err, result) => {
+                                        //   if(err) {
+                                        //     console.log("임시 테이블 삭제 오류: ", err);
+                                        //   } else {
+                                        //     console.log("임시 테이블 삭제 성공: ", result);
+                                        //   }
+                                        // });
                                         FinalResult = result;
-                                        res.send(FinalResult);
+                                        // res.send(FinalResult);
                                       }
                                     });
                                     }, 200);
@@ -1312,6 +1312,16 @@ app.get('/sell/search/distance/:target/:category/:mylocation', function(req, res
                         })
                       })(j);
                     }
+                    setTimeout(() => {
+                      db.query(SQLDeleteTemp, (err, result) => {
+                          if(err) {
+                            console.log("임시 테이블 삭제 오류: ", err);
+                          } else {
+                            console.log("임시 테이블 삭제 성공: ", result);
+                          }
+                        });
+                        res.send(FinalResult);
+                    }, 1000);
                   }
                 });
                   
@@ -1362,15 +1372,15 @@ app.get('/sell/search/distance/:target/:category/:mylocation', function(req, res
                                         res.send(false);
                                       } else {
                                         console.log("드디어 성공: ", result);
-                                        db.query(SQLDeleteTemp, (err, result) => {
-                                          if(err) {
-                                            console.log("임시 테이블 삭제 오류: ", err);
-                                          } else {
-                                            console.log("임시 테이블 삭제 성공: ", result);
-                                          }
-                                        });
+                                        // db.query(SQLDeleteTemp, (err, result) => {
+                                        //   if(err) {
+                                        //     console.log("임시 테이블 삭제 오류: ", err);
+                                        //   } else {
+                                        //     console.log("임시 테이블 삭제 성공: ", result);
+                                        //   }
+                                        // });
                                         FinalResult = result;
-                                        res.send(FinalResult);
+                                        // res.send(FinalResult);
                                       }
                                     });
                                     }, 200);
@@ -1382,6 +1392,16 @@ app.get('/sell/search/distance/:target/:category/:mylocation', function(req, res
                         })
                       })(j);
                     }
+                    setTimeout(() => {
+                      db.query(SQLDeleteTemp, (err, result) => {
+                          if(err) {
+                            console.log("임시 테이블 삭제 오류: ", err);
+                          } else {
+                            console.log("임시 테이블 삭제 성공: ", result);
+                          }
+                        });
+                        res.send(FinalResult);
+                    }, 1000);
                   }
                 });
               }
@@ -1558,15 +1578,15 @@ app.get('/buy/search/distance/:target/:category/:mylocation', function(req, res)
                                         res.send(false);
                                       } else {
                                         console.log("드디어 성공: ", result);
-                                        db.query(SQLDeleteTemp, (err, result) => {
-                                          if(err) {
-                                            console.log("임시 테이블 삭제 오류: ", err);
-                                          } else {
-                                            console.log("임시 테이블 삭제 성공: ", result);
-                                          }
-                                        });
+                                        // db.query(SQLDeleteTemp, (err, result) => {
+                                        //   if(err) {
+                                        //     console.log("임시 테이블 삭제 오류: ", err);
+                                        //   } else {
+                                        //     console.log("임시 테이블 삭제 성공: ", result);
+                                        //   }
+                                        // });
                                         FinalResult = result;
-                                        res.send(FinalResult);
+                                        // res.send(FinalResult);
                                       }
                                     });
                                     }, 200);
@@ -1578,10 +1598,18 @@ app.get('/buy/search/distance/:target/:category/:mylocation', function(req, res)
                         })
                       })(j);
                     }
+                    setTimeout(() => {
+                      db.query(SQLDeleteTemp, (err, result) => {
+                          if(err) {
+                            console.log("임시 테이블 삭제 오류: ", err);
+                          } else {
+                            console.log("임시 테이블 삭제 성공: ", result);
+                          }
+                        });
+                        res.send(FinalResult);
+                    }, 1000);
                   }
                 });
-                  
-                
               } else {
                 // 전체 카테고리 검색어 해당 상품 찾기
                 SQLGetProd = "SELECT `buyer_id`, `product_id`, `product_title`, `product_price`, `product_img` FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=?;"
@@ -1636,7 +1664,7 @@ app.get('/buy/search/distance/:target/:category/:mylocation', function(req, res)
                                         //   }
                                         // });
                                         FinalResult = result;
-                                        return res.send(FinalResult);
+                                        // res.send(FinalResult);
                                       }
                                     });
                                     }, 200);
@@ -1648,6 +1676,16 @@ app.get('/buy/search/distance/:target/:category/:mylocation', function(req, res)
                         })
                       })(j);
                     }
+                    setTimeout(() => {
+                      db.query(SQLDeleteTemp, (err, result) => {
+                        if(err) {
+                          console.log("임시 테이블 삭제 오류: ", err);
+                        } else {
+                          console.log("임시 테이블 삭제 성공: ", result);
+                        }
+                      });
+                      res.send(FinalResult);
+                    }, 1000);
                   }
                 });
               }
