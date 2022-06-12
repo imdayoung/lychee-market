@@ -93,7 +93,7 @@ function ProductUpload() {
     let date = now.getFullYear() + "-" + month + "-" + now.getDate()
     + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
-    if(dealtype === "0"){
+    if(dealtype === "1"){
       sellerid = inputid;
     } else {
       buyerid = inputid;
@@ -117,8 +117,10 @@ function ProductUpload() {
       if(res.data !== false){
         alert("업로드 완료");
         const pid = res.data[0].product_id;
-        alert("pid : "+pid);
-        navigate('/product/'+pid);
+        if(dealtype === 1)
+          navigate('/sell/detail/'+pid);
+        else if(dealtype === 1)
+          navigate('/buy/detail/'+pid);
       }
       else {
         alert("업로드 실패");
@@ -136,10 +138,10 @@ function ProductUpload() {
             <tr className="p_row">
               <th className="p_th">거래 종류 <span className="p_must">*</span></th>
               <td>
-                <input type="radio" name="dealtype" value="0"
+                <input type="radio" name="dealtype" value="1"
                 onChange={changeDealtype}/>판매하기
                 &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="dealtype" value="1"
+                <input type="radio" name="dealtype" value="0"
                 onChange={changeDealtype}/>구매하기
               </td>
             </tr>

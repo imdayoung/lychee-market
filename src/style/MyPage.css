@@ -122,6 +122,7 @@ li {
 /*Product.js*/
 #MyPageProduct {
   height: 300px;
+  width: 223px;
   border: 1px solid #cdcdcd;
   font-size: 20px;
 }
@@ -136,6 +137,12 @@ li {
   padding-top: 4px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+#MyPageProductTitle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .OnlyFontBold {
