@@ -1541,3 +1541,56 @@ app.post("/chart/productnum", function (req, res) {
   });
 });
 
+/*
+ * 목적: 차트 - 한달 판매 카테고리
+ * input: 6DaysAgoDate
+ * output: 한달 판매 카테고리 / none
+ */
+app.post("/chart/sellproduct", function (req, res) {
+  const Id = req.body.Id;
+  const StandardDate = req.body.Date;
+
+  console.log(Id, StandardDate);
+
+  const SQL =
+    "SELECT product_category AS product_category, COUNT(product_date) AS cnt, seller_id, buyer_id \
+    FROM `PRODUCT` WHERE seller_id = ? AND product_date>= ? \
+    GROUP BY product_category;";
+
+  db.query(SQL, [Id, StandardDate], function (err, rows) {
+    if (err) {
+      console.log("판매 상품 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("판매 상품 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 차트 - 한달 구매 카테고리
+ * input: 6DaysAgoDate
+ * output: 한달 구매 카테고리 / none
+ */
+app.post("/chart/buyproduct", function (req, res) {
+  const Id = req.body.Id;
+  const StandardDate = req.body.Date;
+
+  console.log(Id, StandardDate);
+
+  const SQL =
+    "SELECT product_category AS product_category, COUNT(product_date) AS cnt, seller_id, buyer_id \
+    FROM `PRODUCT` WHERE buyer_id = ? AND product_date>= ? \
+    GROUP BY product_category;";
+
+  db.query(SQL, [Id, StandardDate], function (err, rows) {
+    if (err) {
+      console.log("구매 상품 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("구매 상품 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});

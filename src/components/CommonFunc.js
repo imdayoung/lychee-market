@@ -26,3 +26,13 @@ export function GetSixDaysAgo() {
 export function GetDateGap(date1, date2) {
   return new Date(date1).getDate() - new Date(date2).getDate();
 }
+
+export function GetMonth() {
+  var todayDate = new Date();
+  return new Date(todayDate.setDate(1));
+}
+
+export function GetMonthAgo() {
+  var todayDate = new Date();
+  return new Date(todayDate.setMonth(todayDate.getMonth() - 1));
+}
