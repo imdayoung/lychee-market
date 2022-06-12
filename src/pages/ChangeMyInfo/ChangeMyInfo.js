@@ -25,8 +25,7 @@ function ChangeMyInfo(){
   const [error, setError] = useState(false);
   const [errormsg, setErrormsg] = useState('');
 
-  const [nickoverlap, setNickoverlap] = useState(false);
-
+  const [nickoverlap, setNickoverlap] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -120,6 +119,10 @@ function ChangeMyInfo(){
   }, [error, id, name, nickname, phone, pw, pwconfirm, location, nickoverlap]);
 
 
+  const changeNickname = (e) => {
+    setNickname(e.target.value);
+    setNickoverlap(false);
+  };
   return (
     <div className="main">
       <Header keyword="내 정보 수정"/>
@@ -162,13 +165,20 @@ function ChangeMyInfo(){
         />
         <br/>
         <div className="hint">닉네임</div>
-        <RegInput
+        <input
+          className={"r_inputshort"}
+          type={"text"}
+          placeholder={"닉네임"}
+          value={nickname}
+          onChange={changeNickname}
+        />
+        {/* <RegInput
           distinct={"Short"}
           type={"text"}
           placeholder={"닉네임"}
           value={nickname}
-          setValue={setNickname}
-        />
+          onChange={changeNickname}
+        /> */}
         <button className="overlap" onClick={onNickOverlap}>중복 확인</button>
         <br/>
         <div className="hint">거래 장소</div>
