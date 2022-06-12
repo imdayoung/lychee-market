@@ -9,10 +9,10 @@ function QnACategory(props) {
   return (
     <select className="category" onChange={handleChange}>
       <option value="none">==카테고리==</option>
-      <option value="계정/인증">계정/인증</option>
-      <option value="구매/판매">구매/판매</option>
+      <option value="계정,인증">계정,인증</option>
+      <option value="구매,판매">구매,판매</option>
       <option value="쪽지">쪽지</option>
-      <option value="오류/제안">오류/제안</option>
+      <option value="오류,제안">오류,제안</option>
       <option value="광고">광고</option>
       <option value="기타">기타</option>
     </select>
