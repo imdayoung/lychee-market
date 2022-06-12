@@ -9,9 +9,10 @@ import MsgContent from "./components/MsgContent";
 import MsgModal from "./components/MsgModal";
 import MoneyModal from "./components/MoneyModal";
 import { useNavigate } from "react-router-dom";
+import getCookie from "../../components/GetCookie";
 
-/*아이디 받아오기*/
-const Id = "mouse0429";
+// /*아이디 받아오기*/
+// const Id = "mouse0429";
 
 export default function Message(props) {
   const [SelectedMsg, SetSelectedMsg] = useState(null);
@@ -22,6 +23,12 @@ export default function Message(props) {
   const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
   const [IsMoneyModalOpen, SetIsMoneyModalOpen] = useState(false);
   const [ReportInfo, SetReportInfo] = useState(null);
+
+  let Id;
+  const cookie = getCookie("is_login");
+  if (cookie === "true") {
+    Id = localStorage.getItem("user_id");
+  }
 
   let navigate = useNavigate();
 

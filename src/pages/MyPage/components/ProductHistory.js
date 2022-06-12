@@ -26,7 +26,7 @@ export default function ProductHistory(props) {
               Title={data.product_title}
               Amount={parseInt(data.product_price)}
               ProductId={data.product_id}
-              ProductType={data.deal_type == 0 ? "sell" : "buy" }
+              ProductType={data.deal_type === 0 ? "buy" : "sell" }
             />
           ))
         );

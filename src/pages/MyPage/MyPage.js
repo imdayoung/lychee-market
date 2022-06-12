@@ -104,7 +104,7 @@ export default function MyPage() {
           <div className="MyInfoDiv"></div>
           <div className="MyInfo MyInfoRight">
             <div>신뢰도</div>
-            <div className="MyInfoHighlight">50</div>
+            <div className="MyInfoHighlight">{UserInfo.user_reliable}</div>
             <div id="Reliability">
               <div
                 style={{
