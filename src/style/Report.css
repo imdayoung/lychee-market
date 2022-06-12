@@ -25,12 +25,12 @@
 }
 .ReportList .ReportHead{
   height: 60px;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
 }
 .ReportListRow{
   height: 60px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cdcdcd;
   font-size: 18px;
 }
 .ReportList .ReportIndex{
@@ -59,8 +59,8 @@
   margin: auto;
   margin-bottom: 32px;
   border-collapse: collapse;
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
 }
 .ReportMain caption{
@@ -72,8 +72,8 @@
 }
 .ReportMain .ReportRow, .ReportMain .AnswerRow{
   text-align: left;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
   
 }
 .ReportTable input, .AnswerTable input{
@@ -146,8 +146,8 @@
 .ReportMain .ReportButtons .Submit{
   width: 150px;
   height: 40px;
-  border: 2px solid #FF9696;
-  background-color: #FF9696;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
   font-size: 20px;
   color: #FFFFFF;
   font-weight: bold;
@@ -158,8 +158,8 @@
 /* report write */
 .r_row{
   text-align: left;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
   height: 60px;
 }
 
@@ -198,8 +198,8 @@
   margin-top: 15px;
   margin-bottom: 15px;
   border-collapse: collapse;
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
 }
 
 .report{
@@ -218,8 +218,8 @@
 .report .buttons .Nsubmit{
   width: 150px;
   height: 40px;
-  border: 2px solid #FF9696;
-  background-color: #FF9696;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
   font-size: 20px;
   color: #FFFFFF;
   font-weight: bold;

@@ -2,16 +2,12 @@
 .input{
   height: 50px;
   width: 450px;
-  
-  /* border: none;
-  background-color: #F8F8F8;
-  또는 */
   border: 2px solid #CDCDCD;
   background-color: #FFF;
   outline: none;
  
   padding-left: 15px;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 20px;
   margin-right: 10px;
 }
@@ -30,7 +26,7 @@
   outline: none;
  
   padding-left: 15px;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 20px;
   margin-right: 10px;
 }

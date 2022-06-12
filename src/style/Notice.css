@@ -14,13 +14,13 @@
   cursor: default;
 }
 .noticeHead{
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
   height: 60px;
 }
 .n_list_row{
   height: 60px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cdcdcd;
   font-size: 18px;
 }
 .noticeIndex{
@@ -103,17 +103,18 @@
     margin-top: 16px;
     margin-bottom: 16px;
     border-collapse: collapse;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-top: 2px solid #cdcdcd;
+    border-bottom: 2px solid #cdcdcd;
     font-size: 20px;
 }
 .noticeRead input, .noticeWrite input{
     font-size: 18px;
+    outline: none;
 }
 .n_row{
     text-align: left;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
 }
 .n_th{
     width: 180px;
@@ -131,6 +132,7 @@
     min-height: 500px;
     resize: vertical;
     font-size: 18px;
+    outline: none;
 }
 .n_td_image{
     margin-top: 8px;
@@ -168,8 +170,8 @@
 .noticeMain .buttons .submit{
   width: 150px;
   height: 40px;
-  border: 2px solid #FF9696;
-  background-color: #FF9696;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
   font-size: 20px;
   color: #FFFFFF;
   font-weight: bold;

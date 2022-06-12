@@ -66,6 +66,7 @@
 #DealFlag {
     display: inline;
     font-size: 40px;
+    font-weight: bold;
     float: right;
     margin-right: 150px;
     color: #ff3d60;
@@ -74,6 +75,7 @@
 #DealFlagDone{
     display: inline;
     font-size: 40px;
+    font-weight: bold;
     float: right;
     margin-right: 150px;
     color: #999999;
@@ -122,7 +124,7 @@
     width: 260px;
     height: 55px;
     line-height: 25px;
-    font-size: 30px;
+    font-size: 26px;
     border: solid 2px #ff3d60;
     background-color: #FFF;
     font-weight: bold;
@@ -134,7 +136,7 @@
     width: 260px;
     height: 55px;
     line-height: 25px;
-    font-size: 30px;
+    font-size: 26px;
     border: solid 2px #ff3d60;
     background-color: #ff3d60;
     float: right;
@@ -148,12 +150,12 @@
     width: 163px;
     height: 55px;
     line-height: 25px;
-    font-size: 30px;
-    border: solid 2px #ff3d60;
+    font-size: 26px;
+    border: solid 2px #888;
     background-color: #FFF;
     margin-right: 31px;
     font-weight: bold;
-    color: #ff3d60;
+    color: #888;
     cursor: pointer;
 }
 
@@ -161,7 +163,7 @@
     width: 163px;
     height: 55px;
     line-height: 25px;
-    font-size: 30px;
+    font-size: 26px;
     border: solid 2px #ff3d60;
     background-color: #ff3d60;
     color: #FFF;
@@ -174,7 +176,7 @@
     width: 163px;
     height: 55px;
     line-height: 25px;
-    font-size: 30px;
+    font-size: 26px;
     border: solid 2px #ff3d60;
     background-color: #FFF;
     font-weight: bold;
@@ -202,6 +204,7 @@
 #Info2 {
     font-size: 20px;
     margin: 12px;
+    margin-bottom: 150px;
 }
 
 /*모달창*/

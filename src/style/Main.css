@@ -1,9 +1,10 @@
 #BannerDiv {
     width: 100%;
+    text-align: center;
 }
 
 #BannerImage {
-    width: 100%;
+    width: 1300px;
 }
 
 .CategoryBackground {
@@ -36,7 +37,7 @@
 }
 
 .Description1 {
-    font-family: 'Pacifico';
+    font-family: 'Dohyeon';
     padding-top: 25px;
     text-align: center;
     font-size: 52px;
@@ -50,8 +51,9 @@
 }
 
 .ItemsBackground {
-    width: 100%;
+    width: 1300px;
     background-color: #ffecec;
+    
 }
 
 .Items {

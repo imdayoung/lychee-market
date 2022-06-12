@@ -53,7 +53,7 @@ export default function MAIN(){
     }
 
     return (
-        <div>
+        <div className="Main">
             <div className='Head'>
                 <Header/>
             </div>

@@ -5,7 +5,7 @@
 }
 .ManageMain .ListRow{
   height: 60px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cdcdcd;
   font-size: 18px;
 }
 .ManageBottom{
@@ -73,8 +73,7 @@
   font-weight: bold;
 }
 .ProductHead{
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
   height: 60px;
 }
@@ -121,7 +120,7 @@
   cursor: default;
 }
 .UserHead{
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
   height: 60px;
 }
@@ -180,7 +179,7 @@
   cursor: default;
 }
 .ReportHead{
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
   height: 60px;
 }

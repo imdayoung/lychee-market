@@ -402,11 +402,11 @@ app.post("/product/type", function (req, res) {
       res.send("deleted");
     }
     else{
-      if (row[0].deal_type === 0) {
+      if (row[0].deal_type === 1) {
         console.log("신고된 게시글 유형 불러오기 결과: 판매");
         res.send("sell");
       }
-      else if (row[0].deal_type === 1) {
+      else if (row[0].deal_type === 0) {
         console.log("신고된 게시글 유형 불러오기 결과: 구매");
         res.send("buy");
       }

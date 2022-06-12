@@ -18,7 +18,7 @@ span.descript {
 
 span.descriptlink {
     font-size: 18px;
-    color: #FF9696;
+    color: #ff3d60;
 }
 
 div.toregister {
@@ -32,7 +32,7 @@ div.errmsgbox {
 
 span.regerrormsg {
     font-size: 16px;
-    color: rgba(255, 90, 90, 0.8);
+    color: #ff3d60;
 }
 
 span.foundpw,

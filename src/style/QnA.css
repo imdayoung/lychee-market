@@ -14,14 +14,14 @@
 }
 
 .qnaHead{
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #cdcdcd;
   font-size: 20px;
   height: 60px;
 }
 
 .q_list_row{
   height: 60px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cdcdcd;
   font-size: 18px;
 }
 
@@ -44,8 +44,8 @@
 /* QnA Write */
 .q_row{
   text-align: left;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
 }
 
 .q_th{
@@ -77,8 +77,8 @@
   margin-top: 16px;
   margin-bottom: 16px;
   border-collapse: collapse;
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
 }
 
 .submitqna th, .submitqna td {
@@ -106,7 +106,7 @@
   width: 150px;
   height: 40px;
   border: none;
-  background-color: #FF9696;
+  background-color: #ff3d60;
   color: #FFF;
   margin: 8px;
   text-align: center;
@@ -132,8 +132,8 @@
   margin-top: 16px;
   margin-bottom: 16px;
   border-collapse: collapse;
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
 }
 
 .qnaRead td input, 
@@ -144,7 +144,7 @@
 
 .q_list_row{
   height: 60px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cdcdcd;
 }
 
 .QnABottom{
