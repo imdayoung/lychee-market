@@ -146,10 +146,10 @@ export default function BUYDETAIL(){
                 </div>
                 
                 <div id="Infos">
-                    <div id="InfoTitle">판매자 정보</div>
+                    <div id="InfoTitle">게시자 정보</div>
                     <div id="Info">{SellerNick}</div><br></br>
                     <div id="InfoTitle">상품 설명</div>
-                    <div id="Info">{ProductDetail}</div>
+                    <div id="Info2">{ProductDetail}</div>
                 </div>
             </div>
         </div>

@@ -17,16 +17,16 @@ export default function CateogryInfo(props) {
         case('가방'):
             imgsrc = '/images/category/category04.png';
             break;
-        case('시계/쥬얼리'):
+        case('시계,쥬얼리'):
             imgsrc = '/images/category/category05.png';
             break;
         case('패션 액세서리'):
             imgsrc = '/images/category/category06.png';
             break;
-        case('디지털/가전'):
+        case('디지털,가전'):
             imgsrc = '/images/category/category07.png';
             break;
-        case('스포츠/레저'):
+        case('스포츠,레저'):
             imgsrc = '/images/category/category08.png';
             break;
         case('스타굿즈'):
@@ -35,25 +35,25 @@ export default function CateogryInfo(props) {
         case('키덜트'):
             imgsrc = '/images/category/category10.png';
             break;
-        case('예술/희귀/수집품'):
+        case('예술,희귀,수집품'):
             imgsrc = '/images/category/category11.png';
             break;
-        case('음반/악기'):
+        case('음반,악기'):
             imgsrc = '/images/category/category12.png';
             break;
-        case('도서/티켓/문구'):
+        case('도서,티켓,문구'):
             imgsrc = '/images/category/category13.png';
             break;
-        case('뷰티/미용'):
+        case('뷰티,미용'):
             imgsrc = '/images/category/category14.png';
             break;
-        case('가구/인테리어'):
+        case('가구,인테리어'):
             imgsrc = '/images/category/category15.png';
             break;
-        case('생활/가공식품'):
+        case('생활,가공식품'):
             imgsrc = '/images/category/category16.png';
             break;
-        case('유아동/출산'):
+        case('유아동,출산'):
             imgsrc = '/images/category/category17.png';
             break;
         case('반려동물용품'):
