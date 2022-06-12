@@ -16,7 +16,7 @@ function ProductUpload() {
   }
 
   let image_num = 0;
-  let sellerid = '', buyerid = '';
+  let sellerid, buyerid;
 
   const [dealtype, setDealtype] = useState(false);
   const [title, setTitle] = useState('');
@@ -93,7 +93,7 @@ function ProductUpload() {
     let date = now.getFullYear() + "-" + month + "-" + now.getDate()
     + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
-    if(dealtype === "0"){
+    if(dealtype === "1"){
       sellerid = inputid;
     } else {
       buyerid = inputid;
@@ -117,7 +117,7 @@ function ProductUpload() {
       if(res.data !== false){
         alert("업로드 완료");
         const pid = res.data[0].product_id;
-        if(dealtype === 0)
+        if(dealtype === 1)
           navigate('/sell/detail/'+pid);
         else if(dealtype === 1)
           navigate('/buy/detail/'+pid);
