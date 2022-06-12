@@ -69,7 +69,7 @@ app.post("/uploadproductimg", Productupload.single("img"), function(req, res, ne
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "sally1926*",
+  password: "1234",
   database: "lychee",
   multipleStatements: true,
 });
