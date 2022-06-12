@@ -5,14 +5,19 @@ import RegInput from "../../components/RegInput";
 import RegSubmitBtn from "../../components/RegSubmitBtn";
 import AddrModal from "../../components/AddrModal";
 import Header from "../../components/Header";
+import getCookie from "../../components/GetCookie";
 
 // import '../../style/ChangeMyInfo.css'
 
 function ChangeMyInfo(){
 
   const navigate = useNavigate();
-
-  const id = 'idtest';  //사용 시 마이페이지에서 받아오거나 ..
+  const cookie = getCookie("is_login");
+  let id;
+  if(cookie === "true"){
+    id = localStorage.getItem("user_id");
+  }
+  
   //const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [pwconfirm, setPwconfirm] = useState('');
