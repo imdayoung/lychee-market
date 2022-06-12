@@ -2319,8 +2319,6 @@ app.post("/chart/sellproduct", function (req, res) {
   const Id = req.body.Id;
   const StandardDate = req.body.Date;
 
-  console.log(Id, StandardDate);
-
   const SQL =
     "SELECT product_category AS product_category, COUNT(product_date) AS cnt, seller_id, buyer_id \
     FROM `PRODUCT` WHERE seller_id = ? AND product_date>= ? \
@@ -2346,8 +2344,6 @@ app.post("/chart/buyproduct", function (req, res) {
   const Id = req.body.Id;
   const StandardDate = req.body.Date;
 
-  console.log(Id, StandardDate);
-
   const SQL =
     "SELECT product_category AS product_category, COUNT(product_date) AS cnt, seller_id, buyer_id \
     FROM `PRODUCT` WHERE buyer_id = ? AND product_date>= ? \
@@ -2360,6 +2356,61 @@ app.post("/chart/buyproduct", function (req, res) {
     if (rows) {
       console.log("구매 상품 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 거래 대상 고르기
+ * input: user_id, product_id
+ * output: 거래 대상 리스트 / false
+ */
+app.post("/product/msglist", function (req, res) {
+  const Id = req.body.Id;
+  const ProductId = req.body.ProductId;
+
+  const SQL =
+    "SELECT M.msgbox_id, M.product_id, M.seller_id, S.user_nickname AS seller_nickname, M.buyer_id, B.user_nickname AS buyer_nickname\
+    FROM (`MSGBOX` AS M INNER JOIN `USER` AS S ON M.seller_id = S.user_id) INNER JOIN `USER` AS B ON M.buyer_id = B.user_id\
+    WHERE (seller_id = ? OR buyer_id = ?) AND product_id = ?;";
+
+  db.query(SQL, [Id, Id, ProductId], function (err, rows) {
+    if (err) {
+      console.log("거래 대상 불러오기 실패", err);
+      res.send(false)
+    }
+    if (rows) {
+      console.log("거래 대상 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
+
+/*
+ * 목적: 거래 완료
+ * input: user_id, product_id
+ * output: true / false
+ */
+app.post("/dealdone", function (req, res) {
+  const ProductId = req.body.ProductId;
+  const DealWith = req.body.DealWith;
+  const DealType = req.body.DealType;
+
+  console.log(ProductId, DealWith, DealType);
+  
+  const SQL = 
+  (DealType === 0 
+  ? "UPDATE `PRODUCT` SET deal_flag = 1, seller_id = ? WHERE product_id = ?;" 
+  : "UPDATE `PRODUCT` SET deal_flag = 1, buyer_id = ? WHERE product_id = ?;");
+
+  db.query(SQL, [DealWith, ProductId], function (err, rows) {
+    if (err) {
+      console.log("거래 완료 업데이트 실패", err);
+      res.send(false)
+    }
+    if (rows) {
+      console.log("거래 완료 업데이트 성공", rows);
+      res.send(true);
     }
   });
 });

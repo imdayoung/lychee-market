@@ -5,6 +5,7 @@ import Header from "../../components/Header2"
 import '../../style/Detail.css';
 import * as Common from "../../components/CommonFunc"
 import getCookie from "../../components/GetCookie";
+import DetailModal from "./components/DetailModal";
 
 export default function BUYDETAIL(){
     const cookie = getCookie("is_login");
@@ -39,6 +40,9 @@ export default function BUYDETAIL(){
 
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
+
+    // 모달창 열기
+    const [IsModalOpen, SetIsModalOpen] = useState(false);
 
     // 물건 세부정보 불러오기
     useEffect(() => {
@@ -107,8 +111,15 @@ export default function BUYDETAIL(){
         navigate('/product/update', {state:{info: ProductInfo}});
     }
 
+    const ModalClose = () => {
+        SetIsModalOpen(!IsModalOpen);
+    };
+
     return (
         <div>
+            {IsModalOpen && (
+                <DetailModal ModalClose={ModalClose} Id={userid} ProductId={ProdId} DealType={0} />
+            )}
             <div className='Head'>
                 <Header/>
             </div>
@@ -139,7 +150,8 @@ export default function BUYDETAIL(){
                         <div hidden={userid === SellerId ? false : true}>
                             <button id="DeleteButton" onClick={DeleteProduct}>삭제</button>
                             <button id="EditButton" onClick={UpdateNavigate}>수정</button>
-                            {DealFlag === "거래완료" ? <></> : <button id="CompleteButton" >거래완료</button>}
+                            {DealFlag === "거래완료" ? <></> : <button id="CompleteButton" onClick={ModalClose}>거래완료</button>}
+
                         </div>
                     </div>
                 </div>
