@@ -131,7 +131,7 @@ export default function SELLDETAIL(){
                         </div>
                         <div id="MoreInfo">
                             <div id="LikeDate">💜{ProductLike} | ⏰{ProductDate}</div>
-                            {userid === SellerId ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
+                            {userid !== SellerId ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
                         </div>
                         <div hidden={userid === SellerId ? true : false}>
                             <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
