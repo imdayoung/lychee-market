@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import ItemInfo from "./components/ItemInfo";
@@ -122,7 +122,8 @@ export default function BUYSEARCH(){
                             <option key="기타" value="기타">기타</option>
                         </select>
                     </div>
-                    <button id="WriteButton" type="submit">구매글쓰기</button></div>
+                    <Link to={{pathname:'/product/upload'}}><button id="WriteButton" type="submit">중고거래 글쓰기</button></Link>
+                </div>
                 <div>
                     <div id="ResultInfo"><span id="TargetWorld">{decodeURI(Target)}</span>에 대한 검색결과입니다.</div>
                     <div>

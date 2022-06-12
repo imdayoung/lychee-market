@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { Link, Navigate, useNaviagte } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import ItemInfo from "./components/ItemInfo";
@@ -36,7 +36,8 @@ export default function SELL(){
                 <Header/>
             </div>
             <div className="Main">
-                <div className="Descript"><button id="WriteButton" type="submit">판매글쓰기</button></div>
+                
+                <div className="Descript"><Link to={{pathname:'/product/upload'}}><button id="WriteButton" type="submit">중고거래 글쓰기</button></Link></div>
                 <div>
                      {ProductList}
                 </div>
