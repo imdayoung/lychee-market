@@ -6,14 +6,8 @@ import setCookie from "./SetCookie";
 
 export default function Header(props) {
   let Location = useLocation();
-
-  useEffect(() => {
-    console.log("location", Location);
-  }, [Location]);
   const DealType = Location.pathname.split("/").slice(1)[0];
-  console.log(DealType);
-
-  const [Target, SetTarget] = useState("");
+  const [Target, SetTarget] = useState("-");
 
   const cookie = getCookie("is_login");
   if (cookie === "true") {

@@ -19,19 +19,21 @@ INSERT INTO `NOTICE` (manager_id,notice_date,notice_title,notice_content,notice_
 ('admin2','2022-05-25','공지사항2','2번 공지사항입니다.',null),
 ('admin3','2022-05-30','공지사항3','3번 공지사항입니다.',null);
 
-INSERT INTO `PRODUCT` (`seller_id`,`product_title`,`product_category`,`product_price`,`product_like`,`product_date`,`product_img`,`product_img_num`,`product_detail`,`deal_method`,`deal_type`,`deal_flag`) VALUES
-('sy02lee','이거 팝니다.','디지털,가전',50000,0,'2022-06-02','images/products/prod01.png',1,'새 것 같은 이거 팝니다.','직거래',0,0),
-('tmddbs','갤럭시워치 팝니다','디지털,가전',200000,0,'2022-06-03','images/products/prod02.png',1,'핸드폰이 아이폰이에유...','택배거래',0,0),
-('jaejae','애플워치 팝니다','디지털,가전',400000,0,'2022-06-03','images/products/prod03.png',1,'핸드폰이 갤럭시에유...','택배거래',0,0),
-('dlekdud0102','애플워치 팔아용','디지털,가전',100000,0,'2022-06-04','images/products/prod04.png',1,'핸드폰이 갤럭시에유..!','택배거래',0,0),
-('mouse0429','아이폰 파라요','디지털,가전',800000,0,'2022-06-03','images/products/prod05.png',1,'핸드폰이 갤럭시에유!','택배거래',0,0),
-('mouse0429','감자 팔아요','생활,가공식품', 1000, 0, '2022-05-04','images/products/prod06.png',1,'싱싱해요', '직거래', 0, false),
-('mouse0429','고구마 팔아요','생활,가공식품', 1000, 0, '2022-05-04','images/products/prod07.png',1,'싱싱해요', '직거래', 1, false),
-('mouse0429','당근 팔아요','패션 액세서리', 1000, 0, '2022-05-04','images/products/prod08.png',1,'싱싱해요', '직거래', 0, false),
-('mouse0818','가지 팔아요','키덜트', 1000, 0, '2022-05-04','images/products/prod09.png',1,'싱싱해요','직거래', 0, false),
-('mouse0818', '오이 팔아요','시계,쥬얼리', 1000, 0, '2022-05-04','images/products/prod01.png',1,'싱싱해요','직거래', 1, false),
-('sy02lee','감자 팔아요','기타',1000,0,'2022-05-05','images/products/prod02.png',1,'우에엥','직거래',0,false),
-('mouse0429','감자 팔아요','뷰티,미용',1000,0,'2022-05-05','images/products/prod03.png',1,'굿','직거래',0,false);
+
+INSERT INTO `PRODUCT` (`seller_id`,`buyer_id`,`product_title`,`product_category`,`product_price`,`product_like`,`product_date`,`product_img`,`product_img_num`,`product_detail`,`deal_method`,`deal_type`,`deal_flag`) VALUES
+(NULL,'sy02lee','갤럭시워치 사요','디지털,가전',50000,0,'2022-06-02','images/products/prod01.png',1,'갤럭시 워치를 사고 싶어요','직거래',0,0),
+(NULL,'sy02lee','감자 사요','기타',1000,0,'2022-05-05','images/products/prod02.png',1,'우에엥','직거래',0,0),
+(NULL,'mouse0429','인형 사요','뷰티,미용',1000,0,'2022-05-05','images/products/prod03.png',1,'굿','직거래',0,0),
+(NULL,'mouse0429','아이폰 사요','디지털,가전',800000,0,'2022-06-03','images/products/prod05.png',1,'핸드폰이 갤럭시에유!','택배거래',0,0),
+(NULL,'mouse0429','리치 사요','생활,가공식품', 1000, 0, '2022-05-04','images/products/prod06.png',1,'싱싱해요', '직거래', 0, 0),
+(NULL,'mouse0429','당근 사요','패션 액세서리', 1000, 0, '2022-05-04','images/products/prod08.png',1,'싱싱해요', '직거래', 0,0),
+(NULL,'mouse0818','가지 사요','키덜트', 1000, 0, '2022-05-04','images/products/prod09.png',1,'싱싱해요','직거래',0,0),
+('tmddbs',NULL,'갤럭시워치 팝니다','디지털,가전',200000,0,'2022-06-03','images/products/prod02.png',1,'핸드폰이 아이폰이에유...','택배거래',1,0),
+('jaejae',NULL,'애플워치 팝니다','디지털,가전',400000,0,'2022-06-03','images/products/prod03.png',1,'핸드폰이 갤럭시에유...','택배거래',1,0),
+('dlekdud0102',NULL,'애플워치 팝니다','디지털,가전',100000,0,'2022-06-04','images/products/prod04.png',1,'핸드폰이 갤럭시에유..!','택배거래',1,0),
+('mouse0429',NULL,'고구마 팝니다','생활,가공식품', 1000, 0, '2022-05-04','images/products/prod07.png',1,'새 것 같은 이거 팝니다.', '직거래', 1,0),
+('mouse0818',NULL,'오이 팔아요','시계,쥬얼리', 1000, 0, '2022-05-04','images/products/prod01.png',1,'싱싱해요','직거래', 1,0);
+
 
 INSERT INTO `MSGBOX` VALUES
 (0, 'mouse0429', 'mouse0818', 1),

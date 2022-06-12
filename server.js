@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const request = require("request");
 const path = require("path");
 const mysql = require("mysql");
 const app = express();
@@ -1089,7 +1090,7 @@ app.post('/newproduct', function(req, res) {
   });
 });
 
-/* 전체 상품 */
+/* 전체 상품 불러오기 */
 app.get('/all', function(req, res) {
 	var SQL = "SELECT deal_type, product_id, product_title, product_price, product_img FROM `PRODUCT` ORDER BY `product_date` DESC"
 	db.query(SQL, (err, result) => {
@@ -1120,131 +1121,7 @@ app.get('/sell', function(req, res) {
 	})
 })
 
-// 판매해요 상품 검색
-app.get('/sell/search/:target', function(req, res) {
-	const Target = "%"+req.params.target+"%";
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=1 AND `product_title` LIKE ?";
-	db.query(SQL, Target, (err, result) => {
-		if(err) {
-			console.log("판매해요 상품 검색 오류", err);
-			res.send(false);
-		}
-		if (result) {
-			console.log(result);
-			res.send(result);
-		}
-	})
-})
-
-// 구매해요 상품
-app.get('/buy', function(req, res) {
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0";
-	db.query(SQL, (err, result) => {
-		if(err) {
-			console.log("구매해요 상품 불러오기 오류: ", err);
-			res.send(false);
-		}
-		if (result) {
-			console.log("구매해요 상품 불러오기 성공: ", result);
-			res.send(result);
-		}
-	})
-})
-
-// 구매해요 상품 검색
-app.get('/buy/search/:target', function(req, res) {
-	const Target = "%"+req.params.target+"%";
-	var SQL = "SELECT seller_id, product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price ASC";
-	db.query(SQL, Target, (err, result) => {
-		if(err) {
-			console.log("구매해요 상품 거리순 검색 오류: ", err);
-			res.send(false);
-		}
-		if (result) {
-			console.log("구매해요 상품 거리순 검색 성공: ", result);
-			res.send(result);
-		}
-	})
-})
-
-// 가격순(기본) 정렬
-app.get('/buy/search/:target/:category', function(req, res) {
-  const Target = "%"+req.params.target+"%";
-  const Category = req.params.category;
-  var SQL;
-  if(Category == "all") {
-    var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY product_price ASC";
-  } else {
-    SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=? ORDER BY product_price ASC";
-  }
-  db.query(SQL, [Target, Category], (err, result) => {
-    if(err) {
-			console.log("구매해요 상품 카테고리별 가격순 검색 오류: ", err);
-			res.send(false);
-		}
-		if (result) {
-			console.log("구매해요 상품 카테고리별 가격순 검색 성공: ", result);
-			res.send(result);
-		}
-  })
-})
-
-// 거리순 정렬
-app.get('/buy/search/distance/:target/:category', function(req, res) {
-  const Target = "%"+req.params.target+"%";
-  const Category = req.params.category;
-  var SQL;
-  if(Category == "all") {
-    var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY `distance` ASC";
-  } else {
-    SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=? ORDER BY `distance` ASC";
-  }
-  db.query(SQL, [Target, Category], (err, result) => {
-    if(err) {
-			console.log("구매해요 상품 카테고리별 거리순 검색 오류: ", err);
-			res.send(false);
-		}
-		if (result) {
-			console.log("구매해요 상품 카테고리별 거리순 검색 성공: ", result);
-			res.send(result);
-		}
-  })
-})
-
-// 거리 정보 업데이트
-app.post("/distanceupdate", function (req, res) {
-  const ProductId = req.body.product_id;
-  const Distance = req.body.distance;
-
-  const SQL = "UPDATE `PRODUCT` SET `distance`=? WHERE `product_id`=?";
-  db.query(SQL, [Distance, ProductId], (err, result) => {
-    if (err) {
-      console.log("거리 업데이트 오류: ", result);
-      res.send(false);
-    }
-    if (result) {
-      console.log("거리 업데이트 성공: ", result);
-      res.send(true);
-    }
-  });
-});
-
-/* 상품 상세 보기 */
-app.get('/buy/detail/:product_id', function(req, res) {
-	const ProductId = req.params.product_id;
-	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `seller_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
-	db.query(SqlDetail, [ProductId, ProductId], (err, result) => {
-		if(err) {
-			console.log("구매해요 상품 세부정보 불러오기 오류: ", err);
-			res.send(false);
-		}
-		if(result) {
-			console.log("구매해요 상품 세부정보 불러오기 성공: ", result);
-			res.send(result);
-		}
-	})
-})
-
+// 판매해요 상품 상세보기
 app.get('/sell/detail/:product_id', function(req, res) {
 	const ProductId = req.params.product_id;
 	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `seller_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
@@ -1260,6 +1137,290 @@ app.get('/sell/detail/:product_id', function(req, res) {
 	})
 })
 
+// 판매해요 상품 검색(기본 가격순 정렬)
+app.get('/sell/search/:target', function(req, res) {
+	const Target = "%"+req.params.target+"%";
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=1 AND `product_title` LIKE ?";
+	db.query(SQL, Target, (err, result) => {
+		if(err) {
+			console.log("판매해요 상품 검색 오류", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log(result);
+			res.send(result);
+		}
+	})
+})
+
+// 구매해요 상품 전체 불러오기
+app.get('/buy', function(req, res) {
+	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0";
+	db.query(SQL, (err, result) => {
+		if(err) {
+			console.log("구매해요 상품 불러오기 오류: ", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log("구매해요 상품 불러오기 성공: ", result);
+			res.send(result);
+		}
+	})
+})
+
+// 구매해요 상품 상세보기
+app.get('/buy/detail/:product_id', function(req, res) {
+	const ProductId = req.params.product_id;
+	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `buyer_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
+	db.query(SqlDetail, [ProductId, ProductId], (err, result) => {
+		if(err) {
+			console.log("구매해요 상품 세부정보 불러오기 오류: ", err);
+			res.send(false);
+		}
+		if(result) {
+			console.log("구매해요 상품 세부정보 불러오기 성공: ", result);
+			res.send(result);
+		}
+	})
+})
+
+// 구매해요 상품 검색(기본 가격순 정렬)
+app.get('/buy/search/:target/:category', function(req, res) {
+  const Target = "%"+req.params.target+"%";
+  const Category = req.params.category;
+  var SQL;
+  if(Category == "all") {
+    var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? ORDER BY `product_price` ASC";
+  } else {
+    SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=? ORDER BY `product_price` ASC";
+  }
+  db.query(SQL, [Target, Category], (err, result) => {
+    if(err) {
+			console.log("구매해요 상품 카테고리별 가격순 검색 오류: ", err);
+			res.send(false);
+		}
+		if (result) {
+			console.log("구매해요 상품 카테고리별 가격순 검색 성공: ", result);
+			res.send(result);
+		}
+  })
+})
+
+// 거리순 정렬
+app.get('/buy/search/distance/:target/:category/:mylocation', function(req, res) {
+  const Target = "%"+req.params.target+"%";
+  const Category = req.params.category;
+  const MyLocation = req.params.mylocation;
+
+  const Key = 'AIzaSyBJHfzckYIvqPrJT1rO_GY3xL6BVfQmTGs';
+  const Addr = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  const Addr2 = '&key=';
+  var Geocoding = Addr + encodeURI(MyLocation) + Addr2 + Key;
+  var MyLat;
+  var MyLng;
+  var YourLat;
+  var YourLng;
+
+  var SQLCreateTemp = "CREATE TEMPORARY TABLE `PRODUCT_TEMP`(product_id INT, product_title VARCHAR(20), product_category VARCHAR(30), product_price INT, product_img VARCHAR(100) DEFAULT NULL, distance DOUBLE);";
+  var SQLGetProd;
+  var SQLGetLocation;
+  var SQLUpdateTemp;
+  var SQL;
+  var FinalResult;
+  var SQLDeleteTemp = "DROP TABLE `PRODUCT_TEMP`";
+
+  // 임시 테이블(검색어에 해당하는 상품들을 넣어둘 예정) 생성
+  db.query(SQLCreateTemp, (err, result) => {
+    if(err) {
+      console.log("에러",err);
+    } else {
+      console.log("임시 테이블 생성: ", result);
+      if(Category == "all") {
+        SQLGetProd = "SELECT `buyer_id`, `product_id`, `product_title`, `product_price`, `product_img` FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ?;";
+      } else {
+        SQLGetProd = "SELECT `buyer_id`, `product_id`, `product_title`, `product_price`, `product_img` FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=?;";
+      }
+      // 임시 테이블에 넣을 값 찾기
+      db.query(SQLGetProd, [Target, Category], (err, result) => {
+        if(err) {
+          console.log("임시 테이블에 넣을 값 찾기 에러", err);
+          res.send(false);
+        } else {
+          for(var i = 0; i < result.length; i++) {
+            (function(i) {
+              var pi = result[i].product_id;
+              var pt = result[i].product_title;
+              var pp = result[i].product_price;
+              var pimg = result[i].product_img;
+              var SQLInsertTemp = "INSERT INTO `PRODUCT_TEMP`(product_id, product_title, product_price, product_img) VALUES(?,?,?,?)"
+              // 임시 테이블에 값 넣기
+              db.query(SQLInsertTemp, [pi, pt, pp, pimg], (err, result) => {
+                if(err) {
+                  console.log("임시 테이블에 값 넣기 에러", err);
+                  res.send(false);
+                }
+              })
+            })(i);
+          }
+          // 내 주소 좌표값 얻어오기
+          request(Geocoding, function(err, response, body) {
+            if(err) {
+              console.log("지오코딩 에러: ", error);
+            } else {
+              var obj = JSON.parse(body);
+              MyLat = parseFloat(obj.results[0].geometry.location.lat);
+              MyLng = parseFloat(obj.results[0].geometry.location.lng);
+              
+              if(Category == "all") {
+                // 전체 카테고리 검색어 해당 상품 찾기
+                SQLGetProd = "SELECT `buyer_id`, `product_id`, `product_title`, `product_price`, `product_img` FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ?;"
+
+                db.query(SQLGetProd, Target, (err, result) => {
+                  if(err) {
+                    console.log("구매해요 상품 카테고리별 거리순 검색 시작 오류: ", err);
+                    res.send(false);
+                  } else {
+                    for(var j = 0; j < result.length; j++) {
+                      (function(j) {
+                        var BuyerId = result[j].buyer_id;
+                        // 상품 올린 사람들 주소 받아오기
+                        SQLGetLocation = "SELECT `user_location` FROM `USER` WHERE `user_id`=?;"
+                        db.query(SQLGetLocation, BuyerId, (err, result) => {
+                          if(err) {
+                            console.log("주소 불러오기 에러: ", err);
+                            res.send(false);
+                          } else {
+                            var BuyerLocation = result[0].user_location;
+                            Geocoding = Addr + encodeURI(BuyerLocation) + Addr2 + Key;
+                            // 상품 올린 사람 주소 지오코딩
+                            request(Geocoding, function(err, response, body) {
+                              if(err) {
+                                console.log("지오코딩 에러: ", error);
+                                res.send(false);
+                              } else {
+                                var obj = JSON.parse(body);
+                                YourLat = obj.results[0].geometry.location.lat;
+                                YourLng = obj.results[0].geometry.location.lng;
+                                var Dist = (MyLat*100-YourLat*100)*(MyLat*100-YourLat*100)+(MyLng*100-YourLng*100)*(MyLng*100-YourLng*100);
+
+                                SQLUpdateTemp = "UPDATE `PRODUCT_TEMP` SET distance=? WHERE `product_id`=?"
+                                db.query(SQLUpdateTemp, [Dist, j+1], (err, result) => {
+                                  if(err) {
+                                    console.log("PRODUCT_TEMP 업데이트 오류: ", err);
+                                    res.send(false);
+                                  } else {
+                                    console.log("PRODUCT_TEMP 업데이트 성공: ", result);
+                                    setTimeout(() => {
+                                      SQLGetProd = "SELECT * FROM `PRODUCT_TEMP` ORDER BY `distance` ASC";
+                                    db.query(SQLGetProd, (err, result) => {
+                                      if(err) {
+                                        console.log("실패,,: ", err);
+                                        res.send(false);
+                                      } else {
+                                        console.log("드디어 성공: ", result);
+                                        db.query(SQLDeleteTemp, (err, result) => {
+                                          if(err) {
+                                            console.log("임시 테이블 삭제 오류: ", err);
+                                          } else {
+                                            console.log("임시 테이블 삭제 성공: ", result);
+                                          }
+                                        });
+                                        FinalResult = result;
+                                        res.send(FinalResult);
+                                      }
+                                    });
+                                    }, 200);
+                                  }
+                                });
+                              }
+                            });
+                          }
+                        })
+                      })(j);
+                    }
+                  }
+                });
+                  
+                
+              } else {
+                // 전체 카테고리 검색어 해당 상품 찾기
+                SQLGetProd = "SELECT `buyer_id`, `product_id`, `product_title`, `product_price`, `product_img` FROM `PRODUCT` WHERE `deal_type`=0 AND `product_title` LIKE ? AND `product_category`=?;"
+                db.query(SQLGetProd, [Target, Category], (err, result) => {
+                  if(err) {
+                    console.log("구매해요 상품 카테고리별 거리순 검색 시작 오류: ", err);
+                    res.send(false);
+                  } else {
+                    for(var j = 0; j < result.length; j++) {
+                      (function(j) {
+                        var BuyerId = result[j].buyer_id;
+                        // 상품 올린 사람들 주소 받아오기
+                        SQLGetLocation = "SELECT `user_location` FROM `USER` WHERE `user_id`=?;"
+                        db.query(SQLGetLocation, BuyerId, (err, result) => {
+                          if(err) {
+                            console.log("주소 불러오기 에러: ", err);
+                            res.send(false);
+                          } else {
+                            var BuyerLocation = result[0].user_location;
+                            Geocoding = Addr + encodeURI(BuyerLocation) + Addr2 + Key;
+                            // 상품 올린 사람 주소 지오코딩
+                            request(Geocoding, function(err, response, body) {
+                              if(err) {
+                                console.log("지오코딩 에러: ", error);
+                                res.send(false);
+                              } else {
+                                var obj = JSON.parse(body);
+                                YourLat = obj.results[0].geometry.location.lat;
+                                YourLng = obj.results[0].geometry.location.lng;
+                                var Dist = (MyLat*100-YourLat*100)*(MyLat*100-YourLat*100)+(MyLng*100-YourLng*100)*(MyLng*100-YourLng*100);
+
+                                SQLUpdateTemp = "UPDATE `PRODUCT_TEMP` SET distance=? WHERE `product_id`=?"
+                                db.query(SQLUpdateTemp, [Dist, j+1], (err, result) => {
+                                  if(err) {
+                                    console.log("PRODUCT_TEMP 업데이트 오류: ", err);
+                                    res.send(false);
+                                  } else {
+                                    console.log("PRODUCT_TEMP 업데이트 성공: ", result);
+                                    setTimeout(() => {
+                                      SQLGetProd = "SELECT * FROM `PRODUCT_TEMP` ORDER BY `distance` ASC";
+                                    db.query(SQLGetProd, (err, result) => {
+                                      if(err) {
+                                        console.log("실패,,: ", err);
+                                        res.send(false);
+                                      } else {
+                                        console.log("드디어 성공: ", result);
+                                        db.query(SQLDeleteTemp, (err, result) => {
+                                          if(err) {
+                                            console.log("임시 테이블 삭제 오류: ", err);
+                                          } else {
+                                            console.log("임시 테이블 삭제 성공: ", result);
+                                          }
+                                        });
+                                        FinalResult = result;
+                                        res.send(FinalResult);
+                                      }
+                                    });
+                                    }, 200);
+                                  }
+                                });
+                              }
+                            });
+                          }
+                        })
+                      })(j);
+                    }
+                  }
+                });
+              }
+            }
+          });
+        }
+      })
+    }
+  });
+
+})
+
+/* 찜상품 추가 */
 app.post('/ilikeit', function(req, res) {
   const UserId = req.body.UserId;
   const ProdId = req.body.ProdId;

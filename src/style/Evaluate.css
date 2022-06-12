@@ -1,0 +1,64 @@
+#Score {
+    display: inline-block;
+    align-content: center;
+}
+
+#ScoreIcon {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#ScoreTitle {
+    font-size: 20px;
+}
+
+.EvaluateModal {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.EvaluateModal button {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+}
+.EvaluateModal > section {
+    width: 450px;
+    height: fit-content;
+    margin: 0 auto;
+    border-radius: 0.3rem;
+    background-color: #fff;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-show 0.3s;
+    overflow: hidden;
+}
+.EvaluateModal > section > header {
+    position: relative;
+    padding: 16px 64px 16px 16px;
+    background-color: #f1f1f1;
+    font-weight: 700;
+}
+.EvaluateModal > section > header button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    font-size: 21px;
+    font-weight: 700;
+    text-align: center;
+    color: #999;
+    background-color: transparent;
+}
+
+.EvaluateModal.openEvaluateModal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-bg-show 0.3s;
+}
