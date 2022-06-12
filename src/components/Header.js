@@ -70,9 +70,11 @@ export default function Header(props) {
       <div className="Title">
         <div className="TitleName">
           <Link to={{ pathname: "/" }} id="LinkNoLine">
-            <div id="Logo"></div>
+            <span className="TitleLink">
+              <img id="Logo" src = "images/logo.png" alt="로고"/>
+              <span id="TitleText2">리치마켓</span>
+            </span>
           </Link>
-          <div id="TitleText2">리치마켓</div>
           {props.keyword === undefined ? (
             <></>
           ) : (
