@@ -24,11 +24,12 @@ export default function ManageMain() {
     labels: Common.GetWeek(),
     datasets: [],
   });
-  const [ReportNum, SetReportNum] = useState({
+  const [ReportNum, SetReportNum] = useState({});
+  const [QNANum, SetQNANum] = useState({});
+  const [ReportQNANum, SetReportQNANum] = useState({
     labels: Common.GetWeek(),
     datasets: [],
   });
-  const [QNANum, SetQNANum] = useState();
   const [UploadNum, SetUploadNum] = useState();
   const [PointNum, SetPointNum] = useState();
 
@@ -51,6 +52,7 @@ export default function ManageMain() {
               type: "line",
               label: "신규 가입자 수",
               borderColor: "#ff3d60",
+              backgroundColor: "#ff3d60",
               borderWidth: 2,
               data: resultData,
             },
@@ -73,21 +75,40 @@ export default function ManageMain() {
           ] = res.data[i].cnt;
         }
         SetReportNum({
-          labels: Common.GetWeek(),
-          datasets: [
-            {
-              type: "bar",
-              label: "이번 주 신고 현황",
-              borderColor: "#ff3d60",
-              backgroundColor: "#ff3d60",
-              borderWidth: 2,
-              data: resultData,
-            },
-          ],
+          type: "bar",
+          label: "신고 현황",
+          borderColor: "#ff3d60",
+          backgroundColor: "#ff3d60",
+          borderWidth: 2,
+          data: resultData,
         });
       })
       .catch((err) => {
         console.log("신고 수 차트 에러");
+      });
+
+    axios
+      .post("http://localhost:8080/chart/qna", {
+        Date: Common.GetSixDaysAgo(),
+      })
+      .then((res) => {
+        var resultData = [0, 0, 0, 0, 0, 0, 0];
+        for (var i = 0; i < res.data.length; i++) {
+          resultData[
+            Common.GetDateGap(res.data[i].q_date, Common.GetSixDaysAgo())
+          ] = res.data[i].cnt;
+        }
+        SetQNANum({
+          type: "bar",
+          label: "문의 현황",
+          borderColor: "#cdcdcd",
+          backgroundColor: "#cdcdcd",
+          borderWidth: 2,
+          data: resultData,
+        });
+      })
+      .catch((err) => {
+        console.log("문의사항 수 차트 에러");
       });
 
     // axios
@@ -98,17 +119,26 @@ export default function ManageMain() {
     //   });
   }, []);
 
+  useEffect(() => {
+    SetReportQNANum({
+      labels: Common.GetWeek(),
+      datasets: [ReportNum, QNANum],
+    });
+  }, [ReportNum, QNANum]);
+
   return (
     <div>
       <ManagerHeader />
       <main>
         <div className="ManageMainTop">대쉬보드</div>
         <div className="HalfChart">
+          <div className="ChartDiv">
           <Chart data={NewSignIn} type="line" />
-        </div>
-        <div className="HalfChart">
-          <Chart data={ReportNum} type="bar" />
-          {/* <Chart data={QNANum} type="bar" /> */}
+          </div>
+          <div className="ChartDiv">
+            <div>이번 주 신고 & 문의 사항</div>
+            <Chart data={ReportQNANum} type="bar" />
+          </div>
         </div>
       </main>
     </div>

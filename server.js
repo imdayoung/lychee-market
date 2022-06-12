@@ -1481,19 +1481,18 @@ app.post("/chart/report", function (req, res) {
  * input: 6DaysAgoDate
  * output: 날짜별 문의사항 수 / none
  */
-// app.post("/chart/qna", function (req, res) {
-//   const StandardDate = req.body.Date;
-//   const SQL =
-//     "SELECT report_date, COUNT(report_date) AS cnt FROM `REPORT` WHERE report_date >= ? \
-//     GROUP BY report_date;";
+app.post("/chart/qna", function (req, res) {
+  const StandardDate = req.body.Date;
+  const SQL =
+    "SELECT q_date, COUNT(q_date) AS cnt FROM `QNA` WHERE q_date >= ? GROUP BY q_date;";
 
-//   db.query(SQL, StandardDate, function (err, rows) {
-//     if (err) {
-//       console.log("신고 수 차트 데이터 불러오기 실패", err);
-//     }
-//     if (rows) {
-//       console.log("신고 수 차트 데이터 불러오기 성공", rows);
-//       res.send(rows);
-//     }
-//   });
-// });
+  db.query(SQL, StandardDate, function (err, rows) {
+    if (err) {
+      console.log("문의 수 차트 데이터 불러오기 실패", err);
+    }
+    if (rows) {
+      console.log("문의 수 차트 데이터 불러오기 성공", rows);
+      res.send(rows);
+    }
+  });
+});
