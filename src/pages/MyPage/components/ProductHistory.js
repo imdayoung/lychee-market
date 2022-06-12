@@ -25,6 +25,8 @@ export default function ProductHistory(props) {
               Img={data.product_img}
               Title={data.product_title}
               Amount={parseInt(data.product_price)}
+              ProductId={data.product_id}
+              ProductType={data.deal_type == 0 ? "sell" : "buy" }
             />
           ))
         );

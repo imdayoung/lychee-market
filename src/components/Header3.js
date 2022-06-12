@@ -1,6 +1,6 @@
 import "../style/Header.css";
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import setCookie from "./SetCookie";
 
 export default function ManagerHeader(props) {

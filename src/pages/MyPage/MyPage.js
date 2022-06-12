@@ -8,27 +8,41 @@ import PointHistory from "./components/PointHistory";
 import Statistics from "./components/Statistics";
 import PointModal from "./components/PointModal";
 import { Link } from "react-router-dom";
-import getCookie from "../../components/GetCookie"
+import getCookie from "../../components/GetCookie";
 
-let Id;
-const cookie = getCookie("is_login");
-if(cookie === "true"){
-  Id = localStorage.getItem("user_id");
-}
+// let Id;
+// const cookie = getCookie("is_login");
+// if(cookie === "true"){
+//   Id = localStorage.getItem("user_id");
+// }
 
-const HistoryList = {
-  0: <ProductHistory Id={Id} Type="sell" />,
-  1: <ProductHistory Id={Id} Type="buy" />,
-  2: <ProductHistory Id={Id} Type="like" />,
-  3: <PointHistory Id={Id} />,
-  4: <Statistics Id={Id} />,
-};
+// const HistoryList = {
+//   0: <ProductHistory Id={Id} Type="sell" />,
+//   1: <ProductHistory Id={Id} Type="buy" />,
+//   2: <ProductHistory Id={Id} Type="like" />,
+//   3: <PointHistory Id={Id} />,
+//   4: <Statistics Id={Id} />,
+// };
 
 export default function MyPage() {
   const [Tab, SetTab] = useState(0);
   const [UserInfo, SetUserInfo] = useState({});
   const [UserPoint, SetUserPoint] = useState({});
   const [IsModalOpen, SetIsModalOpen] = useState(false);
+
+  let Id;
+  const cookie = getCookie("is_login");
+  if (cookie === "true") {
+    Id = localStorage.getItem("user_id");
+  }
+
+  const HistoryList = {
+    0: <ProductHistory Id={Id} Type="sell" />,
+    1: <ProductHistory Id={Id} Type="buy" />,
+    2: <ProductHistory Id={Id} Type="like" />,
+    3: <PointHistory Id={Id} />,
+    4: <Statistics Id={Id} />,
+  };
 
   const ModalClose = () => {
     SetIsModalOpen(!IsModalOpen);
@@ -51,7 +65,9 @@ export default function MyPage() {
 
   return (
     <div>
-      {IsModalOpen && <PointModal ModalClose={ModalClose} UserPoint={UserPoint} />}
+      {IsModalOpen && (
+        <PointModal ModalClose={ModalClose} UserPoint={UserPoint} />
+      )}
       <Header />
       <main>
         <div className="MyPageMenu">
@@ -102,8 +118,12 @@ export default function MyPage() {
           <div className="MyInfoDiv"></div>
           <div className="MyInfo MyInfoRight">
             <div>기타</div>
-            <Link to={{pathname: '/changemyinfo'}}><button className="MyPageBtn">내정보수정</button></Link>
-            <Link to={{pathname: '/report'}}><button className="MyPageBtn">신고리스트</button></Link>
+            <Link to={{ pathname: "/changemyinfo" }}>
+              <button className="MyPageBtn">내정보수정</button>
+            </Link>
+            <Link to={{ pathname: "/report" }}>
+              <button className="MyPageBtn">신고리스트</button>
+            </Link>
           </div>
         </div>
         <div id="MyPageSpace"></div>
