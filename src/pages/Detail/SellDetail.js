@@ -3,9 +3,11 @@ import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import '../../style/Detail.css';
+import * as Common from "../../components/CommonFunc"
 // import ItemInfo from "./components/ItemInfo";
 
 export default function SELLDETAIL(){
+    const Id = 'mouse0429';
     let Location = useLocation();
 
     // 물건 정보
@@ -42,14 +44,28 @@ export default function SELLDETAIL(){
             SetProductImgNum(res.data[0].product_img_num);
             SetProductDetail(res.data[0].product_detail);
             SetDealMethod(res.data[0].deal_method);
-            SetDealType();
             if(res.data[0].deal_type === 1)  SetDealType('판매해요');
             else                            SetDealType('구매해요');
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             SetSellerNick(res.data[0].seller_nickname);
+        })   
+    }, []);
+
+    function ILikeIt() {
+        axios.post('http://localhost:8080/ilikeit', { UserId: Id, ProdId: parseInt(ProdId) })
+        .then((res) => {
+            console.log("ilikeit 등록: ", res);
+            if(res.data === false) {
+                alert("즐겨찾기 등록에 실패했습니다.");
+            } else if(res.data === "이미") {
+                alert("이미 즐겨찾는 상품입니다.");
+            } else {
+                alert("즐겨찾기 등록에 성공했습니다.");
+            }
         });
-    }, [ProdId, ProductImg]);
+        
+    }
 
     return (
         <div>
@@ -65,7 +81,7 @@ export default function SELLDETAIL(){
                     <div id="DetailDescription">
                         <div id="DetailItemTitle">{ProductTitle}</div>
                         <div>
-                            <div id="DetailItemPrice">{ProductPrice} 원</div>
+                            <div id="DetailItemPrice">{Common.MoneyComma(ProductPrice)} 원</div>
                             <div id="DealFlag">{DealFlag}</div>
                         </div>
                         <div>
@@ -77,7 +93,7 @@ export default function SELLDETAIL(){
                             <div id="ReportButton">📢신고하기</div>
                         </div>
                         <div>
-                            <button id="LikeButton">찜하기</button>
+                            <button id="LikeButton" onClick={ILikeIt}>찜하기</button>
                             <button id="MessageButton">쪽지하기</button>
                         </div>
                     </div>

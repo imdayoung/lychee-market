@@ -6,8 +6,6 @@ import ItemInfo from "./components/ItemInfo";
 
 export default function BUYSEARCH(){
     const Id = 'mouse0429';
-    var MyLat = '';
-    var MyLng = '';
     let Location = useLocation();
     // location의 pathname으로부터 검색 단어 얻기
     const Target = Location.pathname.split('/').slice(-1)[0];
