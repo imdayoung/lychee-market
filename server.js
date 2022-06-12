@@ -2083,7 +2083,6 @@ app.get("/qna/search/:word", function (req, res) {
  * output : 
  */
 app.post('/productupload', function(req, res) {
-
   const date = req.body.date;
   const sellerid = req.body.sellerid;
   const buyerid = req.body.buyerid;
@@ -2097,39 +2096,79 @@ app.post('/productupload', function(req, res) {
   const detail = req.body.detail;
   const dealmethod = req.body.dealmethod;
   const image = req.body.image;
-
-    const datas = [sellerid, buyerid, title, category, price, like, 
-        date, image, image_num, detail, dealmethod, dealtype, dealflag];
+  const datas = [sellerid, buyerid, title, category, price, like, date, image, image_num, detail, dealmethod, dealtype, dealflag];
   // const datas = [sellerid, buyerid, title, category, price, like, 
   //   date, detail, dealmethod, dealtype, dealflag];
 
-// const upload = multer({
-//   storage: storage,
-//   limits: { fileSize: 1000000 }
-// });
+  // const upload = multer({
+  //   storage: storage,
+  //   limits: { fileSize: 1000000 }
+  // });
 
-// app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
-//   console.log(req.file.filename);
-//   res.send({
-//     fileName: req.file.filename
-//   });
-// });
-console.log(datas);
+  // app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  //   console.log(req.file.filename);
+  //   res.send({
+  //     fileName: req.file.filename
+  //   });
+  // });
+  console.log(datas);
   
-db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
- `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-// db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
-// `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-  datas, (err, result) => {
+  db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+  `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+  // db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+  // `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+    datas, (err, result) => {
+      if(err){
+        console.log("newproduct error");
+        res.send(false);
+      }
+      if(result){
+        console.log("newproduct succeed!");
+        res.send(true);
+      }
+  });
+});
+
+app.post('/productupdate', function(req, res) {
+  const sellerid = req.body.sellerid;
+  const buyerid = req.body.buyerid;
+  const image_num = req.body.image_num;
+  const dealtype = req.body.dealtype;
+  const title = req.body.title;
+  const category = req.body.category;
+  const price = req.body.price;
+  const detail = req.body.detail;
+  const dealmethod = req.body.dealmethod;
+  const image = req.body.image;
+  const productid = parseInt(req.body.productid);
+  const datas = [sellerid, buyerid, title, category, price, image, image_num, detail, dealmethod, dealtype, productid];
+  // const datas = [sellerid, buyerid, title, category, price, like, 
+  //   date, detail, dealmethod, dealtype, dealflag];
+
+  // const upload = multer({
+  //   storage: storage,
+  //   limits: { fileSize: 1000000 }
+  // });
+
+  // app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+  //   console.log(req.file.filename);
+  //   res.send({
+  //     fileName: req.file.filename
+  //   });
+  // });
+  console.log(datas);
+  var SQL = "UPDATE `PRODUCT` SET `seller_id`=?, `buyer_id`=?, `product_title`=?, `product_category`=?, `product_price`=?,\
+  `product_img`=?, `product_img_num`=?, `product_detail`=?, `deal_method`=?, `deal_type`=? WHERE `product_id`=?"
+  db.query(SQL, datas, (err, result) => {
     if(err){
-      console.log("newproduct error");
+      console.log("product update error", err);
       res.send(false);
     }
     if(result){
-      console.log("newproduct succeed!");
+      console.log("product update succeed!");
       res.send(true);
     }
-});
+  });
 });
 
 

@@ -35,6 +35,7 @@ export default function BUYDETAIL(){
     const [SellerNick, SetSellerNick] = useState('');
 
     const [ReportInfo, SetReportInfo] = useState(null);
+    const [ProductInfo, SetProductInfo] = useState(null);
 
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
@@ -60,6 +61,15 @@ export default function BUYDETAIL(){
                 cid: null,
                 pid: ProdId,
                 type: "게시글 신고"
+            });
+            SetProductInfo({
+                dealtype: '0',
+                title: res.data[0].product_title,
+                category: res.data[0].product_category,
+                price: parseInt(res.data[0].product_price),
+                detail: res.data[0].product_detail,
+                dealmethod: res.data[0].deal_method,
+                productid: ProdId,
             });
         });
     }, [ProdId]);
@@ -93,6 +103,10 @@ export default function BUYDETAIL(){
         navigate('/report/write', {state:{info: ReportInfo}});
     }
 
+    const UpdateNavigate = () => {
+        navigate('/product/update', {state:{info: ProductInfo}});
+    }
+
     return (
         <div>
             <div className='Head'>
@@ -124,8 +138,8 @@ export default function BUYDETAIL(){
                         </div>
                         <div hidden={userid === SellerId ? false : true}>
                             <button id="DeleteButton" onClick={DeleteProduct}>삭제</button>
-                            <button id="EditButton" >수정</button>
-                            <button id="CompleteButton" >거래완료</button>
+                            <button id="EditButton" onClick={UpdateNavigate}>수정</button>
+                            {DealFlag === "거래완료" ? <></> : <button id="CompleteButton" >거래완료</button>}
                         </div>
                     </div>
                 </div>

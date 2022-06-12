@@ -34,6 +34,7 @@ import QnARead from './pages/QnA/QnARead'
 import QnASearch from './pages/QnA/QnASearch';
 import ManageMain from './pages/Management/ManageMain';
 import ProductUpload from './pages/ProductUpload/ProductUpload';
+import ProductUpdate from './pages/ProductUpdate/ProductUpdate';
 import Evaluate from './pages/Evaluate/Evaluate';
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
         <Route path="/qna/search/*" element={<QnASearch/>}/>
         <Route path="/manager/main" element={<ManageMain/>}/>
         <Route path="/product/upload" element={<ProductUpload/>}/>
+        <Route path="/product/update" element={<ProductUpdate/>}/>
         <Route path="/evaluate" element={<Evaluate/>}/>
       </Routes>
     </BrowserRouter>
