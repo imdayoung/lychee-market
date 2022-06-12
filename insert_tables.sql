@@ -40,7 +40,8 @@ INSERT INTO `MSGBOX` VALUES
 (0, 'mouse0429', 'dlekdud0102', 3),
 (0, 'mouse0818', 'dlekdud0102', 4),
 (0, 'mouse0818', 'mouse0429', 5),
-(0, 'sy02lee','tmddbs',6);
+(0, 'sy02lee','tmddbs',6),
+(0, 'dlekdud0102', 'mouse0429', 10);
 
 INSERT INTO `MSG` VALUES
 (0, 1, 'mouse0818', '감자 유기농인가요?', '2022-05-29 12:00:00'),
@@ -49,7 +50,8 @@ INSERT INTO `MSG` VALUES
 (0, 3, 'dlekdud0102', '당근은 당근 싸게 팔죠?', '2022-05-29 12:50:00'),
 (0, 4, 'dlekdud0102', '정말 가지가지 하시는데 가지 팔아주세요', '2022-05-29 12:40:00'),
 (0, 5, 'mouse0429', '오이오이 오이쿤.. 오이를 팔아주지 않겠어?', '2022-05-29 12:30:00'),
-(0, 6, 'sy02lee','ask맨아!','2022-06-02 13:00:00');
+(0, 6, 'sy02lee','ask맨아!','2022-06-02 13:00:00'),
+(0, 7, 'mouse0429', '사진 보내주세요', '2022-06-13 05:29:00');
 
 INSERT INTO `REPORT` (reporter_id,reported_id,report_date,report_title,report_type,report_detail,msgbox_id,product_id,solve_id,solve_date,solve_content) VALUES
 ('sy02lee','tmddbs','2022-06-03','얘가 욕했어요','쪽지 신고','얘가 이렇게 욕해쓰뮤ㅠ',1,null,null,null,null),

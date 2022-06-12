@@ -117,7 +117,7 @@ app.post("/msgbox", function (req, res) {
   db.query(SQL, [Id, Id], function (err, rows) {
     if (err) console.log("msg 리스트 불러오기 실패");
     else {
-      console.log("msg 리스트 불러오기 성공");
+      console.log("msg 리스트 불러오기 성공", rows);
       res.send(rows);
     }
   });
@@ -2445,3 +2445,20 @@ app.post("/msgstart", function (req, res) {
     }
   });
 });
+app.post("/senddonemsg", function(req, res) {
+  const MsgBoxId = req.body.MsgBoxId;
+  const UserId = req.body.UserId;
+  const MsgContent = req.body.Msg;
+  const MsgTime = req.body.MsgTime;
+  var datas = [MsgBoxId, UserId, MsgContent, MsgTime];
+  var SQL = "INSERT INTO `MSG`(`msgbox_id`,`user_id`,`msg_content`,`msg_time`) VALUES(?,?,?,?)";
+  db.query(SQL, datas, function(err, rows) {
+    if(err) {
+      console.log("평가 링크 인서트 실패: ", err);
+      res.send(false);
+    } else {
+      console.log("평가 링크 인서트 성공: ", rows);
+      res.send(true);
+    }
+  })
+})

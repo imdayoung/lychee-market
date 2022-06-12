@@ -31,6 +31,8 @@ export default function Message(props) {
   }
 
   let navigate = useNavigate();
+  var SellerId, BuyerId, ProdId;
+  var DealType;
 
   const ReportNavigate = () => {
     navigate('/report/write', {state:{info: ReportInfo}});
@@ -80,9 +82,37 @@ export default function Message(props) {
                       RoomId: data.msgbox_id,
                     })
                     .then((res) => {
-                      SetProductId(res.data[0].product_id);
+                      if(res.data[0].deal_type === 0) DealType = "buy";
+                      else  DealType="Sell";
+                      console.log(DealType);
+
+                      axios.get('http://localhost:8080/'+DealType+'/detail/'+res.data[0].product_id)
+                      .then((result) => {
+                        SellerId = result.data[0].seller_id;
+                        BuyerId = result.data[0].buyer_id;
+                        ProdId = result.data[0].product_id;
+                        console.log("Seller: ", data.seller_id, SellerId);
+                        console.log("Buyer: ", data.buyer_id, BuyerId);
+                        SetProductId(res.data[0].product_id);
                       SetSelectedMsg(
                         <div>
+                          {data.buyer_id === BuyerId && data.seller_id === SellerId ?
+                          <MsgContent
+                            Name="안내"
+                            Content={
+                              <div>
+                                <span>
+                                  <a
+                                    href={`http://localhost:3000/evaluate`}
+                                  >{`http://localhost:3000/evaluate`}</a>
+                                </span>
+                                <br />
+                                <br />
+                              </div>
+                            }
+                          />
+                          : <></>
+                          }
                           {res.data.map((data, index) => (
                             <MsgContent
                               key={index}
@@ -104,8 +134,8 @@ export default function Message(props) {
                                 <span>판매 글 정보 </span>
                                 <span>
                                   <a
-                                    href={`http://localhost:3000/${res.data[0].deal_type === 0 ? "buy" : "sell"}/${res.data[0].product_id}`}
-                                  >{`http://localhost:3000/${(res.data[0].deal_type === 0 ? "buy" : "sell")}/${res.data[0].product_id}`}</a>
+                                    href={`http://localhost:3000/${res.data[0].deal_type === 0 ? "buy" : "sell"}/detail/${res.data[0].product_id}`}
+                                  >{`http://localhost:3000/${(res.data[0].deal_type === 0 ? "buy" : "sell")}/detail/${res.data[0].product_id}`}</a>
                                 </span>
                                 <br />
                                 <br />
@@ -123,6 +153,8 @@ export default function Message(props) {
                     .catch((err) => {
                       console.log("채팅 내역 불러오기 실패");
                     });
+                      })
+                      
                 }}
               >
                 <MsgSender

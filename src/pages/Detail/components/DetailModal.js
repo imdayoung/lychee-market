@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 
 const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
   const [MsgList, SetMsgList] = useState();
+  const [MsgBoxId, SetMsgBoxId] = useState();
+  var MsgBI;
 
   const DealDone = (DealWith) => {
-    if(!alert(`${DealWith}와 거래 완료를 진행하시겠습니까?`)){
+    if(window.confirm(`${DealWith}와 거래 완료를 진행하시겠습니까?`)){
       axios.post("http://localhost:8080/dealdone", {
         ProductId: ProductId,
         DealWith: DealWith,
@@ -22,7 +24,27 @@ const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
       })
       .catch((res)=>{
         console.log("거래 상태 업데이트 실패");
-      })
+      });
+
+      // let now = new Date();
+      // let month = now.getMonth()+1;
+      // let MsgTime = now.getFullYear() + "-" + month + "-" + now.getDate()
+      // + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+      // let Msg = "여기를 클릭해 거래 평가를 진행해주세요!";
+      // axios.post('http://localhost:8080/senddonemsg', {
+      //   MsgBoxId: MsgBI,
+      //   UserId: Id,
+      //   Msg: Msg,
+      //   MsgTime: MsgTime
+      // })
+      // .then((res) => {
+      //   if(res.data === true) {
+      //     alert("메시지가 전송되었습니다.");
+      //     console.log("메시지 전송 성공");
+      //   } else {
+      //     console.log("메시지 전송 실패");
+      //   }
+      // })
     }
   }
 
@@ -34,6 +56,9 @@ const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
       })
       .then((res) => {
         if (res.data.length !== 0) {
+          console.log(res.data[0].msgbox_id);
+          MsgBI = res.data[0].msgbox_id;
+          SetMsgBoxId(res.data[0].msgbox_id);
           SetMsgList(
             <table>
               <thead>
