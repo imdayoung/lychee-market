@@ -761,7 +761,7 @@ app.post("/changemyinfo", function (req, res) {
  */
 app.get("/manager/product", function (req, res) {
   const SQL =
-    "SELECT P.`product_id`,IF(`deal_type`=0,`seller_id`,`buyer_id`) AS `writer_id`,`deal_type`,`product_category`,\
+    "SELECT P.`product_id`,IF(`deal_type`=0,`buyer_id`,`seller_id`) AS `writer_id`,`deal_type`,`product_category`,\
     `product_title`,`product_price`, `report_id` FROM `PRODUCT` P LEFT OUTER JOIN `REPORT` R ON\
      P.`product_id` = R.`product_id` GROUP BY P.`product_id`";
   db.query(SQL, function (err, rows) {
@@ -785,7 +785,7 @@ app.get("/manager/product/:word", function (req, res) {
   const SearchWord = req.params.word;
 
   const SQL =
-    "SELECT P.`product_id`,IF(`deal_type`=0,`seller_id`,`buyer_id`) AS `writer_id`,`deal_type`,`product_category`,\
+    "SELECT P.`product_id`,IF(`deal_type`=0,`buyer_id`,`seller_id`) AS `writer_id`,`deal_type`,`product_category`,\
      `product_title`,`product_price`, `report_id` FROM `PRODUCT` P LEFT OUTER JOIN `REPORT` R ON\
      P.`product_id` = R.`product_id` WHERE `product_category` LIKE ? OR `product_title` LIKE ? GROUP BY P.`product_id`";
   db.query(SQL, ["%" + SearchWord + "%", "%" + SearchWord + "%"], function (err, rows) {
