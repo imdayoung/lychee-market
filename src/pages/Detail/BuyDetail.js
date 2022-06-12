@@ -45,6 +45,8 @@ export default function BUYDETAIL(){
     const [DealFlag, SetDealFlag] = useState(0);
     const [SellerNick, SetSellerNick] = useState('');
 
+    const [ReportInfo, SetReportInfo] = useState(null);
+
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
 
@@ -68,7 +70,13 @@ export default function BUYDETAIL(){
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             SetSellerNick(res.data[0].seller_nickname);
-        })   
+            SetReportInfo({
+                reportedid: res.data[0].buyer_id,
+                cid: "",
+                pid: ProdId,
+                type: "게시글 신고"
+            });
+        });
     }, []);
 
     function ILikeIt() {
@@ -96,6 +104,10 @@ export default function BUYDETAIL(){
         }
     }
 
+    const ReportNavigate = () => {
+        navigate('/report/write', {state:{info: ReportInfo}});
+    }
+
     return (
         <div>
             <div className='Head'>
@@ -119,7 +131,7 @@ export default function BUYDETAIL(){
                         </div>
                         <div id="MoreInfo">
                             <div id="LikeDate">💜{ProductLike} | ⏰{ProductDate}</div>
-                            <div id="ReportButton">📢신고하기</div>
+                            <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div>
                         </div>
                         <div hidden={userid === SellerId ? true : false}>
                             <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
