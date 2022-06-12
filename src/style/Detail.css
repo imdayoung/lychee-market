@@ -34,7 +34,6 @@
 
 #ImageDiv {
     display: inline-block;
-    border: 1px solid #ff9696;
     width: 500px;
     height: 500px;
     margin-right: 60px;
@@ -125,6 +124,36 @@
     float: right;
     margin-right: 150px;
     color: white;
+}
+
+#DeleteButton {
+    width: 163px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff9696;
+    margin-right: 31px;
+}
+
+#EditButton {
+    width: 163px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff3d60;
+    color: white;
+    margin-right: 31px;
+}
+
+#CompleteButton {
+    width: 163px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 30px;
+    border: none;
+    background-color: #ff9696;
 }
 
 #Infos {

@@ -12,10 +12,34 @@
     height: 500px;
 }
 
+.Categories {
+    text-align: center;
+}
+
+.CategoryInfo {
+    display: inline-block;
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+#CategoryImage {
+    width: 150px;
+    height: 150px;
+}
+
+#CategoryName {
+    height: 30px;
+    margin-top: 5px;
+    font-size: 22px;
+}
+
 .Description1 {
+    font-family: 'Pacifico';
     padding-top: 25px;
     text-align: center;
-    font-size: 40px;
+    font-size: 52px;
 }
 
 .Description2 {

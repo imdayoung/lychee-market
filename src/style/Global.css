@@ -8,6 +8,11 @@
     src: url(./fonts/BMDOHYEON_otf.otf);
 }
 
+@font-face {
+    font-family: "Pacifico";
+    src: url(./fonts/Pacifico.ttf);
+}
+
 * {
     font-family: 'Noto Sans KR';
 }

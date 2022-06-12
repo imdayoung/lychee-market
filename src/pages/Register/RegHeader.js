@@ -14,7 +14,7 @@ export default function RegHeader(props){
           <div className="TopNav">문의사항</div>
         </Link>
         <Link to="/notice" id='LinkNoLine'>
-          <div className="TopNav">고객센터</div>
+          <div className="TopNav">공지사항</div>
         </Link>
       </nav>
       
