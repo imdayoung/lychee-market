@@ -23,7 +23,7 @@ function ReportWrite(props){
   // const reportedid = 'repdid';
   // const type = 'type';        //게시글/쪽지 둘 중 하나 선택
   // const cid = 1;         //chatroom id, nullable
-  const pid = 1;         //product id, nullable
+  // const pid = 1;         //product id, nullable
 
   const [error, setError] = useState(false);
   const [title, setTitle] = useState('');  
@@ -34,6 +34,7 @@ function ReportWrite(props){
 
   const [type, setType] = useState("");
   const [cid, setCid] = useState("");
+  const [pid, setPid] = useState("");
   const [reportedid, setReportedid] = useState();
 
   const goBack = () => {
@@ -43,6 +44,7 @@ function ReportWrite(props){
   useEffect(()=>{
     setType(location.state.info.type);
     setCid(location.state.info.cid);
+    setPid(location.state.info.pid);
     setReportedid(location.state.info.reportedid);
   },[])
 
@@ -120,7 +122,7 @@ function ReportWrite(props){
             <th className="r_th">신고게시글/채팅번호</th>
             <td>
               <input className="r_td" type="text"
-              value={cid} readOnly/>
+              value={cid === "" ? pid : cid} readOnly/>
             </td>
           </tr>
 

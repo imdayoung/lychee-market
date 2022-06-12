@@ -103,6 +103,7 @@
     float: right;
     margin-right: 150px;
     font-size: 25px;
+    cursor: pointer;
 }
 
 #LikeButton {
@@ -112,6 +113,7 @@
     font-size: 30px;
     border: none;
     background-color: #ff9696;
+    cursor: pointer;
 }
 
 #MessageButton {
@@ -124,6 +126,7 @@
     float: right;
     margin-right: 150px;
     color: white;
+    cursor: pointer;
 }
 
 #DeleteButton {
@@ -134,6 +137,7 @@
     border: none;
     background-color: #ff9696;
     margin-right: 31px;
+    cursor: pointer;
 }
 
 #EditButton {
@@ -145,6 +149,7 @@
     background-color: #ff3d60;
     color: white;
     margin-right: 31px;
+    cursor: pointer;
 }
 
 #CompleteButton {
@@ -154,6 +159,7 @@
     font-size: 30px;
     border: none;
     background-color: #ff9696;
+    cursor: pointer;
 }
 
 #Infos {

@@ -45,6 +45,8 @@ export default function SELLDETAIL(){
     const [DealFlag, SetDealFlag] = useState(0);
     const [SellerNick, SetSellerNick] = useState('');
 
+    const [ReportInfo, SetReportInfo] = useState(null);
+
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
 
@@ -68,6 +70,12 @@ export default function SELLDETAIL(){
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
             SetSellerNick(res.data[0].seller_nickname);
+            SetReportInfo({
+                reportedid: res.data[0].buyer_id,
+                cid: "",
+                pid: ProdId,
+                type: "게시글 신고"
+            });
         })   
     }, []);
 
@@ -96,6 +104,10 @@ export default function SELLDETAIL(){
         }
     }
 
+    const ReportNavigate = () => {
+        navigate('/report/write', {state:{info: ReportInfo}});
+    }
+
     return (
         <div>
             <div className='Head'>
@@ -105,7 +117,7 @@ export default function SELLDETAIL(){
                 <div>
                     <div id="Category">카테고리 &gt; {ProductCategory}</div>
                     <div id="ImageDiv">
-                        <img id='DetailItemImage' src={'/'+ProductImg} alt='상품 이미지'></img>
+                        <img id='DetailItemImage' src={ProductImg} alt='상품 이미지'></img>
                     </div>
                     <div id="DetailDescription">
                         <div id="DetailItemTitle">{ProductTitle}</div>
@@ -119,7 +131,7 @@ export default function SELLDETAIL(){
                         </div>
                         <div id="MoreInfo">
                             <div id="LikeDate">💜{ProductLike} | ⏰{ProductDate}</div>
-                            <div id="ReportButton" hidden={userid === SellerId ? false : true}>📢신고하기</div>
+                            {userid === SellerId ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
                         </div>
                         <div hidden={userid === SellerId ? true : false}>
                             <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
