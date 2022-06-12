@@ -47,7 +47,7 @@ export default function Statistics(props) {
           resultData.push(res.data[i].cnt);
         }
         if(res.data.length === 0){
-          SetBuy(null);
+          SetSell(null);
         } else {
           SetSell({
             labels: resultLabel,

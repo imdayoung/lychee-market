@@ -103,8 +103,8 @@ export default function Message(props) {
                                 <span>판매 글 정보 </span>
                                 <span>
                                   <a
-                                    href={`http://localhost:3000/buy/${res.data[0].product_id}`}
-                                  >{`http://localhost:3000/buy/${res.data[0].product_id}`}</a>
+                                    href={`http://localhost:3000/${res.data[0].deal_type === 0 ? "buy" : "sell"}/${res.data[0].product_id}`}
+                                  >{`http://localhost:3000/${(res.data[0].deal_type === 0 ? "buy" : "sell")}/${res.data[0].product_id}`}</a>
                                 </span>
                                 <br />
                                 <br />
