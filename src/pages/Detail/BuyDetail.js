@@ -7,6 +7,7 @@ import '../../style/Detail.css';
 import * as Common from "../../components/CommonFunc"
 import getCookie from "../../components/GetCookie";
 import DetailModal from "./components/DetailModal";
+import MsgStartModal from "./components/MsgStartModal";
 
 export default function BUYDETAIL(){
     const cookie = getCookie("is_login");
@@ -47,7 +48,8 @@ export default function BUYDETAIL(){
     const ProdId = Location.pathname.split('/').slice(-1)[0];
 
     // 모달창 열기
-    const [IsModalOpen, SetIsModalOpen] = useState(false);
+    const [IsDealModalOpen, SetIsDealModalOpen] = useState(false);
+    const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
 
     // 물건 세부정보 불러오기
     useEffect(() => {
@@ -116,14 +118,21 @@ export default function BUYDETAIL(){
         navigate('/product/update', {state:{info: ProductInfo}});
     }
 
-    const ModalClose = () => {
-        SetIsModalOpen(!IsModalOpen);
+    const DealModalClose = () => {
+        SetIsDealModalOpen(!IsDealModalOpen);
     };
+
+    const MsgModalClose = () => {
+        SetIsMsgModalOpen(!IsMsgModalOpen);
+    }
 
     return (
         <div>
-            {IsModalOpen && (
-                <DetailModal ModalClose={ModalClose} Id={userid} ProductId={ProdId} DealType={0} />
+            {IsDealModalOpen && (
+                <DetailModal ModalClose={DealModalClose} Id={userid} ProductId={ProdId} DealType={0} />
+            )}
+            {IsMsgModalOpen && (
+                <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={SellerNick} DealId={SellerId} ProductId={ProdId} DealType={1} />
             )}
             <div className='Head'>
             {IsManager ?
@@ -150,14 +159,14 @@ export default function BUYDETAIL(){
                             <div id="LikeDate">💕{ProductLike} | ⏰{ProductDate}</div>
                             {(userid !== SellerId) && (IsLogin !== false) ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
                         </div>
-                        <div hidden={(userid === SellerId) || (IsLogin === false)}>
-                            <button id="LikeButton" onClick={ILikeIt}>찜하기</button>
-                            <button id="MessageButton">쪽지하기</button>
+                        <div hidden={(userid === SellerId) || (IsLogin === false) ? true : false}>
+                            <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
+                            <button id="MessageButton" onClick={MsgModalClose}>쪽지하기</button>
                         </div>
                         <div hidden={userid !== SellerId}>
                             <button id="DeleteButton" onClick={DeleteProduct}>삭제</button>
                             <button id="EditButton" onClick={UpdateNavigate}>수정</button>
-                            {DealFlag === "거래완료" ? <></> : <button id="CompleteButton" onClick={ModalClose}>거래완료</button>}
+                            {DealFlag === "거래완료" ? <></> : <button id="CompleteButton" onClick={DealModalClose}>거래완료</button>}
                         </div>
                         <div hidden={!IsManager}>
                             <button id="LikeButton" onClick={DeleteProduct}>삭제</button>

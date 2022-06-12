@@ -2237,8 +2237,7 @@ app.post("/chart/newpoint", function (req, res) {
   db.query(SQL, StandardDate, function (err, rows) {
     if (err) {
       console.log("신규 충전 수 차트 데이터 불러오기 실패", err);
-    }
-    if (rows) {
+    } else {
       console.log("신규 충전 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2259,8 +2258,7 @@ app.post("/chart/report", function (req, res) {
   db.query(SQL, StandardDate, function (err, rows) {
     if (err) {
       console.log("신고 수 차트 데이터 불러오기 실패", err);
-    }
-    if (rows) {
+    } else {
       console.log("신고 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2280,8 +2278,7 @@ app.post("/chart/qna", function (req, res) {
   db.query(SQL, StandardDate, function (err, rows) {
     if (err) {
       console.log("문의 수 차트 데이터 불러오기 실패", err);
-    }
-    if (rows) {
+    } else {
       console.log("문의 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2302,8 +2299,7 @@ app.post("/chart/productnum", function (req, res) {
   db.query(SQL, StandardDate, function (err, rows) {
     if (err) {
       console.log("게시글 수 차트 데이터 불러오기 실패", err);
-    }
-    if (rows) {
+    } else {
       console.log("게시글 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2327,8 +2323,7 @@ app.post("/chart/sellproduct", function (req, res) {
   db.query(SQL, [Id, StandardDate], function (err, rows) {
     if (err) {
       console.log("판매 상품 수 차트 데이터 불러오기 실패", err);
-    }
-    if (rows) {
+    } else {
       console.log("판매 상품 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2352,8 +2347,7 @@ app.post("/chart/buyproduct", function (req, res) {
   db.query(SQL, [Id, StandardDate], function (err, rows) {
     if (err) {
       console.log("구매 상품 수 차트 데이터 불러오기 실패", err);
-    }
-    if (rows) {
+    } else {
       console.log("구매 상품 수 차트 데이터 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2378,8 +2372,7 @@ app.post("/product/msglist", function (req, res) {
     if (err) {
       console.log("거래 대상 불러오기 실패", err);
       res.send(false)
-    }
-    if (rows) {
+    } else {
       console.log("거래 대상 불러오기 성공", rows);
       res.send(rows);
     }
@@ -2388,7 +2381,7 @@ app.post("/product/msglist", function (req, res) {
 
 /*
  * 목적: 거래 완료
- * input: user_id, product_id
+ * input: product_id, dealwith_id, deal_type
  * output: true / false
  */
 app.post("/dealdone", function (req, res) {
@@ -2407,10 +2400,48 @@ app.post("/dealdone", function (req, res) {
     if (err) {
       console.log("거래 완료 업데이트 실패", err);
       res.send(false)
-    }
-    if (rows) {
+    } else {
       console.log("거래 완료 업데이트 성공", rows);
       res.send(true);
+    }
+  });
+});
+
+/*
+ * 목적: 쪽지 시작
+ * input: user_id, product_id, deal_id, deal_type
+ * output: true / false
+ */
+app.post("/msgstart", function (req, res) {
+  const Id = req.body.Id;
+  const ProductId = req.body.ProductId;
+  const DealId = req.body.DealId;
+  const DealType = req.body.DealType;
+  const MsgContent = req.body.MsgContent;
+
+  console.log(ProductId, DealId, DealType, MsgContent, Id);
+  
+  const InsertBoxSQL = "INSERT INTO `MSGBOX` VALUES (0, ?, ?, ?); SELECT msgbox_id FROM `MSGBOX` WHERE seller_id=? AND buyer_id=? AND product_id=?";
+  const InsertMsgSQL = "INSERT INTO `MSG` VALUES (0, ?, ?, ?, ?)";
+  const BoxData = (DealType === 0 ? [DealId, Id, ProductId, DealId, Id, ProductId] : [Id, DealId, ProductId, Id, DealId, ProductId]);
+
+  db.query(InsertBoxSQL, BoxData, function (err, rows) {
+    if (err) {
+      console.log("쪽지 시작하기 실패", err);
+      res.send(false);
+    }
+    if (rows) {
+      console.log(rows[1][0].msgbox_id);
+      const MsgData = [rows[1][0].msgbox_id, Id, MsgContent, new Date()];
+      db.query(InsertMsgSQL, MsgData, function (err2, rows2){
+        if (err2){
+          console.log("쪽지 시작하기 실패2", err2);
+          res.send(false);
+        } else {
+          console.log("쪽지 시작하기 성공");
+          res.send(true);
+        }
+      })
     }
   });
 });
