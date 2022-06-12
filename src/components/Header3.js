@@ -24,9 +24,9 @@ export default function ManagerHeader(props) {
 
       <div className="Title">
         <div className="TitleName">
-          <Link to={{ pathname: "/manager/main" }} id="LinkNoLine">
+        <Link to={{ pathname: "/manager/main" }} id="LinkNoLine">
             <span className="TitleLink">
-              <img id="Logo" src="images/logo.png" alt="로고" />
+              <img id="Logo" src="/images/logo.png" alt="로고" />
               <span id="TitleText2">리치마켓</span>
             </span>
           </Link>
