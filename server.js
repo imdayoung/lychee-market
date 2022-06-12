@@ -1744,7 +1744,7 @@ app.get('/getlocation/:id', function(req, res) {
 
 /* 베스트 카테고리 */
 app.get('/bestcategory', function(req, res) {
-  var SQL = "SELECT product_category FROM `PRODUCT` WHERE DATE_FORMAT(product_date, '%Y-%m-%d')=DATE_FORMAT(now(), '%Y-%m-%d') GROUP BY product_category ORDER BY COUNT(product_category) DESC;"
+  var SQL = "SELECT product_category FROM `PRODUCT` WHERE DATE_FORMAT(product_date, '%Y-%m-%d')=DATE_FORMAT(now(), '%Y-%m-%d') GROUP BY product_category ORDER BY COUNT(product_category) DESC LIMIT 5;"
   db.query(SQL, (err, result) => {
     if(err) {
       console.log("베스트 카테고리 불러오기 오류: ", err);
