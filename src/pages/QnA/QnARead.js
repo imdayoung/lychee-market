@@ -62,8 +62,10 @@ export default function QnARead() {
       setContent(res.data[0].q_content);
 
       setAid(res.data[0].a_id);
-      if (res.data[0].a_id !== "") {
+      if (res.data[0].a_id !== null) {
+        alert(res.data[0].a_id);
         setIsAnswered(true);
+      } else {
         if (IsManager === true) setAid(managerid);
       }
       if (res.data[0].a_date === null) {

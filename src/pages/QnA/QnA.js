@@ -67,7 +67,7 @@ function QnA() {
         qna_title={QnA[i].q_title} 
         qna_date={QnA[i].q_date.split('T')[0]} 
         qna_pflag={QnA[i].private_flag === '0' ? '공개' : '비공개'} 
-        qna_answered={QnA[i].a_id !== "" ? '미완료' : '완료'}
+        qna_answered={QnA[i].a_id !== null ? '완료' : '미완료'}
         userid={userid}
         />
       );

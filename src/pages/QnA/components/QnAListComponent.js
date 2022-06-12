@@ -6,8 +6,13 @@ export default function QnAListComponent(props){
   const uid = props.userid;
   const qid = props.q_id;
   let matchUser = false;
+  const cookie = getCookie("is_login");
+  
   if(uid === qid){
     matchUser = true;
+  } else {
+    if(cookie === "true" && localStorage.getItem("manager_id") !== null)
+      matchUser = true;
   }
 
   const addView = () => {
