@@ -36,10 +36,13 @@
   align-items: center;
 }
 
+.TitleLink {
+  display: flex;
+}
+
 #Logo {
   width: 64px;
   height: 64px;
-  background-color: #ff3d60;
   margin-right: 16px;
   margin-left: 32px;
 }

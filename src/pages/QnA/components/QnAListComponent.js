@@ -34,10 +34,10 @@ export default function QnAListComponent(props){
       {/* 조회수 카테고리 제목 날짜 공개여부 답변여부 */}
       <td className="qnaView">{props.qna_view}</td>
       <td className="qnaCategory">{props.qna_category}</td>
-      {matchUser ? <td className="qnaTitle">
+      {props.qna_pflag==='비공개' && !matchUser ? <td className="qnaTitle">{props.qna_title}</td>
+        : <td className="qnaTitle">
         <Link to={{pathname:'/qna/read/'+props.qna_id}} id='LinkNoLine'
         onClick={addView}>{props.qna_title}</Link></td> 
-        : <td className="qnaTitle">{props.qna_title}</td>
       }
       <td className="qnaDate">{props.qna_date}</td>
       <td className="qnaPflag">{props.qna_pflag}</td>

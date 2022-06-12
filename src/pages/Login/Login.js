@@ -40,7 +40,7 @@ function Login(){
         localStorage.setItem("manager_pw", result.manager_pw);
         localStorage.setItem("manager_nickname", result.manager_nickname);
         setCookie("is_login", true, 10);
-        navigate('/manager');
+        navigate('/manager/main');
       }
       else if(res.data.message){
         alert(res.data.message);

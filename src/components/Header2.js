@@ -1,12 +1,17 @@
 import "../style/Header.css";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNaviagte, useLocation } from "react-router-dom";
 import getCookie from "./GetCookie";
 import setCookie from "./SetCookie";
 
 export default function Header(props) {
   let Location = useLocation();
+
+  useEffect(() => {
+    console.log("location", Location);
+  }, [Location]);
   const DealType = Location.pathname.split("/").slice(1)[0];
+  console.log(DealType);
 
   const [Target, SetTarget] = useState("");
 
@@ -14,21 +19,13 @@ export default function Header(props) {
   const cookie = getCookie("is_login");
   if (cookie === "true") {
     const tempid = localStorage.getItem("user_id");
-    if (tempid !== null) 
-      IsLogin = true;
+    if (tempid !== null) IsLogin = true;
   }
 
   const onLogoutClick = () => {
     setCookie("is_login", true, -1);
     localStorage.clear();
   };
-
-    // const {keyword} = props;
-    // let exist = false;
-
-    // if(keyword !== undefined){
-    //   exist = true;
-    // }
 
   return (
     <header>
@@ -65,24 +62,31 @@ export default function Header(props) {
       <div className="Title">
         <div className="TitleName">
           <Link to={{ pathname: "/" }} id="LinkNoLine">
-            <div id="Logo"></div>
+            <span className="TitleLink">
+              <img id="Logo" src="/images/logo.png" alt="로고" />
+              <span id="TitleText2">리치마켓</span>
+            </span>
           </Link>
-          <div id="TitleText2">리치마켓</div>
-          {props.keyword === undefined ? (
-            <></>
-          ) : (
-            <div id="TitleDetail2">{" | " + props.keyword}</div>
-          )}
-          {/* {exist ? <div id="TitleDetail2"> | {keyword}</div> : <></>} */}
         </div>
         <div className="Search">
-            <div>
-              <input className='SearchDiv' type='text' placeholder='이런 건 사람들이 얼마에 사고 싶어할까?' onChange={(event) => SetTarget(event.target.value)}></input></div>
-            <div>
-              <Link to={{pathname: '/'+DealType+'/search/'+Target}}>
-                <button type="button" className='SearchButton'><img className='SearchButtonImage' src='/images/glass.png'></img></button>
-              </Link>
-            </div>
+          <div>
+            <input
+              className="SearchDiv"
+              type="text"
+              placeholder="이런 건 사람들이 얼마에 사고 싶어할까?"
+              onChange={(event) => SetTarget(event.target.value)}
+            ></input>
+          </div>
+          <div>
+            <Link to={{ pathname: "/" + DealType + "/search/" + Target }}>
+              <button type="button" className="SearchButton">
+                <img
+                  className="SearchButtonImage"
+                  src="/images/glass.png"
+                ></img>
+              </button>
+            </Link>
+          </div>
         </div>
         <nav className="Top">
           <Link to={{ pathname: "/sell" }} id="LinkNoLine">
