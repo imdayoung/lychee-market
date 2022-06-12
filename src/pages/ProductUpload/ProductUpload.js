@@ -16,7 +16,7 @@ function ProductUpload() {
   }
 
   let image_num = 0;
-  let sellerid = '', buyerid = '';
+  let sellerid, buyerid;
 
   const [dealtype, setDealtype] = useState(false);
   const [title, setTitle] = useState('');
