@@ -214,3 +214,9 @@
 .IsSolved .Incomplete{
   color: #ff3d60;
 }
+
+/*관리자 메인*/
+.HalfChart {
+  display: flex;
+  width: 50%;
+}
