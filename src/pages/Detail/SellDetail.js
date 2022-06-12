@@ -117,7 +117,7 @@ export default function SELLDETAIL(){
                 <div>
                     <div id="Category">카테고리 &gt; {ProductCategory}</div>
                     <div id="ImageDiv">
-                        <img id='DetailItemImage' src={'/'+ProductImg} alt='상품 이미지'></img>
+                        <img id='DetailItemImage' src={ProductImg} alt='상품 이미지'></img>
                     </div>
                     <div id="DetailDescription">
                         <div id="DetailItemTitle">{ProductTitle}</div>
@@ -131,7 +131,7 @@ export default function SELLDETAIL(){
                         </div>
                         <div id="MoreInfo">
                             <div id="LikeDate">💜{ProductLike} | ⏰{ProductDate}</div>
-                            <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div>
+                            {userid === SellerId ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
                         </div>
                         <div hidden={userid === SellerId ? true : false}>
                             <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
