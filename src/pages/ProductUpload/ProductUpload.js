@@ -116,11 +116,10 @@ function ProductUpload() {
     }).then((res) => {            
       if(res.data !== false){
         alert("업로드 완료");
-        const pid = res.data[0].product_id;
-        if(dealtype === 1)
-          navigate('/sell/detail/'+pid);
-        else if(dealtype === 1)
-          navigate('/buy/detail/'+pid);
+        if(dealtype === '1')
+          navigate('/sell');
+        else if(dealtype === '0')
+          navigate('/buy');
       }
       else {
         alert("업로드 실패");

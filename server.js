@@ -2127,17 +2127,8 @@ db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `prod
     }
     if(result){
       console.log("newproduct succeed!");
-      db.query("SELECT `product_id` FROM `PRODUCT` WHERE `product_title`=? AND `product_date`=? AND `product_detail`=?",
-      [title, date, detail], (err, result) => {
-        if(err){
-          console.log("newproduct id error");
-        }
-        if(result){
-          console.log("newproduct id succeed!");
-          res.send(result);
-        }
-      }
-    )}
+      res.send(true);
+    }
 });
 });
 
