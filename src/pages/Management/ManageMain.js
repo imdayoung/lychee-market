@@ -24,7 +24,10 @@ export default function ManageMain() {
     labels: Common.GetWeek(),
     datasets: [],
   });
-  const [ReportNum, SetReportNum] = useState();
+  const [ReportNum, SetReportNum] = useState({
+    labels: Common.GetWeek(),
+    datasets: [],
+  });
   const [QNANum, SetQNANum] = useState();
   const [UploadNum, SetUploadNum] = useState();
   const [PointNum, SetPointNum] = useState();
@@ -57,41 +60,42 @@ export default function ManageMain() {
       .catch((err) => {
         console.log("신규 가입자 차트 에러");
       });
-    
-    axios.post("http://localhost:8080/chart/report", {
-      Date: Common.GetSixDaysAgo(),
-    })
-    .then((res)=>{
-      var resultData = [0, 0, 0, 0, 0, 0, 0];
-      for (var i = 0; i < res.data.length; i++) {
-        resultData[
-          Common.GetDateGap(res.data[i].report_date, Common.GetSixDaysAgo())
-        ] = res.data[i].cnt;
-      }
-      SetReportNum({
-        labels: Common.GetWeek(),
-        datasets: [
-          {
-            type: "bar",
-            label: "이번 주 신고 현황",
-            borderColor: "#ff3d60",
-            backgroundColor: "#ff3d60",
-            borderWidth: 2,
-            data: resultData,
-          },
-        ],
+
+    axios
+      .post("http://localhost:8080/chart/report", {
+        Date: Common.GetSixDaysAgo(),
+      })
+      .then((res) => {
+        var resultData = [0, 0, 0, 0, 0, 0, 0];
+        for (var i = 0; i < res.data.length; i++) {
+          resultData[
+            Common.GetDateGap(res.data[i].report_date, Common.GetSixDaysAgo())
+          ] = res.data[i].cnt;
+        }
+        SetReportNum({
+          labels: Common.GetWeek(),
+          datasets: [
+            {
+              type: "bar",
+              label: "이번 주 신고 현황",
+              borderColor: "#ff3d60",
+              backgroundColor: "#ff3d60",
+              borderWidth: 2,
+              data: resultData,
+            },
+          ],
+        });
+      })
+      .catch((err) => {
+        console.log("신고 수 차트 에러");
       });
-    })
-    .catch((err) => {
-      console.log("신고 수 차트 에러");
-    });
 
-    // axios.post("http://localhost:8080/chart/qna", {
-
-    // })
-    // .then((res)=>{})
-    // .catch((err)=>{})
-
+    // axios
+    //   .post("http://localhost:8080/chart/qna", {})
+    //   .then((res) => {})
+    //   .catch((err) => {
+    //     console.log("문의사항 수 차트 에러");
+    //   });
   }, []);
 
   return (

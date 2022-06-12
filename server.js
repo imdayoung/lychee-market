@@ -1457,7 +1457,7 @@ app.post("/chart/newsignin", function (req, res) {
 /*
  * 목적: 차트 - 일주일 동안 신고 수
  * input: 6DaysAgoDate
- * output: 날짜 별 가입자 수 / none
+ * output: 날짜별 신고 수 / none
  */
 app.post("/chart/report", function (req, res) {
   const StandardDate = req.body.Date;
@@ -1475,3 +1475,25 @@ app.post("/chart/report", function (req, res) {
     }
   });
 });
+
+/*
+ * 목적: 차트 - 일주일 동안 문의사항 수
+ * input: 6DaysAgoDate
+ * output: 날짜별 문의사항 수 / none
+ */
+// app.post("/chart/qna", function (req, res) {
+//   const StandardDate = req.body.Date;
+//   const SQL =
+//     "SELECT report_date, COUNT(report_date) AS cnt FROM `REPORT` WHERE report_date >= ? \
+//     GROUP BY report_date;";
+
+//   db.query(SQL, StandardDate, function (err, rows) {
+//     if (err) {
+//       console.log("신고 수 차트 데이터 불러오기 실패", err);
+//     }
+//     if (rows) {
+//       console.log("신고 수 차트 데이터 불러오기 성공", rows);
+//       res.send(rows);
+//     }
+//   });
+// });
