@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Axios from "axios";
-import Header from "../../components/Header";
+import ManagerHeader from "../../components/Header3";
 import UserListItem from "./components/UserListItem";
 import Pagination from "../../components/Pagination";
 import "../../style/Management.css"
@@ -23,8 +23,8 @@ export default function SearchUser() {
   const offset = (page - 1) * limit;
 
   // 검색 단어
-  const [Word, SetWord] = useState('');
-  const [SearchWord, SetSearchWord] = useState('');
+  const [Word, SetWord] = useState();
+  const [SearchWord, SetSearchWord] = useState();
   useEffect(()=>{
     const TempWord = location.state.searchword;
     SetSearchWord(TempWord);
@@ -52,12 +52,12 @@ export default function SearchUser() {
 
   return (
     <div>
-      <Header keyword="회원 관리"/>
+      <ManagerHeader keyword="회원 관리"/>
       <div className="ManageMain">
       <div className="SearchResult"><span>{SearchWord}</span>에 대한 검색결과입니다.</div>
         <table className="UserList">
           <thead className="UserHead">
-            <tr className="ListRow">
+            <tr>
               <td className="UserId">아이디</td>
               <td className="UserNickname">닉네임</td>
               <td className="UserName">이름</td>

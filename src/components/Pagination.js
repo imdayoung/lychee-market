@@ -2,13 +2,9 @@ import "../style/Pagination.css"
 
 export default function Pagination({ total, limit, page, setPage }) {
   const numPages = Math.ceil(total / limit);
-
-  // // 페이지가 한 장이면 생략
-  // if(numPages === 1)
-  //   return <nav className="Pagination"></nav>;
   
   return (
-    <nav className="Pagination"> {/* hidden={numPages === 1}> */}
+    <nav className="Pagination" hidden={numPages === 1}>
       <button onClick={() => setPage(page - 1)} disabled={page === 1}>
         &lt;
       </button>

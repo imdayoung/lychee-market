@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../style/MyPage.css";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
-import Header from "../../components/Header3";
+import ManagerHeader from "../../components/Header3";
 
 const todayDate = new Date();
 
@@ -22,7 +22,7 @@ const data = {
 export default function ManageMain() {
   return (
     <div>
-      <Header />
+      <ManagerHeader />
       <main>
         <div className="ManageMainTop">
           <div>문의사항</div>

@@ -24,15 +24,14 @@
   text-align: center;
 }
 .ReportList .ReportHead{
+  height: 60px;
   border-bottom: 2px solid #000;
   font-size: 20px;
 }
 .ReportListRow{
   height: 60px;
   border-bottom: 1px solid #000;
-}
-.ReportListRow a{
-  text-decoration: none;
+  font-size: 18px;
 }
 .ReportList .ReportIndex{
   width:100px;
@@ -62,21 +61,28 @@
   border-collapse: collapse;
   border-top: 2px solid #000;
   border-bottom: 2px solid #000;
+  font-size: 20px;
 }
 .ReportMain caption{
   width: 1200px;
   margin-bottom: 8px;
   text-align: left;
+  font-size: 24px;
   font-weight: bold;
 }
 .ReportMain .ReportRow, .ReportMain .AnswerRow{
   text-align: left;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
+  
+}
+.ReportTable input, .AnswerTable input{
+  font-size: 18px;
 }
 .ReportMain .ReportTh, .ReportMain .AnswerTh{
   width: 180px;
   padding-left:8px;
+  font-size: 20px;
 }
 .ReportTdShort, .AnswerTdShort{
   margin-top: 8px;
@@ -87,7 +93,7 @@
 .ReportTdButton{
   margin-top: 8px;
   margin-bottom: 8px;
-  width: 324px;
+  width: 295px;
   height: 30px;
 }
 .ReportTdLong{
@@ -103,21 +109,25 @@
   min-height: 100px;
   height: flex;
   resize: vertical;
+  font-size: 18px;
 }
 .ReportTdImg{
   margin-top: 8px;
   margin-bottom: 8px;
   max-width: 984px;
+  font-size: 18px
 }
 .ReportMain .ReportButtons{
+  width: 1200px;
   text-align: right;
   margin-right: 48px;
 }
 .ReportMain .ReportButtons .List{
-  width: 120px;
-  height: 32px;
+  width: 150px;
+  height: 40px;
   border: 2px solid #888888;
   background-color: #FFFFFF;
+  font-size: 20px;
   color: #888888;
   font-weight: bold;
   margin: 8px;
@@ -125,18 +135,20 @@
 }
 .ToProduct{
   margin-left:8px;
-  width: 52px;
-  height: 36px;
+  width: 80px;
+  height: 40px;
   border: 2px solid #ff3d60;
   background-color: #ff3d60;
+  font-size: 20px;
   color: #ffffff;
   cursor: pointer;
 }
 .ReportMain .ReportButtons .Submit{
-  width: 120px;
-  height: 32px;
+  width: 150px;
+  height: 40px;
   border: 2px solid #ff3d60;
   background-color: #FFFFFF;
+  font-size: 20px;
   color: #ff3d60;
   font-weight: bold;
   margin: 8px;
