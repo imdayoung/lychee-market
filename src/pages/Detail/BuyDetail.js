@@ -4,10 +4,28 @@ import axios from 'axios';
 import Header from "../../components/Header2"
 import '../../style/Detail.css';
 import * as Common from "../../components/CommonFunc"
-// import ItemInfo from "./components/ItemInfo";
+import getCookie from "../../components/GetCookie";
 
 export default function BUYDETAIL(){
-    const Id = 'mouse0429';
+    const cookie = getCookie("is_login");
+    var IsManager = false;
+    var IsLogin = false;
+    let userid = '';
+    
+    //로그인 정보
+    if(cookie === "true"){
+      userid = localStorage.getItem("user_id");
+      if(userid !== null)
+        IsLogin = true;
+      else{
+        const managerid = localStorage.getItem("manager_id");
+        if(managerid !== null){
+          IsManager = true;
+          IsLogin = true;
+        }
+      }
+    }
+    
     let Location = useLocation();
 
     // 물건 정보
@@ -53,7 +71,7 @@ export default function BUYDETAIL(){
     }, []);
 
     function ILikeIt() {
-        axios.post('http://localhost:8080/ilikeit', { UserId: Id, ProdId: parseInt(ProdId) })
+        axios.post('http://localhost:8080/ilikeit', { UserId: userid, ProdId: parseInt(ProdId) })
         .then((res) => {
             console.log("ilikeit 등록: ", res);
             if(res.data === false) {

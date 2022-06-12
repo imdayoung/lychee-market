@@ -3,9 +3,28 @@ import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import ItemInfo from "./components/ItemInfo";
+import getCookie from "../../components/GetCookie";
 
 export default function BUYSEARCH(){
-    const Id = 'mouse0429';
+    const cookie = getCookie("is_login");
+    var IsManager = false;
+    var IsLogin = false;
+    let userid = '';
+    
+    //로그인 정보
+    if(cookie === "true"){
+      userid = localStorage.getItem("user_id");
+      if(userid !== null)
+        IsLogin = true;
+      else{
+        const managerid = localStorage.getItem("manager_id");
+        if(managerid !== null){
+          IsManager = true;
+          IsLogin = true;
+        }
+      }
+    }
+
     let Location = useLocation();
     // location의 pathname으로부터 검색 단어 얻기
     const Target = Location.pathname.split('/').slice(-1)[0];
@@ -55,11 +74,11 @@ export default function BUYSEARCH(){
             SetProduct(res.data);
         });
         // 내 주소 불러오기
-        axios.get('http://localhost:8080/getlocation/'+Id)
+        axios.get('http://localhost:8080/getlocation/'+userid)
         .then((res) => {
             SetMyLocation(res.data[0].user_location);
         })
-    }, [Target, Category, Id]);
+    }, [Target, Category, userid]);
 
     let ProductList = [];
     if(Product.length === 0) {
