@@ -8,8 +8,13 @@ import PointHistory from "./components/PointHistory";
 import Statistics from "./components/Statistics";
 import PointModal from "./components/PointModal";
 import { Link } from "react-router-dom";
+import getCookie from "../../components/GetCookie"
 
-const Id = "mouse0429";
+let Id;
+const cookie = getCookie("is_login");
+if(cookie === "true"){
+  Id = localStorage.getItem("user_id");
+}
 
 const HistoryList = {
   0: <ProductHistory Id={Id} Type="sell" />,
