@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Axios from 'axios'
 import Header from "../../components/Header";
+import getCookie from "../../components/GetCookie";
 
 import '../../style/ReportWrite.css'
 
@@ -10,8 +11,14 @@ function ReportWrite(props){
   const navigate = useNavigate();
   const location = useLocation();
 
+  let reporterid;
+  const cookie = getCookie("is_login");
+  if (cookie === "true") {
+    reporterid = localStorage.getItem("user_id");
+  }
+
   //location.state 통해서 받아와야 하는 정보
-  const reporterid = 'repid';  //로그인 한 사람 id
+    //로그인 한 사람 id
   //const reportedid = location.state.uid;  //신고당한 사람 id
   // const reportedid = 'repdid';
   // const type = 'type';        //게시글/쪽지 둘 중 하나 선택
@@ -34,9 +41,9 @@ function ReportWrite(props){
   }
 
   useEffect(()=>{
-    setType(location.state.info.type)
+    setType(location.state.info.type);
     setCid(location.state.info.cid);
-    setReportedid(location.state.info.reportedid)
+    setReportedid(location.state.info.reportedid);
   },[])
 
   useEffect(() => {
@@ -53,74 +60,43 @@ function ReportWrite(props){
   
   const onChange = (e) => {
     setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
   };
   
   const onSubmit = () => {
     if(file){
       const formData = new FormData();
       formData.append("img", file); 
-      Axios.post("http://localhost:8080/uploadreportimg", formData)
-        .then(res => {
-          const { fileName } = res.data;
-          //setFileName(res.data.fileName);
-          let now = new Date();
-          let month = now.getMonth()+1;
-          let date = now.getFullYear() + "-" + month + "-" + now.getDate();
-          //alert("파일 이름 : "+fileName);
-
-          Axios.post('http://localhost:8080/reportwrite', {
-            reporterid: reporterid,
-            reportedid: reportedid,
-            type: type,
-            date: date,
-            title: title,
-            detail: detail,
-            fileName: fileName,
-            cid: cid,
-            pid: pid,
-          }).then((res) => {
-            if(res.data.message === "성공"){
-              alert("신고 접수 완료");
-              navigate('/mypage/report');
-            }
-            else if(res.data.message === "실패"){
-              alert("신고 접수 실패");
-            }
-          })
-        });
+      Axios.post("http://localhost:8080/uploadreportimg", formData);
     }
-    else {    //if문 안에서 image 업로드만 하면 filename 늦게 받아옴 ....
-      let now = new Date();
-      let month = now.getMonth()+1;
-      let date = now.getFullYear() + "-" + month + "-" + now.getDate();
+    let now = new Date();
+    let month = now.getMonth()+1;
+    let date = now.getFullYear() + "-" + month + "-" + now.getDate();
 
-      Axios.post('http://localhost:8080/reportwrite', {
-        reporterid: reporterid,
-        reportedid: reportedid,
-        type: type,
-        date: date,
-        title: title,
-        detail: detail,
-        fileName: fileName,
-        cid: cid,
-        pid: pid,
-      }).then((res) => {
-        if(res.data.message === "성공"){
-          alert("신고 접수 완료");
-          navigate('/mypage/report');
-        }
-        else if(res.data.message === "실패"){
-          alert("신고 접수 실패");
-        }
-      })
-    }
+    Axios.post('http://localhost:8080/reportwrite', {
+      reporterid: reporterid,
+      reportedid: reportedid,
+      type: type,
+      date: date,
+      title: title,
+      detail: detail,
+      fileName: fileName!==''?'/images/report/'+fileName:null,
+      cid: cid,
+      pid: pid,
+    }).then((res) => {
+      if(res.data.message === "성공"){
+        alert("신고 접수 완료");
+        navigate('/report');
+      }
+      else if(res.data.message === "실패"){
+        alert("신고 접수 실패");
+      }
+    })
   }
 
   return (
     <div className="main">
-
       <Header keyword="신고 접수하기"/>
-      
       <div className="report">
         <table className="submitreport">
           <tbody>

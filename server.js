@@ -10,10 +10,12 @@ app.use(express.static("public"));
 
 // 신고 이미지 저장 방식
 const ReportStorage = multer.diskStorage({
-  destination: "./public/images/report",
-  filename: function(req, file, cb) {
-    cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
-  }
+  destination: function(req, file, cb){  // 이미지 저장 위치
+    cb(null, "./public/images/report/");
+  },
+  filename: function(req, file, cb){  // 이미지 저장 이름
+    cb(null, `${file.originalname}`);
+}
 });
 
 // 신고 이미지 업로드
@@ -21,6 +23,11 @@ const upload = multer({
   storage: ReportStorage,
   limits: { fileSize: 1000000 }
 });
+
+app.post("/uploadreportimg", upload.single("img"), function(req, res) {
+  console.log("신고 이미지 업로드", req.file);
+});
+
 
 // 공지 이미지 저장 방식
 const NoticeStorage = multer.diskStorage({
@@ -38,7 +45,21 @@ const NoticeUpload = multer({
   limits: { fileSize: 1000000 }
 });
 
-app.post("/uploadreportimg", upload.single("img"), function(req, res, next) {
+// 제품 이미지 저장 방식
+const ProductStorage = multer.diskStorage({
+  destination: "./public/images/products",
+  filename: function(req, file, cb) {
+    cb(null, `${file.originalname}`);
+  }
+});
+
+// 제품 이미지 업로드
+const Productupload = multer({
+  storage: ProductStorage,
+  limits: { fileSize: 1000000 }
+});
+
+app.post("/uploadproductimg", Productupload.single("img"), function(req, res, next) {
   console.log(req.file.filename);
   res.send({
     fileName: req.file.filename
@@ -1028,7 +1049,7 @@ app.post('/reportwrite', function(req, res) {
     console.log(datas);
     
     db.query("INSERT INTO `REPORT` (`reporter_id`, `reported_id`, `report_date`, `report_title`, `report_type`,\
-     `report_detail`, `report_file`, `chatroom_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?);",
+     `report_detail`, `report_file`, `msgbox_id`, `product_id`) VALUES (?,?,?,?,?,?,?,?,?);",
 
     datas, (err, result) => {
         if(err){
@@ -1408,17 +1429,31 @@ app.get("/qna/search/:word", function (req, res) {
   });
 });
 
-// const path = require("path");
-// const multer = require("multer");
+/*
+ * 목적 : 제품 판매/구매 글 작성
+ * input : 
+ * output : 
+ */
+app.post('/productupload', function(req, res) {
 
-// app.use(express.static("public"));
+  const date = req.body.date;
+  const sellerid = req.body.sellerid;
+  const buyerid = req.body.buyerid;
+  const like = req.body.like;
+  const image_num = req.body.image_num;
+  const dealflag = req.body.dealflag;
+  const dealtype = req.body.dealtype;
+  const title = req.body.title
+  const category = req.body.category;
+  const price = req.body.price;
+  const detail = req.body.detail;
+  const dealmethod = req.body.dealmethod;
+  const image = req.body.image;
 
-// const storage = multer.diskStorage({
-//   destination: "./public/images/report",
-//   filename: function(req, file, cb) {
-//     cb(null, "reportfile_" + Date.now() + path.extname(file.originalname));
-//   }
-// });
+    const datas = [sellerid, buyerid, title, category, price, like, 
+        date, image, image_num, detail, dealmethod, dealtype, dealflag];
+  // const datas = [sellerid, buyerid, title, category, price, like, 
+  //   date, detail, dealmethod, dealtype, dealflag];
 
 // const upload = multer({
 //   storage: storage,
@@ -1431,6 +1466,33 @@ app.get("/qna/search/:word", function (req, res) {
 //     fileName: req.file.filename
 //   });
 // });
+console.log(datas);
+  
+db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+ `product_like`, `product_date`, `product_img`, `product_img_num`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+// db.query("INSERT INTO `PRODUCT` (`seller_id`, `buyer_id`, `product_title`, `product_category`, `product_price`,\
+// `product_like`, `product_date`, `product_detail`, `deal_method`, `deal_type`, `deal_flag`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+  datas, (err, result) => {
+    if(err){
+      console.log("newproduct error");
+      res.send(false);
+    }
+    if(result){
+      console.log("newproduct succeed!");
+      db.query("SELECT `product_id` FROM `PRODUCT` WHERE `product_title`=? AND `product_date`=? AND `product_detail`=?",
+      [title, date, detail], (err, result) => {
+        if(err){
+          console.log("newproduct id error");
+        }
+        if(result){
+          console.log("newproduct id succeed!");
+          res.send(result);
+        }
+      }
+    )}
+});
+});
+
 
 /*
  * 목적: 차트 - 일주일 동안 신규 가입자 수
