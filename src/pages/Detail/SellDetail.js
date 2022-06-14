@@ -8,6 +8,7 @@ import * as Common from "../../components/CommonFunc"
 import getCookie from "../../components/GetCookie";
 import DetailModal from "./components/DetailModal";
 import MsgStartModal from "./components/MsgStartModal";
+import moment from "moment";
 
 export default function SELLDETAIL(){
     const cookie = getCookie("is_login");
@@ -156,7 +157,7 @@ export default function SELLDETAIL(){
                             <div id="DealType">{DealMethod}</div>
                         </div>
                         <div id="MoreInfo">
-                            <div id="LikeDate">💕{ProductLike} | ⏰{ProductDate}</div>
+                            <div id="LikeDate">💕{ProductLike} | ⏰{moment(ProductDate).format("YY.MM.DD HH:mm")}</div>
                             {(userid !== SellerId) && (IsLogin !== false) ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
                         </div>
                         <div hidden={(userid === SellerId) || (IsLogin === false) ? true : false}>
