@@ -109,7 +109,9 @@ export default function BUYSEARCH(){
                             <option key="기타" value="기타">기타</option>
                         </select>
                     </div>
-                    <Link to={{pathname:'/product/upload'}}><button id="WriteButton" type="submit">중고거래 글쓰기</button></Link>
+                    <Link to={{pathname:'/product/upload'}} hidden={cookie!=="true"}>
+                        <button id="WriteButton" type="submit">중고거래 글쓰기</button>
+                    </Link>
                 </div>
                 <div>
                     <div id="ResultInfo"><span id="TargetWorld">{decodeURI(Target)}</span>에 대한 검색결과입니다.</div>

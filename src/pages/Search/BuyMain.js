@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Header from "../../components/Header2"
 import ItemInfo from "./components/ItemInfo";
+import getCookie from "../../components/GetCookie"
 
 export default function BUY(){
+    const cookie = getCookie("is_login");
+    
     // 물건 정보
     const [Product, SetProduct] = useState([{
         product_id: '',
@@ -36,7 +39,11 @@ export default function BUY(){
                 <Header/>
             </div>
             <div className="Main">
-                <div className="Descript"><Link to={{pathname:'/product/upload'}}><button id="WriteButton" type="submit">중고거래 글쓰기</button></Link></div>
+                <div className="Descript" >
+                    <Link to={{pathname:'/product/upload'}} hidden={cookie!=="true"}>
+                        <button id="WriteButton" type="submit">중고거래 글쓰기</button>
+                    </Link>
+                </div>
                 <div>
                      {ProductList}
                 </div>
