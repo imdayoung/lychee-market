@@ -46,6 +46,7 @@ CREATE TABLE `MSGBOX` (
 	`seller_id` VARCHAR(15) NOT NULL,
 	`buyer_id` VARCHAR(15) NOT NULL,
 	`product_id` INT DEFAULT NULL,
+    `eval_flag` BOOLEAN DEFAULT 0,
 	PRIMARY KEY(`msgbox_id`),
 	FOREIGN KEY(`seller_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE,
 	FOREIGN KEY(`buyer_id`) REFERENCES `USER`(`user_id`) ON UPDATE CASCADE,
