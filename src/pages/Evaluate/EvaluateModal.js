@@ -5,7 +5,7 @@ import Score from "./components/Score";
 
 const EvaluateModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, id, yourid } = props;
+  const { open, close, id, yourid, msgbox } = props;
   const [SelectScore, SetSelectScore] = useState(0);
   
   const RadioHandler = (e) => {
@@ -26,7 +26,11 @@ const EvaluateModal = (props) => {
     .then((res) => {
         console.log(res.data);
     });
+    axios.post('http://localhost:8080/evalflagupdate', {
+      MsgBoxId: msgbox
+    })
     alert("평가가 완료되었습니다.");
+    window.location.reload();
   }
 
   return (

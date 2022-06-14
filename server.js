@@ -94,9 +94,9 @@ app.post("/msgbox", function (req, res) {
   console.log(req.body.Id);
   const Id = req.body.Id;
   const SQL =
-    "SELECT U.user_nickname AS buyer_nickname, K.seller_nickname, K.msgbox_id, K.seller_id, K.product_id, K.buyer_id, K.msg_content, K.msg_time\
+    "SELECT U.user_nickname AS buyer_nickname, K.seller_nickname, K.msgbox_id, K.seller_id, K.buyer_id, K.product_id, K.eval_flag, K.msg_content, K.msg_time\
     FROM `USER` U,\
-    (SELECT U.user_nickname AS seller_nickname, B.msgbox_id, B.seller_id, B.buyer_id, B.product_id, M.msg_content, M.msg_time\
+    (SELECT U.user_nickname AS seller_nickname, B.msgbox_id, B.seller_id, B.buyer_id, B.product_id, B.eval_flag, M.msg_content, M.msg_time\
     FROM `USER` U, `MSGBOX` B, (\
       SELECT *\
       FROM (\
@@ -131,7 +131,7 @@ app.post("/msgbox", function (req, res) {
 app.post("/msgContent", function (req, res) {
   const RoomId = req.body.RoomId;
   const SQL =
-    "SELECT U.user_id, U.user_nickname, M.msg_time, M.msg_content, P.product_title, P.product_id\
+    "SELECT U.user_id, U.user_nickname, M.msg_time, M.msg_content, P.deal_type, P.product_title, P.product_id\
     FROM `MSG` M, `USER` U, `MSGBOX` B, `PRODUCT` P\
     WHERE M.msgbox_id=? AND M.user_id = U.user_id AND M.msgbox_id = B.msgbox_id AND B.product_id = P.product_id\
     ORDER BY M.msg_time DESC;";
@@ -139,7 +139,7 @@ app.post("/msgContent", function (req, res) {
   db.query(SQL, RoomId, function (err, rows) {
     if (err) console.log("msg 내용 불러오기 실패");
     else {
-      console.log("msg 내용 불러오기 성공");
+      console.log("msg 내용 불러오기 성공", rows);
       res.send(rows);
     }
   });
@@ -2421,7 +2421,7 @@ app.post("/msgstart", function (req, res) {
 
   console.log(ProductId, DealId, DealType, MsgContent, Id);
   
-  const InsertBoxSQL = "INSERT INTO `MSGBOX` VALUES (0, ?, ?, ?); SELECT msgbox_id FROM `MSGBOX` WHERE seller_id=? AND buyer_id=? AND product_id=?";
+  const InsertBoxSQL = "INSERT INTO `MSGBOX` VALUES (0, ?, ?, ?, 0); SELECT msgbox_id FROM `MSGBOX` WHERE seller_id=? AND buyer_id=? AND product_id=?";
   const InsertMsgSQL = "INSERT INTO `MSG` VALUES (0, ?, ?, ?, ?)";
   const BoxData = (DealType === 0 ? [DealId, Id, ProductId, DealId, Id, ProductId] : [Id, DealId, ProductId, Id, DealId, ProductId]);
 
@@ -2461,4 +2461,19 @@ app.post("/senddonemsg", function(req, res) {
       res.send(true);
     }
   })
+})
+
+
+app.post('/evalflagupdate', function(req, res) {
+  const MsgBoxId = req.body.MsgBoxId;
+  var SQL = "UPDATE `MSGBOX` SET `eval_flag`=1 WHERE `msgbox_id`=?";
+  db.query(SQL, MsgBoxId, function(err, rows) {
+    if(err) {
+      console.log("flag 업데이트 실패: ", err);
+      res.send(false);
+    } else {
+      console.log("flag 업데이트 성공: ", rows);
+      res.send(true);
+    }
+  });
 })

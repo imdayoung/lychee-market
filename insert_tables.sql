@@ -35,13 +35,13 @@ INSERT INTO `PRODUCT` (`seller_id`,`buyer_id`,`product_title`,`product_category`
 ('mouse0818',NULL,'오이 팔아요','시계,쥬얼리', 1000, 0, '2022-05-04','/images/products/prod01.png',1,'싱싱해요','직거래', 1,0);
 
 INSERT INTO `MSGBOX` VALUES
-(0, 'mouse0429', 'mouse0818', 1),
-(0, 'mouse0429', 'mouse0818', 2),
-(0, 'mouse0429', 'dlekdud0102', 3),
-(0, 'mouse0818', 'dlekdud0102', 4),
-(0, 'mouse0818', 'mouse0429', 5),
-(0, 'sy02lee','tmddbs',6),
-(0, 'dlekdud0102', 'mouse0429', 10);
+(0, 'mouse0429', 'mouse0818', 1, 0),
+(0, 'mouse0429', 'mouse0818', 2, 0),
+(0, 'mouse0429', 'dlekdud0102', 3, 0),
+(0, 'mouse0818', 'dlekdud0102', 4, 0),
+(0, 'mouse0818', 'mouse0429', 5, 0),
+(0, 'sy02lee', 'tmddbs', 6, 0),
+(0, 'dlekdud0102', 'mouse0429', 10, 0);
 
 INSERT INTO `MSG` VALUES
 (0, 1, 'mouse0818', '감자 유기농인가요?', '2022-05-29 12:00:00'),

@@ -98,7 +98,7 @@
     animation: modal-bg-show 0.3s;
 }
 
-nput[type="radio"]:checked+label {
+input[type="radio"]:checked+label {
     border: 1px solid #ff3d60;
 }
 

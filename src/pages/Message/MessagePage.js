@@ -97,7 +97,6 @@ export default function Message(props) {
                     .then((res) => {
                       if(res.data[0].deal_type === 0) DealType = "buy";
                       else  DealType="Sell";
-                      console.log(DealType);
 
                       axios.get('http://localhost:8080/'+DealType+'/detail/'+res.data[0].product_id)
                       .then((result) => {
@@ -107,10 +106,9 @@ export default function Message(props) {
                         SetSellerId(result.data[0].seller_id);
                         SetBuyerId(result.data[0].buyer_id);
                         SetProductId(res.data[0].product_id);
-                        console.log(res.data[0].product_id, data.product_id);
                       SetSelectedMsg(
                         <div>
-                          {data.buyer_id === BId && data.seller_id === SId && ProdId === data.product_id ?
+                          {((DealType === "Sell" && SId !== Id) || (DealType === "Buy" && BId !== Id)) && data.buyer_id === BId && data.seller_id === SId && ProdId === data.product_id && data.eval_flag === 0 ?
                           <MsgContent
                             Name="안내"
                             Content={
@@ -187,7 +185,7 @@ export default function Message(props) {
 
   return (
     <div>
-      <EvaluateModal open={EvalModalOpen} close={CloseModal} id={Id} yourid={SellerId === Id ? BuyerId : SellerId}></EvaluateModal>
+      <EvaluateModal open={EvalModalOpen} close={CloseModal} id={Id} yourid={SellerId === Id ? BuyerId : SellerId} msgbox={SelectedBox}></EvaluateModal>
       {IsMsgModalOpen && (
         <MsgModal
           ModalClose={MsgModalClose}
