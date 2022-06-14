@@ -9,11 +9,13 @@
 #ScoreIcon {
     width: 100px;
     height: 100px;
+    cursor: pointer;
 }
 
 #ScoreTitle {
     font-size: 20px;
     text-align: center;
+    cursor: pointer;
 }
 
 #EvaluateModalSection {
@@ -98,8 +100,9 @@
     animation: modal-bg-show 0.3s;
 }
 
-input[type="radio"]:checked+label {
-    border: 1px solid #ff3d60;
+[type=radio]:checked + label{
+    color: #ff3d60;
+    font-weight: bold;
 }
 
 @keyframes modal-show {
