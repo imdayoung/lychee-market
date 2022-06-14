@@ -78,6 +78,15 @@ export default function Header(props) {
             ></input>
           </div>
           <div>
+            {Target === "" ? 
+            <button type="button" className="SearchButton" onClick={() => {alert("검색어를 입력해주세요");}}>
+              <img
+                className="SearchButtonImage"
+                src="/images/glass.png"
+                alt="glass"
+              ></img>
+            </button>
+            :
             <Link to={{ pathname: "/" + DealType + "/search/" + Target }}>
               <button type="button" className="SearchButton">
                 <img
@@ -87,6 +96,7 @@ export default function Header(props) {
                 ></img>
               </button>
             </Link>
+            }
           </div>
         </div>
         <nav className="Top">
