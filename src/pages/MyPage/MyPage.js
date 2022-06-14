@@ -15,6 +15,8 @@ export default function MyPage() {
   const [UserInfo, SetUserInfo] = useState({});
   const [UserPoint, SetUserPoint] = useState({});
   const [IsModalOpen, SetIsModalOpen] = useState(false);
+  const [ModLocation, SetModLocation] = useState();
+  // let ModLocation;
 
   let Id;
   const cookie = getCookie("is_login");
@@ -43,11 +45,15 @@ export default function MyPage() {
         console.log(res.data);
         SetUserInfo(res.data);
         SetUserPoint(res.data.user_point);
+        let templocation = UserInfo.user_location;
+        if(templocation !== undefined)
+          SetModLocation(templocation.split("(")[0]);
       })
       .catch((err) => {
         console.log("마이페이지 불러오기 실패");
       });
   }, [UserPoint, Id]);
+
 
   return (
     <div>
@@ -75,7 +81,7 @@ export default function MyPage() {
             <span>
               : {Id}
               <br />: {UserInfo.user_phone}
-              <br />: {UserInfo.user_location}
+              <br />: {ModLocation}
             </span>
           </div>
           <div className="MyInfo MyInfoRight">

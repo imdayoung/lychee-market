@@ -130,7 +130,7 @@
     margin-bottom: 8px;
     width: 984px;
     min-height: 500px;
-    resize: vertical;
+    resize: none;
     font-size: 18px;
     outline: none;
 }
