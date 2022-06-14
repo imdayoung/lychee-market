@@ -144,7 +144,7 @@ export default function BUYDETAIL(){
                 <div>
                     <div id="Category">카테고리&nbsp; &gt; &nbsp;{ProductCategory}</div>
                     <div id="ImageDiv">
-                        <img id='DetailItemImage' src={ProductImg} alt='상품 이미지'></img>
+                        <img id='DetailItemImage' src={ProductImg == null ? '/images/products/prod00.png' : ProductImg} alt='상품 이미지'></img>
                     </div>
                     <div id="DetailDescription">
                         <div id="DetailItemTitle">{ProductTitle}</div>
