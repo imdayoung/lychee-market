@@ -1113,7 +1113,7 @@ app.post('/newproduct', function(req, res) {
 
 /* 전체 상품 불러오기 */
 app.get('/all', function(req, res) {
-	var SQL = "SELECT deal_type, product_id, product_title, product_price, product_img FROM `PRODUCT` ORDER BY `product_date` DESC"
+	var SQL = "SELECT deal_type, product_id, product_title, product_price, product_img FROM `PRODUCT` ORDER BY `product_date` DESC LIMIT 10;"
 	db.query(SQL, (err, result) => {
 		if(err) {
 			console.log("상품 불러오기 오류", err);
