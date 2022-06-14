@@ -10,6 +10,7 @@ import MsgModal from "./components/MsgModal";
 import MoneyModal from "./components/MoneyModal";
 import { useNavigate } from "react-router-dom";
 import getCookie from "../../components/GetCookie";
+import EvaluateModal from "../Evaluate/EvaluateModal";
 
 // /*아이디 받아오기*/
 // const Id = "mouse0429";
@@ -23,6 +24,8 @@ export default function Message(props) {
   const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
   const [IsMoneyModalOpen, SetIsMoneyModalOpen] = useState(false);
   const [ReportInfo, SetReportInfo] = useState(null);
+  const [BuyerId, SetBuyerId] = useState();
+  const [SellerId, SetSellerId] = useState();
 
   let Id;
   const cookie = getCookie("is_login");
@@ -31,8 +34,18 @@ export default function Message(props) {
   }
 
   let navigate = useNavigate();
-  var SellerId, BuyerId, ProdId;
+  var SId, BId, ProdId;
   var DealType;
+
+  const [EvalModalOpen, SetEvalModalOpen] = useState(false);
+
+  const OpenModal = (e) => {
+    e.preventDefault();
+    SetEvalModalOpen(true);
+  }
+  const CloseModal = () => {
+    SetEvalModalOpen(false);
+  }
 
   const ReportNavigate = () => {
     navigate('/report/write', {state:{info: ReportInfo}});
@@ -88,26 +101,21 @@ export default function Message(props) {
 
                       axios.get('http://localhost:8080/'+DealType+'/detail/'+res.data[0].product_id)
                       .then((result) => {
-                        SellerId = result.data[0].seller_id;
-                        BuyerId = result.data[0].buyer_id;
+                        SId = result.data[0].seller_id;
+                        BId = result.data[0].buyer_id;
                         ProdId = result.data[0].product_id;
-                        console.log("Seller: ", data.seller_id, SellerId);
-                        console.log("Buyer: ", data.buyer_id, BuyerId);
+                        SetSellerId(result.data[0].seller_id);
+                        SetBuyerId(result.data[0].buyer_id);
                         SetProductId(res.data[0].product_id);
+                        console.log(res.data[0].product_id, data.product_id);
                       SetSelectedMsg(
                         <div>
-                          {data.buyer_id === BuyerId && data.seller_id === SellerId ?
+                          {data.buyer_id === BId && data.seller_id === SId && ProdId === data.product_id ?
                           <MsgContent
                             Name="안내"
                             Content={
                               <div>
-                                <span>
-                                  <a
-                                    href={`http://localhost:3000/evaluate`}
-                                  >{`http://localhost:3000/evaluate`}</a>
-                                </span>
-                                <br />
-                                <br />
+                                  <a href="/msgbox" onClick={OpenModal}>{`여기를 클릭해 평가를 진행해주세요`}</a>
                               </div>
                             }
                           />
@@ -179,6 +187,7 @@ export default function Message(props) {
 
   return (
     <div>
+      <EvaluateModal open={EvalModalOpen} close={CloseModal} id={Id} yourid={SellerId === Id ? BuyerId : SellerId}></EvaluateModal>
       {IsMsgModalOpen && (
         <MsgModal
           ModalClose={MsgModalClose}

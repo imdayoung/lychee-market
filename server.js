@@ -94,9 +94,9 @@ app.post("/msgbox", function (req, res) {
   console.log(req.body.Id);
   const Id = req.body.Id;
   const SQL =
-    "SELECT U.user_nickname AS buyer_nickname, K.seller_nickname, K.msgbox_id, K.seller_id, K.buyer_id, K.msg_content, K.msg_time\
+    "SELECT U.user_nickname AS buyer_nickname, K.seller_nickname, K.msgbox_id, K.seller_id, K.product_id, K.buyer_id, K.msg_content, K.msg_time\
     FROM `USER` U,\
-    (SELECT U.user_nickname AS seller_nickname, B.msgbox_id, B.seller_id, B.buyer_id, M.msg_content, M.msg_time\
+    (SELECT U.user_nickname AS seller_nickname, B.msgbox_id, B.seller_id, B.buyer_id, B.product_id, M.msg_content, M.msg_time\
     FROM `USER` U, `MSGBOX` B, (\
       SELECT *\
       FROM (\
