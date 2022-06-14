@@ -137,7 +137,7 @@ export default function Message(props) {
                               <div>
                                 <div>{`"${res.data[0].product_title}"에 대한 쪽지입니다.`}</div>
                                 <br />
-                                <span>판매 글 정보 </span>
+                                <span>게시글 정보 </span>
                                 <span>
                                   <a
                                     href={`http://localhost:3000/${res.data[0].deal_type === 0 ? "buy" : "sell"}/detail/${res.data[0].product_id}`}
