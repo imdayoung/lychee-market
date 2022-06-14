@@ -15,6 +15,7 @@ export default function Header(props) {
   const onLogoutClick = () => {
     setCookie("is_login", true, -1);
     localStorage.clear();
+    window.location.reload();
   };
 
   return (

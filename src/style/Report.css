@@ -78,6 +78,7 @@
 }
 .ReportTable input, .AnswerTable input{
   font-size: 18px;
+  outline: none;
 }
 .ReportMain .ReportTh, .ReportMain .AnswerTh{
   width: 180px;
@@ -108,8 +109,9 @@
   width: 984px;
   min-height: 100px;
   height: flex;
-  resize: vertical;
+  resize: none;
   font-size: 18px;
+  outline: none;
 }
 .ReportTdImg{
   margin-top: 8px;

@@ -182,8 +182,8 @@ function ProductUpload() {
                 <input type="radio" name="dealmethod" value="택배거래"
                 onChange={changeDealmethod}/>택배거래
                 &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="dealmethod" value="둘 다"
-                onChange={changeDealmethod}/>둘 다
+                <input type="radio" name="dealmethod" value="직거래, 택배거래"
+                onChange={changeDealmethod}/>직거래, 택배거래
               </td>
             </tr>
             <tr className="p_row">
