@@ -26,6 +26,7 @@ const EvaluateModal = (props) => {
     .then((res) => {
         console.log(res.data);
     });
+    alert("평가가 완료되었습니다.");
   }
 
   return (
