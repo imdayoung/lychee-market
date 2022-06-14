@@ -179,7 +179,7 @@ export default function SELLDETAIL(){
                     <div id="InfoTitle">게시자 정보</div>
                     <div id="Info">{SellerNick}</div><br></br>
                     <div id="InfoTitle">상품 설명</div>
-                    <div id="Info2">{ProductDetail}</div>
+                    <pre id="Info2">{ProductDetail}</pre>
                 </div>
             </div>
         </div>

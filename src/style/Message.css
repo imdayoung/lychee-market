@@ -82,6 +82,8 @@
 
 #MsgDetail {
   font-size: 18px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 #MsgNull {
