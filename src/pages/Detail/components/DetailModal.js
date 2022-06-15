@@ -1,10 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import EvaluateModal from "../../Evaluate/EvaluateModal";
 
 const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
   const [MsgList, SetMsgList] = useState();
   const [MsgBoxId, SetMsgBoxId] = useState();
+  const [SellerId, SetSellerId] = useState();
+  const [BuyerId, SetBuyerId] = useState();
   var MsgBI;
+
+  const [EvalModalOpen, SetEvalModalOpen] = useState(false);
+
+  const OpenModal = (e) => {
+    e.preventDefault();
+    SetEvalModalOpen(true);
+  }
+  const CloseModal = () => {
+    SetEvalModalOpen(false);
+  }
 
   const DealDone = (DealWith) => {
     if(window.confirm(`${DealWith}와 거래 완료를 진행하시겠습니까?`)){
@@ -16,7 +29,15 @@ const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
       .then((res)=>{
         if(res.data === true){
           if(!alert("거래가 완료되었습니다.")){
+            console.log("***");
+            ModalClose();
+            console.log("???");
+            OpenModal();
+            console.log("!!!");
             window.location.href=`/${DealType === 0 ? "buy" : "sell"}/detail/${ProductId}`;
+            
+            
+            
           };
         } else {
           alert("거래를 완료하지 못했습니다. 다시 시도해주세요");
@@ -64,6 +85,10 @@ const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
               <thead>
                 <tr>
                   {res.data.map((data, index) => (
+                    SetSellerId(data.seller_id),
+                    SetBuyerId(data.buyer_id),
+                    console.log(data.seller_id),
+                    console.log(data.buyer_id),
                     <th
                       key={index}
                       onClick={() => {DealDone((Id === data.seller_id ? data.buyer_id: data.seller_id))}}
@@ -88,6 +113,7 @@ const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
 
   return (
     <div id="DetailModalContainer">
+      <EvaluateModal open={EvalModalOpen} close={CloseModal} id={Id} yourid={SellerId === Id ? BuyerId : SellerId} msgbox={MsgBoxId}></EvaluateModal>
       <div id="DetailModalMain">
         <div id="DetailModalTitle">
           <span className="FontTitle">거래 완료 대상</span>

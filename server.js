@@ -1129,7 +1129,7 @@ app.get('/all', function(req, res) {
 /* 검색 및 정렬 */
 // 판매해요 상품 전체 불러오기
 app.get('/sell', function(req, res) {
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=1";
+	var SQL = "SELECT product_id, product_title, product_price, product_date, product_img FROM `PRODUCT` WHERE `deal_type`=1 ORDER BY `product_date` DESC";
 	db.query(SQL, (err, result) => {
 		if(err) {
 			console.log("판매해요 상품 불러오기 오류: ", err);
@@ -1415,7 +1415,7 @@ app.get('/sell/search/distance/:target/:category/:mylocation', function(req, res
 
 // 구매해요 상품 전체 불러오기
 app.get('/buy', function(req, res) {
-	var SQL = "SELECT product_id, product_title, product_price, product_img FROM `PRODUCT` WHERE `deal_type`=0";
+	var SQL = "SELECT product_id, product_title, product_price, product_date, product_img FROM `PRODUCT` WHERE `deal_type`=0 ORDER BY `product_date` DESC";
 	db.query(SQL, (err, result) => {
 		if(err) {
 			console.log("구매해요 상품 불러오기 오류: ", err);
