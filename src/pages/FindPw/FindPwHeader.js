@@ -20,7 +20,7 @@ export default function FindPwHeader(props){
       <div className="Title2">
         <div className="TitleName2">
           <Link to="/" id='LinkNoLine'>
-            <div id="Logo2"></div>
+            <img id="Logo2" src = "/images/logo.png" alt="로고"/>
           </Link>
           <div id="TitleText2">리치마켓</div>
           <div id="TitleDetail2"> | 비밀번호 찾기</div>
