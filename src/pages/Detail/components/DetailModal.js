@@ -127,14 +127,6 @@ const DetailModal = ({ ModalClose, Id, ProductId, DealType }) => {
         <div className="DetailModalContent">
           {MsgList === null ? "거래를 완료할 대상이 없습니다." : MsgList}
         </div>
-        <button
-          id="DetailModalBtn"
-          onClick={() => {
-            ModalClose();
-          }}
-        >
-          보내기
-        </button>
       </div>
     </div>
   );
