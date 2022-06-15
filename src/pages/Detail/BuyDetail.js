@@ -32,7 +32,7 @@ export default function BUYDETAIL(){
     let Location = useLocation();
 
     // 물건 정보
-    const [SellerId, SetSellerId] = useState('');
+    const [BuyerId, SetBuyerId] = useState('');
     const [ProductTitle, SetProductTitle] = useState('');
     const [ProductCategory, SetProductCategory] = useState('');
     const [ProductPrice, SetProductPrice] = useState(0);
@@ -42,7 +42,7 @@ export default function BUYDETAIL(){
     const [ProductDetail, SetProductDetail] = useState('');
     const [DealMethod, SetDealMethod] = useState('');
     const [DealFlag, SetDealFlag] = useState(0);
-    const [SellerNick, SetSellerNick] = useState('');
+    const [BuyerNick, SetBuyerNick] = useState('');
 
     const [ReportInfo, SetReportInfo] = useState(null);
     const [ProductInfo, SetProductInfo] = useState(null);
@@ -60,7 +60,7 @@ export default function BUYDETAIL(){
     useEffect(() => {
         axios.get('http://localhost:8080/buy/detail/'+ProdId)
         .then((res) => {
-            SetSellerId(res.data[0].buyer_id);
+            SetBuyerId(res.data[0].buyer_id);
             SetProductTitle(res.data[0].product_title);
             SetProductCategory(res.data[0].product_category);
             SetProductPrice(res.data[0].product_price);
@@ -71,7 +71,7 @@ export default function BUYDETAIL(){
             SetDealMethod(res.data[0].deal_method);
             if(res.data[0].deal_flag === 0)  SetDealFlag('거래중');
             else                            SetDealFlag('거래완료');
-            SetSellerNick(res.data[0].seller_nickname);
+            SetBuyerNick(res.data[0].buyer_nickname);
             SetReportInfo({
                 reportedid: res.data[0].buyer_id,
                 cid: null,
@@ -145,13 +145,13 @@ export default function BUYDETAIL(){
                 <DetailModal ModalClose={DealModalClose} Id={userid} ProductId={ProdId} DealType={0} />
             )}
             {IsMsgModalOpen && (
-                <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={SellerNick} DealId={SellerId} ProductId={ProdId} DealType={1} />
+                <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={BuyerNick} DealId={BuyerId} ProductId={ProdId} DealType={1} />
             )}
             {IsInfoModalOpen && (
-                <InfoModal ModalClose={InfoModalClose} UserNickname={SellerNick}/>
+                <InfoModal ModalClose={InfoModalClose} UserNickname={BuyerNick}/>
             )}
             {IsEvalModalOpen && (
-                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={SellerId} MsgBox={null}></EvaluateModal>
+                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={BuyerId} MsgBox={null}></EvaluateModal>
             )}
             <div className='Head'>
             {IsManager ?
@@ -176,13 +176,13 @@ export default function BUYDETAIL(){
                         </div>
                         <div id="MoreInfo">
                             <div id="LikeDate">💕{ProductLike} | ⏰{moment(ProductDate).format("YY.MM.DD HH:mm")}</div>
-                            {(userid !== SellerId) && (IsLogin !== false) ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
+                            {(userid !== BuyerId) && (IsLogin !== false) ? <div id="ReportButton" onClick={ReportNavigate}>📢신고하기</div> : <></>}
                         </div>
-                        <div hidden={(userid === SellerId) || (IsLogin === false) ? true : false}>
+                        <div hidden={(userid === BuyerId) || (IsLogin === false) ? true : false}>
                             <button id="LikeButton" onClick={() => {ILikeIt();}}>찜하기</button>
                             <button id="MessageButton" onClick={MsgModalClose}>쪽지하기</button>
                         </div>
-                        <div hidden={userid !== SellerId}>
+                        <div hidden={userid !== BuyerId}>
                             <button id="DeleteButton" onClick={DeleteProduct}>삭제</button>
                             <button id="EditButton" onClick={UpdateNavigate}>수정</button>
                             {DealFlag === "거래완료" ? <></> : <button id="CompleteButton" onClick={DealModalClose}>거래완료</button>}
@@ -196,7 +196,7 @@ export default function BUYDETAIL(){
                 
                 <div id="Infos">
                     <div id="InfoTitle">게시자 정보</div>
-                    <div id="Info" onClick={InfoModalClose}>{SellerNick}</div><br></br>
+                    <div id="Info" onClick={InfoModalClose}>{BuyerNick}</div><br></br>
                     <div id="InfoTitle">상품 설명</div>
                     <pre id="Info2">{ProductDetail}</pre>
                 </div>

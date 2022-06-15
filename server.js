@@ -1431,7 +1431,7 @@ app.get('/buy', function(req, res) {
 // 구매해요 상품 상세보기
 app.get('/buy/detail/:product_id', function(req, res) {
 	const ProductId = req.params.product_id;
-	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `buyer_id` FROM `PRODUCT` WHERE product_id=?)) AS seller_nickname FROM `PRODUCT` WHERE product_id=?;";
+	var SqlDetail = "SELECT *, (SELECT `user_nickname` FROM `USER` WHERE `user_id` in (SELECT `buyer_id` FROM `PRODUCT` WHERE product_id=?)) AS buyer_nickname FROM `PRODUCT` WHERE product_id=?;";
 	db.query(SqlDetail, [ProductId, ProductId], (err, result) => {
 		if(err) {
 			console.log("구매해요 상품 세부정보 불러오기 오류: ", err);
