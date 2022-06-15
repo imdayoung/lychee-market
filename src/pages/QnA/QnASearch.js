@@ -118,7 +118,7 @@ export default function QnASearch(){
         <div className="QnABottom">
           <div className="searchQnA">
             <input type='text' onChange={(event) => SetWord(event.target.value)}/>
-            <Link to={{pathname: '/qna/search/'+Word}}>
+            <Link to={{pathname: '/qna/search/'+Word}} state={{searchword: Word}}>
               <button type='button'onClick={()=>{SetSearchWord(Word)}}>검색</button>                       
             </Link>
           </div>
