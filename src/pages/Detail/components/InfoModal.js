@@ -84,11 +84,6 @@ const InfoModal = ({ ModalClose, UserNickname }) => {
                   신뢰도
                   <br />
                   가입일자
-                  <br />
-                  전화번호
-                  <br />
-                  보유포인트
-                  <br />
                 </span>
                 <span>
                   : {res.data.user_id}
@@ -99,8 +94,6 @@ const InfoModal = ({ ModalClose, UserNickname }) => {
                   {res.data.user_location.split("(")[1]}
                   <br />: {res.data.user_reliable}
                   <br />: {res.data.join_date}
-                  <br />: {res.data.user_phone}
-                  <br />: {res.data.user_point}
                 </span>
               </div>
             );
