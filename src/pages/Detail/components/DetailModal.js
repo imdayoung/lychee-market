@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import EvaluateModal from "../../Evaluate/EvaluateModal";
 
-const DetailModal = ({ ModalClose, EvalModalClose, Id, ProductId, DealType }) => {
+const DetailModal = ({ ModalClose, EvalModalClose, Id, ProductId, DealType, SetDealWith }) => {
   const [MsgList, SetMsgList] = useState();
   const [MsgBoxId, SetMsgBoxId] = useState();
   const [SellerId, SetSellerId] = useState();
@@ -19,6 +19,7 @@ const DetailModal = ({ ModalClose, EvalModalClose, Id, ProductId, DealType }) =>
       .then((res)=>{
         if(res.data === true){
           if(!alert("거래가 완료되었습니다.")){
+            SetDealWith(DealWith)
             ModalClose();
             EvalModalClose();
           };

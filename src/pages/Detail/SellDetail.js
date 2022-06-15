@@ -47,6 +47,9 @@ export default function SELLDETAIL(){
     const [ReportInfo, SetReportInfo] = useState(null);
     const [ProductInfo, SetProductInfo] = useState(null);
 
+    // 거래 상대
+    const [DealWith, SetDealWith] = useState();
+
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
 
@@ -142,7 +145,7 @@ export default function SELLDETAIL(){
     return (
         <div>
             {IsDealModalOpen && (
-                <DetailModal ModalClose={DealModalClose} EvalModalClose={EvalModalClose} Id={userid} ProductId={ProdId} DealType={1} />
+                <DetailModal ModalClose={DealModalClose} EvalModalClose={EvalModalClose} Id={userid} ProductId={ProdId} DealType={1} SetDealWith={SetDealWith} DealWith={DealWith}/>
             )}
             {IsMsgModalOpen && (
                 <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={SellerNick} DealId={SellerId} ProductId={ProdId} DealType={0} />
@@ -151,7 +154,7 @@ export default function SELLDETAIL(){
                 <InfoModal ModalClose={InfoModalClose} UserNickname={SellerNick}/>
             )}
             {IsEvalModalOpen && (
-                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={SellerId} MsgBox={null}></EvaluateModal>
+                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={DealWith} MsgBox={null}></EvaluateModal>
             )}
             <div className='Head'>
             {IsManager ?

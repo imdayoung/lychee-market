@@ -47,6 +47,9 @@ export default function BUYDETAIL(){
     const [ReportInfo, SetReportInfo] = useState(null);
     const [ProductInfo, SetProductInfo] = useState(null);
 
+    // 거래 상대
+    const [DealWith, SetDealWith] = useState();
+
     // production_id 얻기
     const ProdId = Location.pathname.split('/').slice(-1)[0];
 
@@ -145,13 +148,13 @@ export default function BUYDETAIL(){
                 <DetailModal ModalClose={DealModalClose} Id={userid} ProductId={ProdId} DealType={0} />
             )}
             {IsMsgModalOpen && (
-                <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={BuyerNick} DealId={BuyerId} ProductId={ProdId} DealType={1} />
+                <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={BuyerNick} DealId={BuyerId} ProductId={ProdId} DealType={1} DealWith={SetDealWith}/>
             )}
             {IsInfoModalOpen && (
                 <InfoModal ModalClose={InfoModalClose} UserNickname={BuyerNick}/>
             )}
             {IsEvalModalOpen && (
-                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={BuyerId} MsgBox={null}></EvaluateModal>
+                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={DealWith} MsgBox={null}></EvaluateModal>
             )}
             <div className='Head'>
             {IsManager ?
