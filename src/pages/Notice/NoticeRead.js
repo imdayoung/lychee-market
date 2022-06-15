@@ -98,11 +98,11 @@ export default function NoticeRead(){
       //   });
       // }
       Axios.post("http://localhost:8080/notice/update", {
-        notice_id: NoticeId,
         notice_date: UpdateDate,
         notice_title: NoticeTitle,
         notice_content: NoticeContent,
         notice_img: NoticeImg,
+        notice_id: NoticeId
       }).then((res)=>{
         console.log(res);
         if(res.data === true)
