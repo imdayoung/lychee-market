@@ -2495,4 +2495,31 @@ app.post("/userinfo", function(req, res){
       res.send(rows[0]);
     }
   })
-})
+});
+
+
+/*
+ * 목적 : 매니저 회원가입
+ * input : id, pw, nickname
+ * output : user 정보 / null
+ */
+app.post("/manager/register", function (req, res) {
+  const id = req.body.id;
+  const nickname = req.body.nickname;
+  const pw = req.body.pw;
+
+  db.query(
+    "INSERT INTO `MANAGER` (`manager_id`, `manager_pw`, `manager_nickname`) VALUES (?,?,?)",
+    [id, pw, nickname],
+    (err, result) => {
+      if (err) {
+        console.log("register error");
+        res.send({ message: "실패" });
+      }
+      if (result) {
+        console.log("register succeed!");
+        res.send({ message: "성공" });
+      }
+    }
+  );
+});

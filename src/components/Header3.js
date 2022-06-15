@@ -18,6 +18,12 @@ export default function ManagerHeader(props) {
         >
           <div className="TopNav">로그아웃</div>
         </Link>
+        <Link
+          to={{ pathname: "/manager/register" }}
+          id="LinkNoLine"
+        >
+          <div className="TopNav">관리자 추가</div>
+        </Link>
       </nav>
 
       <div className="Divider"></div>

@@ -145,7 +145,7 @@ export default function BUYDETAIL(){
     return (
         <div>
             {IsDealModalOpen && (
-                <DetailModal ModalClose={DealModalClose} EvalModalClose={EvalModalClose} Id={userid} ProductId={ProdId} DealType={0} SetDealWith={SetDealWith} DealWith={DealWith}/>
+                <DetailModal ModalClose={DealModalClose} EvalModalClose={EvalModalClose} Id={userid} ProductId={ProdId} DealType={0} SetDealWith={SetDealWith}/>
             )}
             {IsMsgModalOpen && (
                 <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={BuyerNick} DealId={BuyerId} ProductId={ProdId} DealType={1}/>

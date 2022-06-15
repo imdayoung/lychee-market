@@ -35,6 +35,7 @@ import QnASearch from './pages/QnA/QnASearch';
 import ManageMain from './pages/Management/ManageMain';
 import ProductUpload from './pages/ProductUpload/ProductUpload';
 import ProductUpdate from './pages/ProductUpdate/ProductUpdate';
+import ManagerRegister from './pages/ManagerRegister/ManagerRegister';
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
         <Route path="/manager/main" element={<ManageMain/>}/>
         <Route path="/product/upload" element={<ProductUpload/>}/>
         <Route path="/product/update" element={<ProductUpdate/>}/>
+        <Route path="/manager/register" element={<ManagerRegister/>}/>
       </Routes>
     </BrowserRouter>
   );
