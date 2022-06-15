@@ -90,7 +90,7 @@ export default function Message(props) {
                       RoomId: data.msgbox_id,
                     })
                     .then((res) => {
-                      if (res.data[0].deal_type === 0) DealType = "buy";
+                      if (res.data[0].deal_type === 0) DealType = "Buy";
                       else DealType = "Sell";
 
                       axios
@@ -107,7 +107,7 @@ export default function Message(props) {
                           SetSellerId(result.data[0].seller_id);
                           SetBuyerId(result.data[0].buyer_id);
                           SetProductId(res.data[0].product_id);
-                          console.log(data.eval_flag, DealType, data.buyer_id, BId, data.seller_id, SId, ProdId);
+                          console.log(DealType, data.seller_id, SId, data.buyer_id, BId, data.product_id, ProdId, data.eval_flag);
                           SetSelectedMsg(
                             <div>
                               {((DealType === "Sell" && SId !== Id) ||
@@ -116,12 +116,13 @@ export default function Message(props) {
                               data.seller_id === SId &&
                               ProdId === data.product_id &&
                               data.eval_flag === 0 ? (
+                               
                                 <MsgContent
                                   Name="안내"
                                   Content={
                                     <div>
                                       <a
-                                        onClick={EvalModalClose}
+                                        onClick={EvalModalClose} id="EvalUnderline"
                                       >{`여기를 클릭해 평가를 진행해주세요`}</a>
                                     </div>
                                   }

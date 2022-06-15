@@ -200,3 +200,7 @@ a {
   font-size: 20px;
   font-weight: bold;
 }
+
+#EvalUnderline {
+  text-decoration: underline #1455B5;
+}
