@@ -5,7 +5,7 @@ import Score from "./components/Score";
 
 const EvaluateModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, id, yourid, msgbox } = props;
+  const { ModalClose, Id, YourId, MsgBox } = props;
   const [SelectScore, SetSelectScore] = useState(0);
   
   const RadioHandler = (e) => {
@@ -20,25 +20,26 @@ const EvaluateModal = (props) => {
   const SendBtnHandler = (e) => {
     console.log(SelectScore);
     axios.post('http://localhost:8080/evaluate', {
-        id: yourid,
+        id: YourId,
         score: SelectScore,
     })
     .then((res) => {
         console.log(res.data);
     });
-    axios.post('http://localhost:8080/evalflagupdate', {
-      MsgBoxId: msgbox
-    })
+    if(MsgBox !== null){
+      axios.post('http://localhost:8080/evalflagupdate', {
+        MsgBoxId: MsgBox,
+      })
+    }
     alert("평가가 완료되었습니다.");
     window.location.reload();
   }
 
   return (
-     <div className={open ? 'openEvaluateModal EvaluateModal' : 'EvaluateModal'}>
-      {open ? (
+     <div className={'openEvaluateModal EvaluateModal'}>
         <section id="EvaluateModalSection">
           <main id="EvaluateModalMain">
-            <div id="EvaluateModalText"><span id="EvaluateModalTextStrong">{id}</span>님, <span id="EvaluateModalTextStrong">{yourid}</span>님과의 거래가 완료되었습니다!</div>
+            <div id="EvaluateModalText"><span id="EvaluateModalTextStrong">{Id}</span>님, <span id="EvaluateModalTextStrong">{YourId}</span>님과의 거래가 완료되었습니다!</div>
             <div id="EvaluateModalText">거래는 어떠셨나요?</div>
             <div id="ScoreSelect">
                 <input type="radio" className="Invisible" name="evaluate" value="best" id="best" onChange={RadioHandler}></input><label htmlFor="best"><Score icon={'/images/evaluate/best.png'} title={'최고예요'}></Score></label>
@@ -49,10 +50,9 @@ const EvaluateModal = (props) => {
             </div>
         </main>
           <footer>
-            <button className="close" onClick={() => {close(); SendBtnHandler();}}>후기 남기기</button>
+            <button className="close" onClick={() => {ModalClose(); SendBtnHandler();}}>후기 남기기</button>
           </footer>
         </section>
-      ) : null}
     </div> 
   );
 };

@@ -76,13 +76,13 @@ INSERT INTO `PRODUCT` (`seller_id`,`buyer_id`,`product_title`,`product_category`
 ('mouse0818',NULL,'해피밀 피규어 팔아요','키덜트', 1000, 0, '2022-06-15 15:39:29','/images/products/happymeal.jpg',1,'해피밀 피규어입니다\n끼울수도있음!!\n빈티지 피규어입니당','직거래, 택배거래', 1,0);
 
 INSERT INTO `MSGBOX` VALUES
-(0, 'mouse0429', 'jiwonK', 2, 0), #감자
-(0, 'mouse0429', 'jaejae', 9, 0), #꼬부기
-(0, 'mouse0429', 'mettamong_', 13, 0), #칼림바
-(0, 'mouse0429', 'mouse0818', 22, 0), #버즈케이스
-(0, 'daviichoi', 'mouse0429', 18, 0), #닥마
+(0, 'jiwonK', 'mouse0429', 2, 0), #감자
+(0, 'jaejae', 'mouse0429', 9, 0), #띠부씰 교환
+(0, 'mettamong_', 'mouse0429', 13, 0), #칼림바
+(0, 'mouse0818', 'mouse0429', 22, 0), #버즈케이스
+(0, 'mouse0429', 'daviichoi', 18, 0), #닥마
 (0, 'mouse0429', 'sy02lee', 1, 0), #갤럭시워치
-(0, 'mouse0429', 'entp_sol', 10, 0); #티켓
+(0, 'entp_sol', 'mouse0429', 10, 0); #티켓
 
 INSERT INTO `MSG` VALUES
 (0, 1, 'mouse0429', '감자 유기농인가요?', '2022-06-10 12:01:34'),

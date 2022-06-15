@@ -10,6 +10,7 @@ import getCookie from "../../components/GetCookie";
 import DetailModal from "./components/DetailModal";
 import MsgStartModal from "./components/MsgStartModal";
 import InfoModal from "./components/InfoModal";
+import EvaluateModal from "../Evaluate/EvaluateModal";
 
 export default function SELLDETAIL(){
     const cookie = getCookie("is_login");
@@ -53,6 +54,7 @@ export default function SELLDETAIL(){
     const [IsDealModalOpen, SetIsDealModalOpen] = useState(false);
     const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
     const [IsInfoModalOpen, SetIsInfoModalOpen] = useState(false);
+    const [IsEvalModalOpen, SetIsEvalModalOpen] = useState(false);
 
     // 물건 세부정보 불러오기
     useEffect(() => {
@@ -133,16 +135,23 @@ export default function SELLDETAIL(){
         SetIsInfoModalOpen(!IsInfoModalOpen);
     }
 
+    const EvalModalClose = () => {
+        SetIsEvalModalOpen(!IsEvalModalOpen);
+    }
+
     return (
         <div>
             {IsDealModalOpen && (
-                <DetailModal ModalClose={DealModalClose} Id={userid} ProductId={ProdId} DealType={1} />
+                <DetailModal ModalClose={DealModalClose} EvalModalClose={EvalModalClose} Id={userid} ProductId={ProdId} DealType={1} />
             )}
             {IsMsgModalOpen && (
                 <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={SellerNick} DealId={SellerId} ProductId={ProdId} DealType={0} />
             )}
             {IsInfoModalOpen && (
                 <InfoModal ModalClose={InfoModalClose} UserNickname={SellerNick}/>
+            )}
+            {IsEvalModalOpen && (
+                <EvaluateModal ModalClose={EvalModalClose} Id={userid} YourId={SellerId} MsgBox={null}></EvaluateModal>
             )}
             <div className='Head'>
             {IsManager ?

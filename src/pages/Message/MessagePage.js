@@ -21,11 +21,12 @@ export default function Message(props) {
   const [SelectedBox, SetSelectedBox] = useState(0);
   const [MsgSenderName, SetMsgSenderName] = useState();
   const [ProductId, SetProductId] = useState();
-  const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
-  const [IsMoneyModalOpen, SetIsMoneyModalOpen] = useState(false);
   const [ReportInfo, SetReportInfo] = useState(null);
   const [BuyerId, SetBuyerId] = useState();
   const [SellerId, SetSellerId] = useState();
+  const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
+  const [IsMoneyModalOpen, SetIsMoneyModalOpen] = useState(false);
+  const [IsEvalModalOpen, SetIsEvalModalOpen] = useState(false);
 
   let Id;
   const cookie = getCookie("is_login");
@@ -37,19 +38,9 @@ export default function Message(props) {
   var SId, BId, ProdId;
   var DealType;
 
-  const [EvalModalOpen, SetEvalModalOpen] = useState(false);
-
-  const OpenModal = (e) => {
-    e.preventDefault();
-    SetEvalModalOpen(true);
-  }
-  const CloseModal = () => {
-    SetEvalModalOpen(false);
-  }
-
   const ReportNavigate = () => {
-    navigate('/report/write', {state:{info: ReportInfo}});
-  }
+    navigate("/report/write", { state: { info: ReportInfo } });
+  };
 
   const MsgModalClose = () => {
     SetIsMsgModalOpen(!IsMsgModalOpen);
@@ -57,6 +48,10 @@ export default function Message(props) {
 
   const MoneyModalClose = () => {
     SetIsMoneyModalOpen(!IsMoneyModalOpen);
+  };
+
+  const EvalModalClose = () => {
+    SetIsEvalModalOpen(!IsEvalModalOpen);
   };
 
   useEffect(() => {
@@ -95,72 +90,97 @@ export default function Message(props) {
                       RoomId: data.msgbox_id,
                     })
                     .then((res) => {
-                      if(res.data[0].deal_type === 0) DealType = "buy";
-                      else  DealType="Sell";
+                      if (res.data[0].deal_type === 0) DealType = "buy";
+                      else DealType = "Sell";
 
-                      axios.get('http://localhost:8080/'+DealType+'/detail/'+res.data[0].product_id)
-                      .then((result) => {
-                        SId = result.data[0].seller_id;
-                        BId = result.data[0].buyer_id;
-                        ProdId = result.data[0].product_id;
-                        SetSellerId(result.data[0].seller_id);
-                        SetBuyerId(result.data[0].buyer_id);
-                        SetProductId(res.data[0].product_id);
-                      SetSelectedMsg(
-                        <div>
-                          {((DealType === "Sell" && SId !== Id) || (DealType === "Buy" && BId !== Id)) && data.buyer_id === BId && data.seller_id === SId && ProdId === data.product_id && data.eval_flag === 0 ?
-                          <MsgContent
-                            Name="안내"
-                            Content={
-                              <div>
-                                  <a href="/msgbox" onClick={OpenModal}>{`여기를 클릭해 평가를 진행해주세요`}</a>
-                              </div>
-                            }
-                          />
-                          : <></>
-                          }
-                          {res.data.map((data, index) => (
-                            <MsgContent
-                              key={index}
-                              Name={
-                                Id === data.user_id ? "나" : data.user_nickname
-                              }
-                              Date={moment(data.msg_time).format(
-                                "YY/MM/DD hh:mm"
+                      axios
+                        .get(
+                          "http://localhost:8080/" +
+                            DealType +
+                            "/detail/" +
+                            res.data[0].product_id
+                        )
+                        .then((result) => {
+                          SId = result.data[0].seller_id;
+                          BId = result.data[0].buyer_id;
+                          ProdId = result.data[0].product_id;
+                          SetSellerId(result.data[0].seller_id);
+                          SetBuyerId(result.data[0].buyer_id);
+                          SetProductId(res.data[0].product_id);
+                          console.log(data.eval_flag, DealType, data.buyer_id, BId, data.seller_id, SId, ProdId);
+                          SetSelectedMsg(
+                            <div>
+                              {((DealType === "Sell" && SId !== Id) ||
+                                (DealType === "Buy" && BId !== Id)) &&
+                              data.buyer_id === BId &&
+                              data.seller_id === SId &&
+                              ProdId === data.product_id &&
+                              data.eval_flag === 0 ? (
+                                <MsgContent
+                                  Name="안내"
+                                  Content={
+                                    <div>
+                                      <a
+                                        onClick={EvalModalClose}
+                                      >{`여기를 클릭해 평가를 진행해주세요`}</a>
+                                    </div>
+                                  }
+                                />
+                              ) : (
+                                <></>
                               )}
-                              Content={data.msg_content}
-                            />
-                          ))}
-                          <MsgContent
-                            Name="안내"
-                            Content={
-                              <div>
-                                <div>{`"${res.data[0].product_title}"에 대한 쪽지입니다.`}</div>
-                                <br />
-                                <span>게시글 정보 </span>
-                                <span>
-                                  <a
-                                    href={`http://localhost:3000/${res.data[0].deal_type === 0 ? "buy" : "sell"}/detail/${res.data[0].product_id}`}
-                                  >{`http://localhost:3000/${(res.data[0].deal_type === 0 ? "buy" : "sell")}/detail/${res.data[0].product_id}`}</a>
-                                </span>
-                                <br />
-                                <br />
-                                <div>
-                                  허위 사실, 사기 등에 유의하시길 바라며 광고,
-                                  스팸 등의 쪽지를 받으신 경우 신고를 눌러주세요
-                                </div>
-                              </div>
-                            }
-                          />
-                        </div>
-                      );
-                      console.log(res.data);
-                    })
-                    .catch((err) => {
-                      console.log("채팅 내역 불러오기 실패");
+                              {res.data.map((data, index) => (
+                                <MsgContent
+                                  key={index}
+                                  Name={
+                                    Id === data.user_id
+                                      ? "나"
+                                      : data.user_nickname
+                                  }
+                                  Date={moment(data.msg_time).format(
+                                    "YY/MM/DD hh:mm"
+                                  )}
+                                  Content={data.msg_content}
+                                />
+                              ))}
+                              <MsgContent
+                                Name="안내"
+                                Content={
+                                  <div>
+                                    <div>{`"${res.data[0].product_title}"에 대한 쪽지입니다.`}</div>
+                                    <br />
+                                    <span>게시글 정보 </span>
+                                    <span>
+                                      <a
+                                        href={`http://localhost:3000/${
+                                          res.data[0].deal_type === 0
+                                            ? "buy"
+                                            : "sell"
+                                        }/detail/${res.data[0].product_id}`}
+                                      >{`http://localhost:3000/${
+                                        res.data[0].deal_type === 0
+                                          ? "buy"
+                                          : "sell"
+                                      }/detail/${res.data[0].product_id}`}</a>
+                                    </span>
+                                    <br />
+                                    <br />
+                                    <div>
+                                      허위 사실, 사기 등에 유의하시길 바라며
+                                      광고, 스팸 등의 쪽지를 받으신 경우 신고를
+                                      눌러주세요
+                                    </div>
+                                  </div>
+                                }
+                              />
+                            </div>
+                          );
+                          console.log(res.data);
+                        })
+                        .catch((err) => {
+                          console.log("채팅 내역 불러오기 실패");
+                        });
                     });
-                      })
-                      
                 }}
               >
                 <MsgSender
@@ -185,14 +205,21 @@ export default function Message(props) {
 
   return (
     <div>
-      <EvaluateModal open={EvalModalOpen} close={CloseModal} id={Id} yourid={SellerId === Id ? BuyerId : SellerId} msgbox={SelectedBox}></EvaluateModal>
+      {IsEvalModalOpen && (
+        <EvaluateModal
+          ModalClose={EvalModalClose}
+          Id={Id}
+          YourId={SellerId === Id ? BuyerId : SellerId}
+          MsgBox={SelectedBox}
+        />
+      )}
       {IsMsgModalOpen && (
         <MsgModal
           ModalClose={MsgModalClose}
           MsgName={MsgSenderName}
           MsgBoxId={SelectedBox}
           SenderId={Id}
-        ></MsgModal>
+        />
       )}
       {IsMoneyModalOpen && (
         <MoneyModal
@@ -200,7 +227,7 @@ export default function Message(props) {
           SenderId={Id}
           ReceiverName={MsgSenderName}
           ProductId={ProductId}
-        ></MoneyModal>
+        />
       )}
       <Header />
       <main className="MessageMain">
