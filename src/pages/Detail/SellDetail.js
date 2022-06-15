@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import moment from "moment";
 import Header from "../../components/Header2"
 import ManagerHeader from "../../components/Header3";
 import '../../style/Detail.css';
@@ -8,7 +9,7 @@ import * as Common from "../../components/CommonFunc"
 import getCookie from "../../components/GetCookie";
 import DetailModal from "./components/DetailModal";
 import MsgStartModal from "./components/MsgStartModal";
-import moment from "moment";
+import InfoModal from "./components/InfoModal";
 
 export default function SELLDETAIL(){
     const cookie = getCookie("is_login");
@@ -51,6 +52,7 @@ export default function SELLDETAIL(){
     // 모달창 열기
     const [IsDealModalOpen, SetIsDealModalOpen] = useState(false);
     const [IsMsgModalOpen, SetIsMsgModalOpen] = useState(false);
+    const [IsInfoModalOpen, SetIsInfoModalOpen] = useState(false);
 
     // 물건 세부정보 불러오기
     useEffect(() => {
@@ -127,6 +129,10 @@ export default function SELLDETAIL(){
         SetIsMsgModalOpen(!IsMsgModalOpen);
     }
 
+    const InfoModalClose = () => {
+        SetIsInfoModalOpen(!IsInfoModalOpen);
+    }
+
     return (
         <div>
             {IsDealModalOpen && (
@@ -134,6 +140,9 @@ export default function SELLDETAIL(){
             )}
             {IsMsgModalOpen && (
                 <MsgStartModal ModalClose={MsgModalClose} Id={userid} DealName={SellerNick} DealId={SellerId} ProductId={ProdId} DealType={0} />
+            )}
+            {IsInfoModalOpen && (
+                <InfoModal ModalClose={InfoModalClose} UserNickname={SellerNick}/>
             )}
             <div className='Head'>
             {IsManager ?
@@ -178,7 +187,7 @@ export default function SELLDETAIL(){
                 
                 <div id="Infos">
                     <div id="InfoTitle">게시자 정보</div>
-                    <div id="Info">{SellerNick}</div><br></br>
+                    <div id="Info" onClick={InfoModalClose}>{SellerNick}</div><br></br>
                     <div id="InfoTitle">상품 설명</div>
                     <pre id="Info2">{ProductDetail}</pre>
                 </div>

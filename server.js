@@ -2477,3 +2477,22 @@ app.post('/evalflagupdate', function(req, res) {
     }
   });
 })
+
+/*
+ * 목적: 유저 회원 정보 불러오기
+ * input: user_nickname
+ * output: true / false
+ */
+app.post("/userinfo", function(req, res){
+  const UserNickname = req.body.UserNickname;
+  const SQL = "SELECT * FROM `USER` WHERE `user_nickname`=?"
+  db.query(SQL, UserNickname, function(err, rows) {
+    if(err){
+      console.log("회원 정보 불러오기 실패", err);
+      res.send(false);
+    } else {
+      console.log("회원 정보 불러오기 성공", rows[0]);
+      res.send(rows[0]);
+    }
+  })
+})
