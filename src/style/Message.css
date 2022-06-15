@@ -203,4 +203,5 @@ a {
 
 #EvalUnderline {
   text-decoration: underline #1455B5;
+  cursor: pointer;
 }
