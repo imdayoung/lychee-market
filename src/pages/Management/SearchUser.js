@@ -4,6 +4,7 @@ import Axios from "axios";
 import ManagerHeader from "../../components/Header3";
 import UserListItem from "./components/UserListItem";
 import Pagination from "../../components/Pagination";
+import InfoModal from "../Detail/components/InfoModal";
 import "../../style/Management.css"
 
 export default function SearchUser() {
@@ -30,7 +31,10 @@ export default function SearchUser() {
     SetSearchWord(TempWord);
   },[location]);
 
-  
+  // 사용자 정보 모달창
+  const [SelNickname, SetSelNickname] = useState();
+  const [IsInfoModalOpen, SetIsInfoModalOpen] = useState(false);
+
   useEffect(()=>{
     Axios.get('http://localhost:8080/manager/user/'+SearchWord)
     .then((res)=>{
@@ -39,6 +43,15 @@ export default function SearchUser() {
     });
   },[SearchWord]);
 
+  const InfoModalClose = () => {
+    SetIsInfoModalOpen(!IsInfoModalOpen);
+  }
+
+  const SelUserNickname = (name) => {
+    console.log(name);
+    SetSelNickname(name);
+  }
+
   let UserList = [];
   if(User.length === 0){
     UserList.push(<tr key={0} className="ListRow"><td colSpan={6}>"{SearchWord}"에 대한 검색결과가 없습니다.</td></tr>);
@@ -46,12 +59,15 @@ export default function SearchUser() {
   for(let i=User.length-1; i>=0; i--){
     UserList.push(
       <UserListItem key={i} userid={User[i].user_id} nickname={User[i].user_nickname}
-      username={User[i].user_name} reliable={User[i].user_reliable}/>
+      username={User[i].user_name} reliable={User[i].user_reliable} InfoModalClose={InfoModalClose} SelUserNickname={SelUserNickname}/>
     );
   }
 
   return (
     <div>
+      {IsInfoModalOpen && (
+        <InfoModal ModalClose={InfoModalClose} UserNickname={SelNickname}/>
+      )}
       <ManagerHeader keyword="회원 관리"/>
       <div className="ManageMain">
       <div className="SearchResult"><span>{SearchWord}</span>에 대한 검색결과입니다.</div>
