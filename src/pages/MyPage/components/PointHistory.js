@@ -35,8 +35,6 @@ export default function PointHistory(props) {
     <div>
       <select id="DropDown">
         <option value="new">최신순</option>
-        <option value="doing">거래중</option>
-        <option value="done">거래완료</option>
       </select>
       <table
         className="MyPagePointTitle"
