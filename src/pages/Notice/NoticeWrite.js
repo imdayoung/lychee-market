@@ -28,6 +28,7 @@ export default function NoticeWrite(){
   const [NoticeContent, SetNoticeContent] = useState('');
   const [NoticeImg, SetNoticeImg] = useState('');
   const [ImgName, SetImgName] = useState('');
+  const [error, setError] = useState(false);
 
   useEffect(()=>{
     if(!IsManager) {
@@ -35,6 +36,18 @@ export default function NoticeWrite(){
       Navigate(-1);
     }
   });
+
+  useEffect(() => {
+    console.log(error);
+    if(
+      NoticeTitle === "" ||
+      NoticeContent === ""
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [NoticeTitle, NoticeContent]);
 
   // 공지사항 작성
   const SubmitClick = ()=>{
@@ -105,7 +118,8 @@ export default function NoticeWrite(){
           </table>
           <div className="buttons">
             <button className="list" type="button" onClick={ListClick}>목록</button>
-            <button className="submit" type="button" onClick={SubmitClick}>작성하기</button>
+            { error ? <button className="Nsubmit" type="button">작성하기</button>
+            : <button className="submit" type="button" onClick={SubmitClick}>작성하기</button>}
           </div>
       </main>
     </div>
