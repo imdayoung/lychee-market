@@ -188,7 +188,7 @@
   cursor: pointer;
 }
 
-.allQnA{
+.writeQnA .allQnA{
   margin: 8px;
   width: 150px;
   height: 40px;
