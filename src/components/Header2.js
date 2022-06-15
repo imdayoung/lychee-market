@@ -1,6 +1,6 @@
 import "../style/Header.css";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import getCookie from "./GetCookie";
 import setCookie from "./SetCookie";
 
@@ -22,10 +22,12 @@ export default function Header(props) {
     if (tempid !== null) IsLogin = true;
   }
 
+  const navigate = useNavigate();
+
   const onLogoutClick = () => {
     setCookie("is_login", true, -1);
     localStorage.clear();
-    window.location.reload();
+    navigate('/');
   };
 
   return (

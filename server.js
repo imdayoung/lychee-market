@@ -274,12 +274,12 @@ app.get("/notice/read/:notice_id", function (req, res) {
  * output: true / false
  */
 app.post("/notice/update", function (req, res) {
-  const ManagerId = req.body.manager_id;
+  const NoticeId = req.body.notice_id;
   const NoticeDate = req.body.notice_date;
   const NoticeTitle = req.body.notice_title;
   const NoticeContent = req.body.notice_content;
   const NoticeImg = req.body.notice_img;
-  const Datas = [ManagerId, NoticeDate, NoticeTitle, NoticeContent, NoticeImg];
+  const Datas = [NoticeDate, NoticeTitle, NoticeContent, NoticeImg, NoticeId];
 
   const SQL =
     "UPDATE `NOTICE` SET `notice_date`=?, `notice_title`=?, `notice_content`=?, `notice_img`=? WHERE `notice_id`=?";
