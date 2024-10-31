@@ -1,0 +1,242 @@
+.ReportMain{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ReportBoard css */
+.ReportInfo{
+  margin-bottom: 12px;
+  padding: 8px;
+  width: 1200px;
+  border: 2px solid #ff3d60;
+  text-align: center;
+  font-size: 20px;
+  color: #ff3d60;
+}
+.ReportList{
+  width: 1200px;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-collapse: collapse;
+  text-align: center;
+}
+.ReportList .ReportHead{
+  height: 60px;
+  border-bottom: 2px solid #cdcdcd;
+  font-size: 20px;
+}
+.ReportListRow{
+  height: 60px;
+  border-bottom: 1px solid #cdcdcd;
+  font-size: 18px;
+}
+.ReportList .ReportIndex{
+  width:100px;
+}
+.ReportList .ReportType{
+  width:200px;
+}
+.ReportList .ReportTitle{
+  width:600px;
+}
+.ReportList .ReportTitleToDetail{
+  width:600px;
+  cursor: pointer;
+}
+.ReportList .ReportDate{
+  width:200px;
+}
+.ReportList .IsSolved{
+  width:100px;
+}
+
+/* ReportDetail css */
+.ReportMain .ReportTable, .ReportMain .AnswerTable{
+  width: 1200px;
+  margin: auto;
+  margin-bottom: 32px;
+  border-collapse: collapse;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
+  font-size: 20px;
+}
+.ReportMain caption{
+  width: 1200px;
+  margin-bottom: 8px;
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+}
+.ReportMain .ReportRow, .ReportMain .AnswerRow{
+  text-align: left;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+  
+}
+.ReportTable input, .AnswerTable input{
+  font-size: 18px;
+  outline: none;
+}
+.ReportMain .ReportTh, .ReportMain .AnswerTh{
+  width: 180px;
+  padding-left:8px;
+  font-size: 20px;
+}
+.ReportTdShort, .AnswerTdShort{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 384px;
+  height: 30px;
+}
+.ReportTdButton{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 295px;
+  height: 30px;
+}
+.ReportTdLong{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  height: 30px;
+}
+.ReportTdContent, .AnswerTdContent{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  min-height: 100px;
+  height: flex;
+  resize: none;
+  font-size: 18px;
+  outline: none;
+}
+.ReportTdImg{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  max-width: 984px;
+  font-size: 18px
+}
+.ReportMain .ReportButtons{
+  width: 1200px;
+  text-align: right;
+  margin-right: 48px;
+}
+.ReportMain .ReportButtons .List{
+  width: 150px;
+  height: 40px;
+  border: 2px solid #888888;
+  background-color: #FFFFFF;
+  font-size: 20px;
+  color: #888888;
+  font-weight: bold;
+  margin: 8px;
+  cursor: pointer;
+}
+.ToProduct{
+  margin-left:8px;
+  width: 80px;
+  height: 40px;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
+  font-size: 20px;
+  color: #ffffff;
+  cursor: pointer;
+}
+.ReportMain .ReportButtons .Submit{
+  width: 150px;
+  height: 40px;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
+  font-size: 20px;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin: 8px;
+  cursor: pointer;
+}
+
+/* report write */
+.r_row{
+  text-align: left;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+  height: 60px;
+}
+
+.r_th{
+  width: 180px;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+.r_td, .r_td_content{
+  padding-left: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  height: 32px;
+  font-size: 16px;
+  outline: none;
+}
+
+.r_td_content{
+  height: 250px;
+  padding-top: 10px;
+  resize: none;
+}
+
+.r_td_image{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  /* min-height: 40px; */
+}
+
+.submitreport{
+  width: 1200px;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-collapse: collapse;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
+}
+
+.report{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.report .buttons{
+  width: 1200px;
+  text-align: right;
+}
+
+.report .buttons .back,
+.report .buttons .submit,
+.report .buttons .Nsubmit{
+  width: 150px;
+  height: 40px;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
+  font-size: 20px;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.report .buttons .back{
+  border: 2px solid #888888;
+  background-color: #FFFFFF;
+  color: #888888;
+}
+
+.report .buttons .Nsubmit{
+  border: 2px solid #999999;
+  background-color: #999999;
+  opacity: 0.7;
+}

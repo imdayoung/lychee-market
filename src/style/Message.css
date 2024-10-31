@@ -1,0 +1,207 @@
+.MessageMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.MsgLeft {
+  width: 480px;
+  height: 740px;
+  background-color: white;
+  margin-right: 30px;
+  border: 1px solid #cdcdcd;
+}
+
+.MsgRight {
+  width: 726px;
+  background-color: white;
+  border: 1px solid #cdcdcd;
+}
+
+.MsgTitle {
+  display: flex;
+  height: 74px;
+  background-color: white;
+  font-size: 24px;
+  font-weight: bold;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.MsgList {
+  overflow-y: auto;
+  height: 666px;
+}
+
+.MsgList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.MsgList::-webkit-scrollbar-thumb {
+  height: 30%;
+  background: #ff3d60;;
+  border-radius: 10px;
+  margin: 1px;
+}
+
+.MsgList::-webkit-scrollbar-track {
+  background: white;
+}
+
+#MsgMyName {
+  font-size: 20px;
+  font-weight: bold;
+  color: #8e8e8e
+}
+
+#MsgName {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#MsgIntroName {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.MsgContent #MsgName {
+  color: #ff3d60
+}
+
+#MsgDate {
+  font-size: 16px;
+}
+
+#MsgContent {
+  width: 100%;
+  font-size: 18px;
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#MsgDetail {
+  font-size: 18px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+#MsgNull {
+  width: 100%;
+  background-color: white;
+}
+
+.MsgSender {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left:20px;
+  padding-right:20px;
+  padding-top:12px;
+  padding-bottom:12px;
+  cursor: pointer;
+}
+
+#MsgDate {
+  color: #8e8e8e;
+}
+
+.radio:checked + div {
+  background: #ff3d60;
+  color: white;
+}
+
+.radio:checked + div #MsgDate {
+  color: white;
+}
+
+.radio {
+  display: none;
+}
+
+.MsgContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left:20px;
+  padding-right:20px;
+  padding-top:12px;
+  padding-bottom:12px;
+  border-bottom: 1px solid #cdcdcd;;
+}
+
+.Space {
+  height: 5px;
+}
+
+a {
+  color: #3366BB;
+}
+
+.Icon {
+  height: 36px;
+  width: 36px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+/*메세지 모달*/
+#MsgModalContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0,0,0,0.5);
+  position: fixed;
+  z-index: 10;
+}
+
+#MsgModalTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid #8e8e8e;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#MsgModalMain {
+  width: 600px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: white;
+  transform: translate(-50%, -50%);
+  z-index:100;
+}
+
+#MsgModalInput {
+  height: 280px;
+  width: 560px;
+  resize: none;
+  border: none;
+  font-size: 18px;
+  padding: 20px;
+  outline: none;
+}
+
+#MsgModalBtn {
+  width: 100%;
+  height: 60px;
+  background: #ff3d60;
+  color: white;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.FontTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#EvalUnderline {
+  text-decoration: underline #1455B5;
+  cursor: pointer;
+}

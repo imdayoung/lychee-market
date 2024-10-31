@@ -1,0 +1,20 @@
+button.overlap {
+  width: 90px;
+  height: 56px;
+  font-size: 18px;
+  border: none;
+  background-color: #ff3d60;
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+div.hint {
+  color: gray;
+  margin-bottom: 2px;
+}
+
+div.warning {
+  color: #ff3d60;
+  margin-bottom: 20px;
+}

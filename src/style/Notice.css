@@ -1,0 +1,192 @@
+.noticeMain{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* noticeList */
+.noticeList{
+  width: 1200px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-collapse: collapse;
+  text-align: center;
+  cursor: default;
+}
+.noticeHead{
+  border-bottom: 2px solid #cdcdcd;
+  font-size: 20px;
+  height: 60px;
+}
+.n_list_row{
+  height: 60px;
+  border-bottom: 1px solid #cdcdcd;
+  font-size: 18px;
+}
+.noticeIndex{
+  width:100px;
+}
+.noticeTitle{
+  width:700px;
+}
+.noticeTitleToRead{
+  cursor: pointer;
+}
+.noticeDate{
+  width:200px;
+}
+.managerId{
+  width:200px;
+}
+.noticeBottom{
+  display: flex;
+  width: 1200px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.noticeMain .SearchResult{
+  margin-bottom: 12px;
+  padding: 8px;
+  width: 1200px;
+  text-align: center;
+  font-size: 20px;
+}
+.noticeMain .SearchResult span{
+  color: #ff3d60;
+}
+.searchNotice{
+  margin: 8px;
+}
+.searchNotice input{
+  margin-right: 8px;
+  height: 34.04px;
+  font-size: 18px;
+  outline: none;
+}
+.searchNotice button{
+  width: 100px;
+  height: 40px;
+  border: 2px solid #888888;
+  background-color: #ffffff;
+  font-size: 20px;
+  color: #888888;
+  font-weight: bold;
+  cursor: pointer;
+}
+.allNotice{
+  margin: 8px;
+  width: 150px;
+  height: 40px;
+  border: 2px solid #888888;
+  background-color: #FFFFFF;
+  font-size: 20px;
+  color: #888888;
+  font-weight: bold;
+  cursor: pointer;
+}
+.writeNotice{
+  margin: 8px;
+  width: 150px;
+  height: 40px;
+  border: 2px solid #ff3d60;
+  background-color: #FFFFFF;
+  font-size: 20px;
+  color: #ff3d60;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* noticeRead, noticeWrite */
+.noticeRead, .noticeWrite{
+    width: 1200px;
+    margin: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-collapse: collapse;
+    border-top: 2px solid #cdcdcd;
+    border-bottom: 2px solid #cdcdcd;
+    font-size: 20px;
+}
+.noticeRead input, .noticeWrite input{
+    font-size: 18px;
+    outline: none;
+}
+.n_row{
+    text-align: left;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
+}
+.n_th{
+    width: 180px;
+    padding-left: 8px;
+}
+.n_td{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+}
+.n_td_content{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    min-height: 500px;
+    resize: none;
+    font-size: 18px;
+    outline: none;
+}
+.n_td_image{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    max-width: 984px;
+    font-size: 18px
+}
+.noticeMain .buttons{
+    width: 1200px;
+    text-align: right;
+    margin-right: 48px;
+}
+.noticeMain .buttons .list, .noticeMain .buttons .delete{
+    width: 150px;
+    height: 40px;
+    border: 2px solid #888888;
+    background-color: #FFFFFF;
+    font-size: 20px;
+    color: #888888;
+    font-weight: bold;
+    margin: 8px;
+    cursor: pointer;
+}
+.noticeMain .buttons .update {
+    width: 150px;
+    height: 40px;
+    border: 2px solid #ff3d60;
+    background-color: #FFFFFF;
+    font-size: 20px;
+    color: #ff3d60;
+    font-weight: bold;
+    margin: 8px;
+    cursor: pointer;
+}
+.noticeMain .buttons .submit{
+  width: 150px;
+  height: 40px;
+  border: 2px solid #ff3d60;
+  background-color: #ff3d60;
+  font-size: 20px;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin: 8px;
+  cursor: pointer;
+}
+.noticeMain .buttons .Nsubmit{
+  width: 150px;
+  height: 40px;
+  border: 2px solid #999999;
+  background-color: #999999;
+  font-size: 20px;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin: 8px;
+  opacity: 0.7;
+  cursor: default;
+}

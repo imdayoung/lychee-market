@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "Noto Sans KR";
+    src: url("./fonts/NotoSansKR-Regular.otf");
+}
+
+@font-face {
+    font-family: "Dohyeon";
+    src: url(./fonts/BMDOHYEON_otf.otf);
+}
+
+@font-face {
+    font-family: "Pacifico";
+    src: url(./fonts/Pacifico.ttf);
+}
+
+* {
+    font-family: 'Noto Sans KR';
+}
+
+main {
+  margin: auto;
+  width: 1240px;
+  padding: 20px;
+}
+
+.RowBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Cursor {
+  cursor: pointer;
+}

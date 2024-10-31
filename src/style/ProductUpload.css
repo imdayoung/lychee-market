@@ -1,0 +1,101 @@
+.p_row{
+    text-align: left;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
+  }
+  
+  .p_th{
+    width: 180px;
+    padding-left: 8px;
+    font-size: 16px;
+    height: 50px;
+  }
+  
+  .p_th .p_must{
+    color: #ff3d60;
+  }
+  
+  .p_td,
+  .p_td_price, 
+  .p_td_content{
+    padding-left: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    height: 32px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .p_td_content{
+    height: 250px;
+    padding-top: 10px;
+    resize: none;
+  }
+  
+  .p_td_price{
+    width: 400px;
+  }
+  
+  div.won {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 16px;
+  }
+  
+  .p_td_image{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 984px;
+    /* min-height: 40px; */
+  }
+  
+  .submitnewproduct{
+    width: 1200px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    border-top: 2px solid #cdcdcd;
+    border-bottom: 2px solid #cdcdcd;
+  }
+  
+  .newproduct{
+    width: 1280px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .newproduct .buttons{
+    width: 1200px;
+    text-align: right;
+    margin-right: 48px;
+  }
+  
+  .newproduct .buttons .Nsubmit,
+  .newproduct .buttons .back,
+  .newproduct .buttons .submit{
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: #ff3d60;
+    color: #FFF;
+    margin: 8px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .newproduct .buttons .back{
+    border: 2px solid #888888;
+    background-color: #FFFFFF;
+    color: #888888;
+  }
+  
+  .newproduct .buttons .Nsubmit{
+    background-color: #999999;
+    opacity: 0.7;
+  }

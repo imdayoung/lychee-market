@@ -1,0 +1,220 @@
+/* QnA List */
+.qnaMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.qnaList {
+  width: 1200px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-collapse: collapse;
+  text-align: center;
+  cursor: default;
+}
+
+.qnaHead{
+  border-bottom: 2px solid #cdcdcd;
+  font-size: 20px;
+  height: 60px;
+}
+
+.q_list_row{
+  height: 60px;
+  border-bottom: 1px solid #cdcdcd;
+  font-size: 18px;
+}
+
+.qnaIndex{
+  width: 100px;
+} 
+.qnaView{
+  width: 100px;
+}
+.qnaCategory{
+  width: 150px;
+}
+.qnaDate{
+  width: 200px;
+}
+.qnaPflag, .qnaAnswered{
+  width: 100px;
+}
+
+/* QnA Write */
+.q_row{
+  text-align: left;
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.q_th{
+  width: 180px;
+  padding-left: 8px;
+  font-size: 16px;
+  font-size: 20px;
+}
+
+.q_td, .q_td_content{
+  padding-left: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 984px;
+  height: 32px;
+  font-size: 18px;
+  outline: none;
+}
+
+.q_td_content{
+  height: 250px;
+  padding-top: 10px;
+  resize: none;
+}
+
+.submitqna{
+  width: 1200px;
+  margin: auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-collapse: collapse;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
+}
+
+.submitqna th, .submitqna td {
+  height: 50px;
+  text-align: left;
+  border: none;
+}
+
+.qna{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qna .buttons{
+  width: 1200px;
+  text-align: right;
+  margin-right: 48px;
+}
+
+.qna .buttons .back,
+.qna .buttons .submit,
+.qna .buttons .Nsubmit{
+  width: 150px;
+  height: 40px;
+  border: none;
+  background-color: #ff3d60;
+  color: #FFF;
+  margin: 8px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.qna .buttons .back{
+  border: 2px solid #888888;
+  background-color: #FFFFFF;
+  color: #888888;
+}
+
+.qna .buttons .Nsubmit{
+  background-color: #999999;
+  opacity: 0.7;
+}
+
+.qnaRead{
+  width: 1200px;
+  margin: auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-collapse: collapse;
+  border-top: 2px solid #cdcdcd;
+  border-bottom: 2px solid #cdcdcd;
+}
+
+.qnaRead td input, 
+.qnaRead td textarea {
+  font-size: 18px;
+  outline: none;
+}
+
+.q_list_row{
+  height: 60px;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.QnABottom{
+  display: flex;
+  width: 1200px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.searchQnA{
+  margin: 8px;
+}
+
+.searchQnA input{
+  margin-right: 8px;
+  height: 34.04px;
+  font-size: 18px;
+  outline: none;
+}
+
+.searchQnA button{
+  width: 100px;
+  height: 40px;
+  border: 2px solid #888888;
+  background-color: #ffffff;
+  font-size: 20px;
+  color: #888888;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.writeQnA button{
+  margin: 8px;
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  border: 2px solid #ff3d60;
+  background-color: #FFFFFF;
+  color: #ff3d60;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.writeQnA .allQnA{
+  margin: 8px;
+  width: 150px;
+  height: 40px;
+  border: 2px solid #888888;
+  background-color: #FFFFFF;
+  font-size: 20px;
+  color: #888888;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.qnaMain .SearchResult{
+  margin-bottom: 12px;
+  padding: 8px;
+  width: 1200px;
+  text-align: center;
+  font-size: 20px;
+}
+.qnaMain .SearchResult span{
+    color: #ff3d60;
+}
+
+.qna caption{
+  width: 1200px;
+  margin-bottom: 8px;
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+}
